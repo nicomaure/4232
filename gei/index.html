@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía GEI PAD - Escuela 4232 Teresa Ghilardi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark blue-gray background */
+            color: #e2e8f0; /* Light gray text for general content */
+        }
+        .section-header {
+            background-color: #2c5282; /* Darker blue for headers */
+            color: white;
+            padding: 1rem;
+            border-radius: 0.75rem; /* Rounded corners */
+            margin-bottom: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+        }
+        .section-content {
+            background-color: #2d3748; /* Slightly lighter dark background for content */
+            padding: 1.5rem;
+            border-radius: 0.75rem; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Darker shadow */
+            margin-bottom: 1.5rem;
+            display: none; /* Hidden by default */
+            transition: all 0.3s ease-in-out;
+            color: #e2e8f0; /* Light gray text for content */
+        }
+        .section-content.active {
+            display: block;
+        }
+        .link-button {
+            display: inline-block;
+            background-color: #3182ce; /* Blue for buttons */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .link-button:hover {
+            background-color: #2b6cb0; /* Darker blue on hover */
+        }
+        .step {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .step:before {
+            content: counter(step-counter);
+            counter-increment: step-counter;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #38a169; /* Green circle for steps */
+            color: white;
+            border-radius: 50%;
+            width: 1.8rem;
+            height: 1.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.875rem; /* Smaller font for step numbers */
+        }
+        ol {
+            list-style: none; /* Remove default list styling */
+            padding: 0;
+            counter-reset: step-counter;
+        }
+        ul {
+            list-style-type: disc;
+            margin-left: 1.25rem;
+        }
+        .whatsapp-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #25d366; /* WhatsApp green */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .whatsapp-button:hover {
+            background-color: #1da851;
+        }
+        .whatsapp-button svg {
+            margin-right: 0.5rem;
+        }
+        .chevron {
+            transition: transform 0.3s ease-in-out;
+        }
+        .chevron.rotated {
+            transform: rotate(90deg);
+        }
+        .text-blue-600 {
+            color: #63b3ed; /* Lighter blue for strong text on dark background */
+        }
+        .text-green-600 {
+            color: #68d391; /* Lighter green for strong text on dark background */
+        }
+        .text-amber-600 {
+            color: #f6ad55; /* Lighter amber for strong text on dark background */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-6 lg:p-8">
+    <header class="text-center mb-8 p-6 bg-gray-800 rounded-xl shadow-lg">
+        <img src="https://placehold.co/150x150/2c5282/ffffff?text=Escuela+4232" alt="Logo Escuela 4232 Teresa Ghilardi" class="mx-auto mb-4 rounded-full border-4 border-blue-400">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2">
+            Guía GEI PAD
+        </h1>
+        <h2 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-300 mb-4">
+            Escuela N° 4232 "Teresa Ghilardi"
+        </h2>
+        <p class="text-md sm:text-lg text-gray-400 max-w-2xl mx-auto">
+            Bienvenido a la guía oficial para acceder y aprovechar al máximo la plataforma GEI PAD. Aquí encontrarás toda la información necesaria para padres, tutores y alumnos.
+        </p>
+    </header>
+
+    <main class="max-w-4xl mx-auto">
+        <!-- ¿Qué es el GEI PAD? Section -->
+        <section>
+            <div class="section-header" data-target="que-es-gei-pad">
+                <span>🔵 ¿Qué es el GEI PAD?</span>
+                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <div id="que-es-gei-pad" class="section-content">
+                <p class="mb-4">
+                    El GEI PAD es una plataforma digital del gobierno escolar de Mendoza que permite a padres, tutores y alumnos consultar notas, asistencias, comunicaciones escolares, entre otros datos importantes de forma centralizada.
+                </p>
+                <p>
+                    <strong>¡Importante!</strong> Ya no es necesario ingresar al Portal Educativo, ahora el acceso es directamente desde el sitio web oficial del GEI PAD.
+                </p>
+            </div>
+        </section>
+
+        <!-- Pasos para PADRES o TUTORES Section -->
+        <section>
+            <div class="section-header" data-target="pasos-padres">
+                <span>👨‍👩‍👧‍👦 Pasos para PADRES o TUTORES</span>
+                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <div id="pasos-padres" class="section-content">
+                <ol>
+                    <li class="step">
+                        <strong class="text-blue-600">1. Ingresar a la plataforma:</strong><br>
+                        Abrí tu navegador e ingresá a: <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">https://dti.mendoza.edu.ar/gem/pad/</a>
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">2. Crear un usuario nuevo (si todavía no tenés cuenta):</strong><br>
+                        Hacé clic en la opción: <strong class="text-green-600">¿Usuario nuevo? Padres, Cliquea aquí</strong>
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">3. Verificar tus datos:</strong><br>
+                        Completá el formulario con:
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>DNI del padre o tutor</li>
+                            <li>DNI del alumno</li>
+                            <li>Número de escuela (consultalo en la escuela si no lo sabés)</li>
+                        </ul>
+                        Luego hacé clic en <strong class="text-green-600">Verificar</strong>.
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">4. Crear la cuenta:</strong><br>
+                        Si los datos son correctos, el sistema te pedirá:
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>Tu número de CUIL</li>
+                            <li>Un correo electrónico válido</li>
+                        </ul>
+                        Ingresá esos datos y creá tu cuenta.
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">5. Activar la cuenta:</strong><br>
+                        Revisá tu correo electrónico (incluyendo la carpeta de spam). Vas a recibir un mensaje con un enlace de activación. Hacé clic en ese enlace para confirmar tu cuenta.
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">6. Iniciar sesión:</strong><br>
+                        Volvé a la página principal: <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">https://dti.mendoza.edu.ar/gem/pad/</a><br>
+                        Ingresá tu correo electrónico y contraseña.
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">7. Elegir el rol PAD:</strong><br>
+                        Una vez dentro, seleccioná el rol <strong class="text-green-600">PAD</strong> para ver la información del alumno.
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Pasos para ALUMNOS Section -->
+        <section>
+            <div class="section-header" data-target="pasos-alumnos">
+                <span>📚 Pasos para ALUMNOS</span>
+                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <div id="pasos-alumnos" class="section-content">
+                <ol>
+                    <li class="step">
+                        <strong class="text-blue-600">1. Ingresar a la plataforma:</strong><br>
+                        Entrá al sitio web: <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">https://dti.mendoza.edu.ar/gem/pad/</a>
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">2. Crear un usuario nuevo:</strong><br>
+                        Hacé clic en: <strong class="text-green-600">¿Usuario nuevo? Alumnos, Cliquea aquí</strong>
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">3. Completar el formulario:</strong><br>
+                        Cargá tus datos:
+                        <ul class="list-disc ml-6 mt-2">
+                            <li>Número de CUIL</li>
+                            <li>Correo electrónico válido</li>
+                        </ul>
+                        Aceptá los términos y condiciones.
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">4. Activar tu cuenta:</strong><br>
+                        Vas a recibir un correo con un enlace de activación. Hacé clic en él para activar tu cuenta.
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">5. Iniciar sesión:</strong><br>
+                        Volvé a la página principal e ingresá tu correo y contraseña.
+                    </li>
+                    <li class="step">
+                        <strong class="text-blue-600">6. Elegir el rol Alumno:</strong><br>
+                        Seleccioná <strong class="text-green-600">Alumno</strong> para acceder a tus calificaciones, asistencias y más.
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- ¿Tenés problemas para ingresar? Section -->
+        <section>
+            <div class="section-header" data-target="problemas-ingresar">
+                <span>🛠 ¿Tenés problemas para ingresar?</span>
+                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <div id="problemas-ingresar" class="section-content">
+                <p class="mb-4">Si tenés dificultades para crear o acceder a tu cuenta, podés:</p>
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Contactar a la escuela para verificar si los datos del alumno y del tutor están bien cargados.</li>
+                    <li>Usar el enlace "<strong class="text-blue-600">¿Olvidaste tu contraseña?</strong>" en la página de inicio de sesión para recuperarla.</li>
+                    <li>Revisar tu correo electrónico, incluyendo la carpeta de "<strong class="text-amber-600">spam</strong>" o "<strong class="text-amber-600">correo no deseado</strong>", si no ves el mensaje de activación.</li>
+                </ul>
+                <h3 class="text-lg font-semibold text-white mb-2">📞 Si cambiaste tu correo o perdiste el acceso a tu cuenta:</h3>
+                <p class="mb-4">
+                    Podés comunicarte directamente con el área de Sistemas de la DGE por WhatsApp al siguiente número:
+                </p>
+                <div class="flex justify-center mb-4">
+                    <a href="https://wa.me/5492616653324" target="_blank" class="whatsapp-button">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.63-3.87-1.63-6.065C.114 6.945 6.93 0 15.006 0c4.103 0 7.948 1.6 10.847 4.502S30.706 12.897 30.706 17.001c0 8.075-6.816 14.673-14.892 14.673-2.096 0-4.068-.52-5.83-1.423L.057 24zM15.006 28.324c6.237 0 11.314-5.076 11.314-11.323 0-6.237-5.077-11.314-11.314-11.314-6.237 0-11.314 5.077-11.314 11.314 0 2.296.685 4.45 1.862 6.326l-1.393 5.074 5.215-1.378c1.785.992 3.864 1.547 5.929 1.547zM22.062 18.064c-.09-.153-.332-.24-.69-.425-.357-.184-2.072-1.018-2.396-1.13-.324-.112-.566-.168-.809.169-.243.337-.936 1.13-1.147 1.365-.211.235-.423.251-.781.084-.357-.168-1.503-.556-2.86-1.767-1.066-.962-1.781-2.146-1.992-2.518-.211-.372-.023-.578.146-.721.153-.13.332-.24.49-.409.157-.168.211-.27.357-.492.146-.223.078-.423-.038-.592-.112-.169-.69-.536-1.047-.736-.357-.199-.61-.251-.861-.257-.251-.005-.536-.005-.809-.005-.272 0-.714.078-1.092.446-.379.368-1.444 1.411-1.444 3.447 0 2.036 1.47 3.993 1.681 4.281.211.288 2.898 4.428 7.042 6.136 4.144 1.708 4.144 1.139 4.88 1.064.737-.075 2.261-.92 2.584-1.804.324-.883.324-1.64.223-1.809-.09-.169-.332-.26-.69-.429z"/></svg>
+                        261 665-3324
+                    </a>
+                </div>
+                <p>
+                    Te van a ayudar a recuperar el acceso o actualizar tu correo en el sistema.
+                </p>
+            </div>
+        </section>
+
+        <!-- Consejos útiles Section -->
+        <section>
+            <div class="section-header" data-target="consejos-utiles">
+                <span>💡 Consejos útiles</span>
+                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+            <div id="consejos-utiles" class="section-content">
+                <ul class="list-disc ml-6 mb-4">
+                    <li>Usá un correo electrónico personal trata de no cambiarlo.</li>
+                    <li>Si sos padre o tutor de más de un hijo, podés vincular a todos con una sola cuenta, ingresando los datos correctamente.</li>
+                    <li>Guardá tu contraseña en un lugar seguro para no perder el acceso.</li>
+                    <li>Si tienes alguna duda adicional, no dudes en consultar sector de informática de la escuela.</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center mt-8 p-6 bg-gray-800 rounded-xl shadow-lg text-gray-400 text-sm">
+        <p>&copy; 2025 Escuela N° 4232 "Teresa Ghilardi". Todos los derechos reservados.</p>
+        <p>Diseñado por el profesor Nicolas Maure</p>
+        <p class="mt-2">Creado con el objetivo de facilitar el acceso a la información escolar.</p>
+    </footer>
+
+    <script>
+        // JavaScript para manejar la expansión/contracción de las secciones (acordeón)
+        document.addEventListener('DOMContentLoaded', () => {
+            const headers = document.querySelectorAll('.section-header');
+
+            headers.forEach(header => {
+                header.addEventListener('click', () => {
+                    const targetId = header.dataset.target;
+                    const content = document.getElementById(targetId);
+                    const chevron = header.querySelector('.chevron');
+
+                    // Toggle active class to show/hide content
+                    content.classList.toggle('active');
+                    // Toggle rotated class for chevron icon
+                    chevron.classList.toggle('rotated');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
