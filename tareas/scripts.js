@@ -6,14 +6,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const noResultsMessage = document.getElementById('no-results-message');
     const notificationToast = document.getElementById('notification-toast');
 
-    // --- No usamos activeCareer más porque mostramos todas las carreras
+    const passwordOverlay = document.getElementById('password-overlay');
+    const passwordInput = document.getElementById('password-input');
+    const passwordSubmit = document.getElementById('password-submit');
+    const passwordError = document.getElementById('password-error');
+    const mainContent = document.getElementById('main-content'); // Get the main content div
+
+    const CORRECT_PASSWORD = 'escuela4232';
+    const ACCESS_GRANTED_KEY = 'accessGranted'; // Key for session storage
+
+    // Function to grant access
+    function grantAccess() {
+        passwordOverlay.classList.add('hidden');
+        mainContent.classList.remove('hidden');
+        sessionStorage.setItem(ACCESS_GRANTED_KEY, 'true'); // Store access status
+        setupTabs(); // Initialize tabs and courses once access is granted
+        renderCourses();
+    }
+
+    // Check if access was already granted in this session
+    if (sessionStorage.getItem(ACCESS_GRANTED_KEY) === 'true') {
+        grantAccess();
+    } else {
+        passwordOverlay.classList.remove('hidden'); // Show password screen
+        mainContent.classList.add('hidden'); // Hide main content
+    }
+
+    // Event listener for password submission
+    passwordSubmit.addEventListener('click', () => {
+        if (passwordInput.value === CORRECT_PASSWORD) {
+            grantAccess();
+            passwordError.classList.add('hidden');
+        } else {
+            passwordError.classList.remove('hidden');
+            passwordInput.value = ''; // Clear input on wrong password
+        }
+    });
+
+    // Allow pressing Enter key to submit password
+    passwordInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            passwordSubmit.click();
+        }
+    });
+
     function setupTabs() {
+        // Clear existing tabs before setting them up to prevent duplicates on re-render
+        careerTabsContainer.innerHTML = '';
         coursesData.forEach(careerData => {
             const tab = document.createElement('button');
             tab.className = 'career-tab';
             tab.textContent = careerData.career;
             tab.addEventListener('click', () => {
-                renderCourses(searchInput.value); // Ahora solo refresca, sin filtro
+                renderCourses(searchInput.value);
             });
             careerTabsContainer.appendChild(tab);
         });
@@ -28,10 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let animationDelay = 0;
 
         const isSearching = searchTerm.trim().length > 0;
-        const careersToSearch = coursesData; // Mostrar todas las carreras siempre
+        const careersToSearch = coursesData;
 
         careersToSearch.forEach(careerData => {
-            // ✅ Mostrar el título de la carrera
             const careerTitle = document.createElement('h2');
             careerTitle.className = 'text-3xl font-bold text-white mt-10 mb-4 border-b border-cyan-400 pb-2';
             careerTitle.textContent = careerData.career;
@@ -172,7 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
             notificationToast.classList.add('translate-x-[120%]');
         }, 3000);
     }
-
-    setupTabs();
-    renderCourses();
 });
