@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escuela Nº 4232 - Busca tus Tareas</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Estilos CSS integrados para evitar problemas de caché -->
     <style>
        /* --- FONDO ANIMADO DE NEBULOSA --- */
 body {
@@ -202,9 +199,19 @@ body {
 </head>
 <body class="p-4 sm:p-6 md:p-8">
 
-    <div class="max-w-7xl mx-auto relative z-10">
-        <!-- ENCABEZADO -->
-        <header class="text-center mb-10">
+    <div id="password-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-2xl text-center max-w-sm w-full">
+            <h2 class="text-3xl font-bold text-cyan-300 mb-6">Acceso Restringido</h2>
+            <p class="text-gray-300 mb-4">Por favor, ingresa la contraseña para acceder a los materiales.</p>
+            <input type="password" id="password-input" class="w-full px-4 py-3 text-lg bg-gray-700 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:ring-2 focus:ring-cyan-400 focus:outline-none mb-4" placeholder="Contraseña">
+            <button id="password-submit" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 rounded-md transition-colors duration-300">
+                Ingresar
+            </button>
+            <p id="password-error" class="text-red-400 mt-3 hidden">Contraseña incorrecta. Inténtalo de nuevo.</p>
+        </div>
+    </div>
+
+    <div id="main-content" class="max-w-7xl mx-auto relative z-10 hidden"> <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-extrabold text-cyan-300 tracking-tight">
                 Escuela Nº 4232
             </h1>
@@ -213,7 +220,6 @@ body {
             </p>
         </header>
 
-        <!-- BARRA DE BÚSQUEDA -->
         <div class="mb-10 sticky top-4 z-50">
             <div class="relative">
                 <input type="text" id="search-input" placeholder="Buscar materia o curso..." class="w-full pl-12 pr-4 py-4 text-lg bg-gray-800/50 backdrop-blur-md border border-gray-500/50 rounded-full text-white placeholder-gray-400 focus:ring-2 focus:ring-cyan-400 focus:outline-none transition-all duration-300 shadow-lg">
@@ -223,30 +229,24 @@ body {
             </div>
         </div>
 
-        <!-- PESTAÑAS DE NAVEGACIÓN -->
         <div id="career-tabs" class="mb-8 flex justify-center border-b border-gray-500/30">
-            <!-- Las pestañas se generarán aquí -->
-        </div>
+            </div>
 
-        <!-- CONTENEDOR DE CURSOS -->
         <main id="course-container" class="space-y-6">
             <p id="loading-message" class="text-center text-gray-400 text-lg">Cargando materiales...</p>
             <p id="no-results-message" class="text-center text-gray-400 text-lg hidden">No se encontraron resultados para tu búsqueda.</p>
         </main>
 
-        <!-- FOOTER -->
         <footer class="mt-16 text-center text-gray-500 text-sm">
             <p>Desarrollado por el Prof. Nicolás Maure</p>
-            <p class="mt-1">Interfaz "Portal Nebulosa" para una experiencia inmersiva.</p>
+            <p class="mt-1">Escuela N° 4-232 Teresa Ghilardi de Martín.</p>
         </footer>
     </div>
 
-    <!-- Contenedor para notificaciones -->
     <div id="notification-toast" class="fixed bottom-5 right-5 bg-lime-400 text-black py-2 px-5 rounded-lg shadow-xl translate-x-[120%] transition-transform duration-500 ease-in-out font-semibold">
         ¡Enlace copiado!
     </div>
 
-    <!-- Datos y script principal -->
     <script src="courses.js"></script>
     <script src="scripts.js"></script>
 </body>
