@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario: Drive e IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .form-container {
+            max-width: 700px;
+            margin: auto;
+        }
+        .question-card {
+            background-color: white;
+            border: 1px solid #dadce0;
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 12px;
+        }
+        .form-header {
+            border-top: 10px solid #7e57c2; /* Un color morado similar a Google Forms */
+        }
+        .btn-submit {
+            background-color: #7e57c2;
+            color: white;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .btn-submit:hover {
+            background-color: #673ab7;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .modal-body {
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        .modal-close-btn {
+            background-color: #7e57c2;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 py-8 px-4">
+
+    <div class="form-container">
+        <!-- Encabezado del Formulario -->
+        <div class="question-card form-header mb-4">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Evaluando lo aprendido sobre Drive e IA 🤖</h1>
+            <p class="text-gray-600">Responde estas preguntas para ver cuánto aprendiste en clase. ¡Mucha suerte!</p>
+        </div>
+
+        <!-- Formulario -->
+        <form id="quizForm">
+            <!-- Pregunta 1 -->
+            <div class="question-card">
+                <p class="text-lg font-medium text-gray-800 mb-4">1. Para usar Google Drive y tener tu correo, ¿qué es lo primero que necesitas?</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q1" value="a" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Una cuenta de Instagram.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q1" value="b" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Una cuenta de Gmail.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q1" value="c" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Un videojuego.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Pregunta 2 -->
+            <div class="question-card">
+                <p class="text-lg font-medium text-gray-800 mb-4">2. ¿Cuál es la mejor forma de ordenar tus trabajos de la escuela en Google Drive?</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q2" value="a" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Subir todos los archivos sueltos.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q2" value="b" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>No guardar nada en la nube.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q2" value="c" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Crear una carpeta para cada materia (Matemática, Lengua, etc.).</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Pregunta 3 -->
+            <div class="question-card">
+                <p class="text-lg font-medium text-gray-800 mb-4">3. Si "compartes" un documento con un compañero, ¿qué puede hacer él?</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q3" value="a" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Ver o editar el documento contigo, si le das permiso.</span>
+                    </label>
+                     <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q3" value="b" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Borrar todos tus archivos.</span>
+                    </label>
+                     <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q3" value="c" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Solo puede ver tu foto de perfil.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Pregunta 4 -->
+            <div class="question-card">
+                <p class="text-lg font-medium text-gray-800 mb-4">4. ¿Qué es la Inteligencia Artificial (IA)?</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q4" value="a" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Una persona muy inteligente que vive en internet.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q4" value="b" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Entrenar a las computadoras para que hagan tareas como las personas.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q4" value="c" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Un nuevo tipo de celular.</span>
+                    </label>
+                </div>
+            </div>
+
+             <!-- Pregunta 5 -->
+            <div class="question-card">
+                <p class="text-lg font-medium text-gray-800 mb-4">5. ¿Cómo deberías usar la IA para tus tareas?</p>
+                <div class="space-y-3">
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q5" value="a" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Como una ayuda para buscar ideas, pero siempre escribiendo con mis propias palabras.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q5" value="b" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>Copiando y pegando todo lo que me dice para terminar más rápido.</span>
+                    </label>
+                    <label class="flex items-center p-3 rounded-lg hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q5" value="c" class="mr-3 h-5 w-5 text-purple-600 focus:ring-purple-500">
+                        <span>La IA no sirve para hacer tareas.</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Botón de Enviar -->
+            <div class="mt-6 flex justify-between items-center">
+                <button type="submit" class="btn-submit">Enviar mis respuestas</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal para resultados -->
+    <div id="resultsModal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <h2 id="modalTitle" class="modal-title"></h2>
+            <p id="modalBody" class="modal-body"></p>
+            <p id="modalScore" class="font-bold text-lg mb-4"></p>
+            <button id="closeModalBtn" class="modal-close-btn">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        const quizForm = document.getElementById('quizForm');
+        const resultsModal = document.getElementById('resultsModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalScore = document.getElementById('modalScore');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+        const correctAnswers = {
+            q1: 'b',
+            q2: 'c',
+            q3: 'a',
+            q4: 'b',
+            q5: 'a'
+        };
+
+        quizForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let score = 0;
+            const totalQuestions = Object.keys(correctAnswers).length;
+            const formData = new FormData(quizForm);
+            
+            let allAnswered = true;
+            for (const key in correctAnswers) {
+                if (!formData.has(key)) {
+                    allAnswered = false;
+                    break;
+                }
+            }
+
+            if (!allAnswered) {
+                modalTitle.textContent = '🤔 ¡Atención!';
+                modalBody.textContent = 'Parece que te faltó responder una o más preguntas. Por favor, revísalas todas.';
+                modalScore.textContent = '';
+                resultsModal.classList.remove('hidden');
+                return;
+            }
+
+            for (const [question, userAnswer] of formData.entries()) {
+                if (correctAnswers[question] === userAnswer) {
+                    score++;
+                }
+            }
+
+            modalScore.textContent = `Tu puntuación: ${score} de ${totalQuestions} correctas.`;
+
+            // Si la nota es 4 o 5 (80% o más), se considera buena
+            if (score >= 4) {
+                modalTitle.textContent = '🎉 ¡Felicitaciones! 🎉';
+                modalBody.textContent = '¡Eres todo un experto en Drive e Inteligencia Artificial! Sigue así, explorando y aprendiendo.';
+            } else {
+                modalTitle.textContent = '💪 ¡Puedes mejorar! 💪';
+                modalBody.textContent = 'No te preocupes. Vuelve a repasar los temas de la clase y anímate a intentarlo de nuevo. ¡La práctica hace al maestro!';
+            }
+
+            resultsModal.classList.remove('hidden');
+        });
+
+        closeModalBtn.addEventListener('click', function() {
+            resultsModal.classList.add('hidden');
+        });
+
+        resultsModal.addEventListener('click', function(event) {
+            if (event.target === resultsModal) {
+                resultsModal.classList.add('hidden');
+            }
+        });
+
+    </script>
+</body>
+</html>
