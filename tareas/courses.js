@@ -1,6 +1,6 @@
 const coursesData = [
     {
-        career: "Ciclo Básico Secundario Orientado",
+        career: "Turno Mañana",
         courses: [
 
             {
