@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function setupTabs() {
         coursesData.forEach(careerData => {
             const tab = document.createElement('button');
-            tab.className = 'career-tab';
+            tab.className = 'career-tab mx-2';
             tab.textContent = careerData.career;
             tab.addEventListener('click', () => {
                 renderCourses(searchInput.value); // Ahora solo refresca, sin filtro
