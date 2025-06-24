@@ -1,6 +1,6 @@
 const coursesData = [
     {
-        career: "Turno Mañana",
+        career: "Turno Mañana ",
         courses: [
 
             {
@@ -89,7 +89,7 @@ const coursesData = [
             }
         ] },
 {
-    career: "Bachiller en Agro y Ambiente",
+    career: "Turno Tarde",
     courses: [
         {
             name: "3º 1º",
