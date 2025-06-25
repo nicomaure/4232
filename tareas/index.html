@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Escuela Nº 4232 - Busca tus Tareas</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Estilos CSS integrados para evitar problemas de caché -->
     <style>
        /* --- FONDO ANIMADO DE NEBULOSA --- */
 body {
@@ -203,7 +200,6 @@ body {
 <body class="p-4 sm:p-6 md:p-8">
 
     <div class="max-w-7xl mx-auto relative z-10">
-        <!-- ENCABEZADO -->
         <header class="text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-extrabold text-cyan-300 tracking-tight">
                 Escuela Nº 4232
@@ -213,7 +209,6 @@ body {
             </p>
         </header>
 
-        <!-- BARRA DE BÚSQUEDA -->
         <div class="mb-10 sticky top-4 z-50">
             <div class="relative">
                 <input type="text" id="search-input" placeholder="Buscar materia o curso..." class="w-full pl-12 pr-4 py-4 text-lg bg-gray-800/50 backdrop-blur-md border border-gray-500/50 rounded-full text-white placeholder-gray-400 focus:ring-2 focus:ring-cyan-400 focus:outline-none transition-all duration-300 shadow-lg">
@@ -222,51 +217,53 @@ body {
                 </div>
             </div>
         </div>
-<!-- SECCIÓN DE INFORMÁTICA -->
-<div class="mb-8 flex justify-center sm:justify-end">
-  <div class="bg-white/10 backdrop-blur-sm p-4 rounded-xl shadow-lg w-full max-w-xs text-left">
-    <h2 class="text-lg font-bold text-cyan-300 mb-2">Informática</h2>
-    <ul class="space-y-1 text-sm text-white">
-      <li>
-        <a href="https://drive.google.com/drive/folders/1wuhFuCsQ67yJRI7-4tAHXw7bzug2IxAT?usp=sharing" target="_blank" class="hover:underline text-cyan-200">
-          Tareas
-        </a>
-      </li>
-      <li>
-        <a href="https://drive.google.com/drive/folders/1oyG93iRBZJfh4fONRQJ-oKJgkBKYAN16?usp=sharing" target="_blank" class="hover:underline text-cyan-200">
-          Software
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
 
+        <div class="mb-12">
+            <div class="course-card visible max-w-2xl mx-auto">
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="flex-grow">
+                        <h2 class="text-2xl font-bold text-cyan-300">Recursos de Informática</h2>
+                        <p class="text-gray-300 mt-1">Software y materiales de la materia.</p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto mt-4 sm:mt-0">
+                        <a href="https://drive.google.com/drive/folders/1wuhFuCsQ67yJRI7-4tAHXw7bzug2IxAT?usp=sharing" target="_blank" class="action-button go-drive">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"></path>
+                            </svg>
+                            <span>Ver Tareas</span>
+                        </a>
+                        <a href="https://drive.google.com/drive/folders/1oyG93iRBZJfh4fONRQJ-oKJgkBKYAN16?usp=sharing" target="_blank" class="action-button copy-link">
+                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                            </svg>
+                            <span>Software</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <!-- PESTAÑAS DE NAVEGACIÓN -->
         <div id="career-tabs" class="mb-8 flex justify-center border-b border-gray-500/30">
-            <!-- Las pestañas se generarán aquí -->
-        </div> 
+            </div>
 
-        <!-- CONTENEDOR DE CURSOS -->
         <main id="course-container" class="space-y-6">
             <p id="loading-message" class="text-center text-gray-400 text-lg">Cargando materiales...</p>
             <p id="no-results-message" class="text-center text-gray-400 text-lg hidden">No se encontraron resultados para tu búsqueda.</p>
         </main>
 
-        <!-- FOOTER -->
         <footer class="mt-16 text-center text-gray-500 text-sm">
             <p>Desarrollado por el Prof. Nicolás Maure</p>
             <p class="mt-1">Escuela Nº 4-232.</p>
         </footer>
     </div>
 
-    <!-- Contenedor para notificaciones -->
     <div id="notification-toast" class="fixed bottom-5 right-5 bg-lime-400 text-black py-2 px-5 rounded-lg shadow-xl translate-x-[120%] transition-transform duration-500 ease-in-out font-semibold">
         ¡Enlace copiado!
     </div>
 
-    <!-- Datos y script principal -->
     <script src="courses.js"></script>
     <script src="scripts.js"></script>
 </body>
 </html>
+<!-- No extra code is needed at the end of the file. 
+<!-- All scripts and markup are already properly placed before the closing </body> and </html> tags. -->
