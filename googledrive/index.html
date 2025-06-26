@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Gmail y Drive - Prof. Nicolás Maure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-title {
+            font-family: 'Pacifico', cursive;
+        }
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #FDBF2D; /* Amarillo Google */
+            padding-bottom: 8px;
+        }
+        .card h3 {
+            font-size: 1.2em;
+            color: #1A73E8; /* Azul Google */
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .btn-nav {
+            background-color: #1A73E8; /* Azul Google */
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            font-weight: 600;
+        }
+        .btn-nav:hover {
+            background-color: #1558B3;
+        }
+        .emoji-bullet li::before {
+            content: "🔸";
+            margin-right: 8px;
+        }
+        .pro-tip {
+            background-color: #E8F0FE; /* Azul claro Google */
+            border-left: 4px solid #1A73E8;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warning-tip {
+            background-color: #FCE8E6; /* Rojo claro Google */
+            border-left: 4px solid #D93025; /* Rojo Google */
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .dato-curioso {
+            background-color: #E6F4EA; /* Verde claro Google */
+            border-left: 4px solid #34A853; /* Verde Google */
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+        .img-placeholder {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px auto;
+            display: block;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0; /* Color de fondo para el placeholder */
+        }
+        .logo-img {
+            width: 60px;
+            height: auto;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-sky-400 to-indigo-600 text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center">
+            <div class="text-center sm:text-left mb-4 sm:mb-0">
+                <h1 class="hero-title text-3xl md:text-4xl text-indigo-700">¡Tu Aventura Digital!</h1>
+                <p class="text-sm text-gray-600">Guía Gmail y Drive para Estudiantes Geniales (Ciclo 2025)</p>
+                <p class="text-xs text-gray-500 mt-1">Escuela 4232 "Teresa Ghilardi de Martin"</p>
+            </div>
+            <nav class="flex space-x-4">
+                <a href="https://gmail.com" target="_blank" rel="noopener noreferrer" class="btn-nav">📧 Gmail</a>
+                <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer" class="btn-nav">🔺 Drive</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-8">
+
+        <div class="text-center mb-12 bg-white/30 backdrop-blur-sm p-6 rounded-xl shadow-xl">
+            <p class="text-xl md:text-2xl font-semibold text-white">
+                ¡Hola, cracks! 👋 ¿Listos para convertirse en unos ninjas de la tecnología?
+            </p>
+            <p class="mt-2 text-white/90">
+                Esta guía es para ustedes, los capos de 1º y 2º año. Vamos a aprender juntos a usar Gmail y Google Drive como unos expertos.
+                ¡Imaginen que Gmail es su pasaporte al mundo digital y Drive su mochila mágica personal! ✨
+            </p>
+        </div>
+
+        <section id="gmail" class="card">
+            <div class="flex items-center mb-4">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1200px-Gmail_icon_%282020%29.svg.png" alt="Logo Gmail" class="logo-img" onerror="this.src='https://placehold.co/80x60/DB4437/FFFFFF?text=Logo+Gmail'; this.onerror=null;">
+                <h2>Parte 1: Creando tu Cuenta de Gmail - ¡Tu Pasaporte Digital! 🎫</h2>
+            </div>
+            <p>Gmail es un servicio de correo electrónico GRATIS de Google. Tener una cuenta te permitirá comunicarte, usar otras herramientas de Google ¡y mucho más!</p>
+
+            <h3 class="mt-6">Pasos para crear tu cuenta:</h3>
+            <ol class="list-decimal list-inside space-y-3 pl-4">
+                <li><strong>Abre el Navegador:</strong> Ve a Google Chrome, Firefox, o el que uses y escribe: <code>gmail.com</code>. Presiona Enter.</li>
+                <li><strong>Haz Clic en "Crear cuenta":</strong> Verás un botón que dice "Crear cuenta". ¡Dale clic sin miedo!
+                    <img src="imagenes/gmail_pagina_crear_cuenta.png" alt="Imagen de la página de inicio de Gmail con el botón Crear cuenta resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                </li>
+                <li><strong>Completa tus Datos:</strong>
+                    <ul class="list-disc list-inside pl-6 space-y-2 mt-2 emoji-bullet">
+                        <li><strong>Nombre y Apellido:</strong> Escribe tu nombre y apellido. ¡Como figuran en tu DNI!</li>
+                        <li><strong>Nombre de usuario:</strong> ¡Aquí viene lo divertido! Este será tu dirección de correo (ej: <code>nombre.apellido2025@gmail.com</code>).
+                            <div class="pro-tip">💡 <strong>¡PRO TIP!</strong> Si el nombre que quieres ya está ocupado, Gmail te dará sugerencias. Puedes agregar números o alguna palabra extra. Ejemplo: <code>juan.perez.4232@gmail.com</code>.</div>
+                        </li>
+                        <li><strong>Contraseña:</strong> ¡Esta es tu llave secreta!
+                            <div class="warning-tip">🔒 <strong>¡OJO AL PIOJO!</strong> Una contraseña segura tiene: al menos 8 caracteres, mayúsculas, minúsculas, números y quizás un símbolo. ¡NO USES datos obvios! Escríbela en un lugar seguro.</div>
+                        </li>
+                        <li><strong>Confirmación de contraseña:</strong> Vuelve a escribirla.</li>
+                    </ul>
+                </li>
+                <li><strong>Siguiente:</strong> Haz clic en el botón "Siguiente".</li>
+                <li><strong>Información Adicional:</strong> A veces Google pide un teléfono o correo de recuperación (pide ayuda a un adulto), tu fecha de nacimiento y género.</li>
+                <li><strong>Privacidad y Condiciones:</strong> Lee o pide que te expliquen este texto. Luego, acepta.</li>
+                <li><strong>¡LISTO! ¡YA TIENES TU GMAIL! 🎉</strong> Verás tu bandeja de entrada.</li>
+            </ol>
+            <div class="dato-curioso">
+                🤓 <strong>¡DATO CURIOOOSO!</strong> Gmail fue lanzado el 1 de abril de 2004. ¡Al principio, muchos pensaron que era una broma porque ofrecía 1GB de almacenamiento, que era muchísimo para la época!
+            </div>
+        </section>
+
+        <section id="drive" class="card mt-8">
+            <div class="flex items-center mb-4">
+                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/1200px-Google_Drive_icon_%282020%29.svg.png" alt="Logo Drive" class="logo-img" onerror="this.src='https://placehold.co/80x60/0F9D58/FFFFFF?text=Logo+Drive'; this.onerror=null;">
+                <h2>Parte 2: Explorando Google Drive - ¡Tu Mochila Mágica Online! 🎒☁️</h2>
+            </div>
+            <p>Google Drive es un lugar en internet (la "nube") donde puedes guardar tus archivos: documentos, fotos, videos, trabajos... ¡todo! Y puedes acceder desde cualquier compu o celu con internet.</p>
+
+            <h3 class="mt-6">¿Cómo entrar a Google Drive?</h3>
+            <ol class="list-decimal list-inside space-y-3 pl-4">
+                <li><strong>Desde Gmail:</strong> Busca arriba a la derecha el ícono de cuadraditos (Google Apps o "el waffle"). Haz clic.
+                    <img src="imagenes/gmail_icono_google_apps.png" alt="Imagen del ícono de Google Apps (waffle) resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                </li>
+                <li><strong>Selecciona Drive:</strong> Busca el ícono de "Drive" (triángulo de colores). ¡Haz clic!
+                    <img src="imagenes/menu_apps_icono_drive.png" alt="Imagen del ícono de Google Drive resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                </li>
+                <li><strong>¡Bienvenido a tu Drive!</strong> Al principio estará vacío, ¡pero pronto lo llenarás!</li>
+            </ol>
+
+            <h3 class="mt-6">Un vistazo rápido a Drive:</h3>
+            <ul class="list-disc list-inside space-y-2 pl-4 emoji-bullet">
+                <li><strong>Mi unidad:</strong> Aquí se guardan TUS archivos y carpetas.</li>
+                <li><strong>Nuevo (+):</strong> Botón súper importante para crear, subir archivos, etc.</li>
+                <li><strong>Carpetas:</strong> Para organizar tus archivos.</li>
+                <li><strong>Archivos:</strong> Documentos, presentaciones, PDFs, imágenes, etc.</li>
+            </ul>
+             <div class="dato-curioso">
+                🤩 <strong>¡DATO CURIOOOSO!</strong> Con tu cuenta gratuita de Google Drive, ¡tienes 15 GB de espacio! Es como una mochila con espacio para miles de hojas.
+            </div>
+        </section>
+
+        <section id="superpoderes" class="card mt-8">
+            <h2>Parte 3: ¡Superpoderes de Drive al Rescate! 🦸‍♂️🦸‍♀️</h2>
+            <p>Ahora que estás en tu Drive, ¡vamos a ver qué cosas increíbles puedes hacer!</p>
+
+            <div class="mt-6 space-y-8">
+                <div>
+                    <h3>1. Subir Archivos: ¡Guardando Tesoros en tu Mochila! 📤</h3>
+                    <ol class="list-decimal list-inside space-y-2 pl-4">
+                        <li>Haz clic en el botón <strong>"+ Nuevo"</strong> (arriba a la izquierda).</li>
+                        <li>Selecciona <strong>"Subir archivo"</strong> o <strong>"Subir carpeta"</strong>.
+                             <img src="imagenes/drive_menu_nuevo.png" alt="Imagen del menú + Nuevo con Subir archivo y Subir carpeta resaltados" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                        </li>
+                        <li>Busca el archivo/carpeta en tu compu, selecciónalo y "Abrir" o "Subir".</li>
+                        <li>¡Listo! Verás cómo se sube.</li>
+                    </ol>
+                    <div class="pro-tip">✨ <strong>¡PRO TIP!</strong> También puedes arrastrar archivos desde tu compu y soltarlos en Drive. ¡Es como magia!</div>
+                </div>
+
+                <div>
+                    <h3>2. Descargar Archivos: ¡Sacando Tesoros de tu Mochila! 📥</h3>
+                     <ol class="list-decimal list-inside space-y-2 pl-4">
+                        <li>Busca el archivo en tu Drive.</li>
+                        <li>Haz <strong>clic derecho</strong> sobre el archivo.</li>
+                        <li>Selecciona <strong>"Descargar"</strong>.
+                            <img src="imagenes/drive_menu_descargar.png" alt="Imagen de un archivo en Drive con Descargar resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                        </li>
+                        <li>Se guardará en "Descargas" de tu compu.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <h3>3. Copiar y Pegar (o Duplicar): ¡Clonando tus Creaciones! 🐑🐑</h3>
+                    <ol class="list-decimal list-inside space-y-2 pl-4">
+                        <li>Haz <strong>clic derecho</strong> sobre el archivo/carpeta a copiar.</li>
+                        <li>Selecciona <strong>"Hacer una copia"</strong>.
+                            <img src="imagenes/drive_menu_hacer_copia.png" alt="Imagen de un archivo en Drive con Hacer una copia resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                        </li>
+                        <li>Drive creará "Copia de...". ¡Puedes cambiarle el nombre!</li>
+                    </ol>
+                    <p class="mt-2"><strong>¿Pegar texto de otro lado?</strong> Eso se hace DENTRO de un Documento de Google (Ctrl+C para copiar, Ctrl+V para pegar).</p>
+                </div>
+
+                <div>
+                    <h3>4. Compartir: ¡Mostrando tus Tesoros a tus Amigos! 🤝</h3>
+                    <ol class="list-decimal list-inside space-y-2 pl-4">
+                        <li>Busca el archivo/carpeta.</li>
+                        <li>Haz <strong>clic derecho</strong> y selecciona <strong>"Compartir"</strong>.
+                            <img src="imagenes/drive_menu_compartir.png" alt="Imagen de un archivo en Drive con Compartir resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                        </li>
+                        <li>Se abrirá una ventana. Puedes:
+                            <ul class="list-disc list-inside pl-6 space-y-1 mt-1 emoji-bullet">
+                                <li><strong>Añadir personas:</strong> Escribe sus correos. Elige si son 🤓 Lector, 🧐 Comentador o ✍️ Editor.</li>
+                                <li><strong>Obtener enlace:</strong> Cambia "Restringido" a "Cualquier persona con el enlace". Define permisos. Copia y comparte el enlace.</li>
+                            </ul>
+                             <img src="imagenes/drive_ventana_compartir.png" alt="Imagen de la ventana de Compartir" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
+                        </li>
+                    </ol>
+                    <div class="warning-tip">🔑 <strong>¡OJO AL PIOJO CON LOS PERMISOS!</strong> Piensa bien qué permiso das. Para trabajos grupales, "Editor". Para mostrar, "Lector".</div>
+                </div>
+
+                <div>
+                    <h3>5. Crear Nuevos Archivos: ¡Como Hojas en Blanco Mágicas! 📄✨</h3>
+                    <p>Desde el botón <strong>"+ Nuevo"</strong> también puedes crear:</p>
+                    <ul class="list-disc list-inside space-y-1 pl-4 mt-2 emoji-bullet">
+                        <li><strong>Documentos de Google</strong> (como Word).</li>
+                        <li><strong>Hojas de cálculo de Google</strong> (como Excel).</li>
+                        <li><strong>Presentaciones de Google</strong> (como PowerPoint).</li>
+                        <li>¡Y más!</li>
+                    </ul>
+                    <p class="mt-2">¡Explora estas herramientas! Son súper útiles para la escuela.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="text-center mt-12 bg-white/30 backdrop-blur-sm p-6 rounded-xl shadow-xl">
+            <h2 class="text-2xl font-semibold text-white mb-4">¡Felicidades, Explorador Digital! 🧭🌟</h2>
+            <p class="text-white/90">
+                ¡Ya sabes cómo crear tu Gmail y usar los poderes básicos de Google Drive! Esto te servirá muchísimo para tus clases, para investigar, para hacer trabajos en equipo y para mantener todo organizado.
+            </p>
+            <div class="mt-6 text-left text-white/90 space-y-2 bg-black/20 p-4 rounded-lg">
+                <p><strong>Recuerda:</strong></p>
+                <ul class="list-disc list-inside pl-4 emoji-bullet">
+                    <li>Tu <strong>contraseña es secreta</strong>. ¡No la compartas con nadie!</li>
+                    <li>Organiza tus archivos en <strong>carpetas</strong> para encontrarlos fácil.</li>
+                    <li>¡Sé <strong>cuidadoso</strong> al compartir y al dar permisos!</li>
+                </ul>
+            </div>
+            <p class="mt-6 text-white/90">
+                ¡Ahora a practicar y a sacarle el jugo a estas herramientas! Si tienes dudas, pregunta a tus profes o a algún adulto. ¡El mundo digital te espera! 😉
+            </p>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white text-center py-8 mt-12">
+        <p>Guía para alumnos de 1º y 2º año - Ciclo 2025</p>
+        <p>Escuela 4232 "Teresa Ghilardi de Martin" - Luján de Cuyo.</p>
+        <p class="mt-4 text-sm">Diseñada con ❤️ por el <strong>Profesor Nicolás Maure</strong>.</p>
+    </footer>
+
+</body>
+</html>
