@@ -29,15 +29,27 @@ body {
 
 /* --- ESTILOS DE PESTAÑAS --- */
 .career-tab {
-    @apply px-4 py-3 text-lg font-medium text-gray-400 border-b-2 border-transparent cursor-pointer transition-all duration-300;
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem; /* px-4 */
+    padding-top: 0.75rem; /* py-3 */
+    padding-bottom: 0.75rem; /* py-3 */
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 500; /* font-medium */
+    color: #9ca3af; /* text-gray-400 */
+    border-bottom-width: 2px; /* border-b-2 */
+    border-color: transparent; /* border-transparent */
+    cursor: pointer;
+    transition-property: all; /* transition-all */
+    transition-duration: 300ms; /* duration-300 */
 }
 
 .career-tab:hover {
-    @apply text-cyan-300;
+    color: #67e8f9; /* text-cyan-300 */
 }
 
 .career-tab.active {
-    @apply text-cyan-300 border-cyan-300;
+    color: #67e8f9; /* text-cyan-300 */
+    border-color: #67e8f9; /* border-cyan-300 */
 }
 
 /* --- TARJETAS DE CURSO (GLASSMORPHISM) --- */
@@ -46,7 +58,11 @@ body {
     backdrop-filter: blur(12px); /* El efecto de cristal esmerilado */
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    @apply rounded-2xl shadow-2xl transition-all duration-500 ease-out;
+    border-radius: 1rem; /* rounded-2xl */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); /* shadow-2xl */
+    transition-property: all; /* transition-all */
+    transition-duration: 500ms; /* duration-500 */
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* ease-out */
     opacity: 0;
     transform: translateY(30px);
     padding: 1.5rem;
@@ -104,7 +120,25 @@ body {
 
 /* --- BOTONES DE ACCIÓN --- */
 .action-button {
-    @apply flex items-center justify-center gap-2 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition-all duration-300 ease-in-out transform focus:outline-none w-full sm:w-auto text-center;
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    gap: 0.5rem; /* gap-2 */
+    color: #e5e7eb; /* text-white */
+    font-weight: 600; /* font-semibold */
+    padding-top: 0.5rem; /* py-2 */
+    padding-bottom: 0.5rem; /* py-2 */
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem; /* px-4 */
+    border-radius: 0.5rem; /* rounded-lg */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+    transition-property: all; /* transition-all */
+    transition-duration: 300ms; /* duration-300 */
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* ease-in-out */
+    transform: none; /* transform */
+    outline: 2px solid transparent; /* focus:outline-none */
+    width: 100%; /* w-full */
+    text-align: center; /* text-center */
 }
 
 .action-button:hover {
@@ -120,17 +154,28 @@ body {
     box-shadow: 0 4px 25px -5px #06b6d4;
 }
 
+/* La clase .copy-link se mantiene solo si deseas aplicarla dinámicamente o por si la usas en otro lugar */
+/* Pero en el HTML para los botones de Informática, ambos tienen 'go-drive' */
 .action-button.copy-link {
-    background-color: rgba(75, 85, 99, 0.7);
+    background: linear-gradient(45deg, #06b6d4, #22d3ee); /* Copiado de go-drive */
+    box-shadow: 0 4px 15px -5px #06b6d4; /* Copiado de go-drive */
 }
 
 .action-button.copy-link:hover {
-    background-color: rgba(107, 114, 128, 0.8);
+    box-shadow: 0 4px 25px -5px #06b6d4; /* Copiado de go-drive */
 }
 
 /* --- ETIQUETAS Y DISTINTIVOS --- */
 .tag-new {
-    @apply px-2.5 py-1 bg-lime-400/20 text-lime-300 rounded-full text-xs font-semibold;
+    padding-left: 0.625rem; /* px-2.5 */
+    padding-right: 0.625rem; /* px-2.5 */
+    padding-top: 0.25rem; /* py-1 */
+    padding-bottom: 0.25rem; /* py-1 */
+    background-color: rgba(163, 230, 53, 0.2); /* bg-lime-400/20 */
+    color: #bef264; /* text-lime-300 */
+    border-radius: 9999px; /* rounded-full */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 600; /* font-semibold */
     animation: pulse-green 2s infinite;
 }
 
@@ -144,7 +189,15 @@ body {
 }
 
 .tag-soon {
-    @apply px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm font-medium;
+    padding-left: 0.75rem; /* px-3 */
+    padding-right: 0.75rem; /* px-3 */
+    padding-top: 0.25rem; /* py-1 */
+    padding-bottom: 0.25rem; /* py-1 */
+    background-color: rgba(245, 158, 11, 0.2); /* bg-amber-500/20 */
+    color: #fbbf24; /* text-amber-400 */
+    border-radius: 9999px; /* rounded-full */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
 }
 
 /* --- BADGES DE CONTADOR --- */
@@ -265,5 +318,3 @@ body {
     <script src="scripts.js"></script>
 </body>
 </html>
-<!-- No extra code is needed at the end of the file. 
-<!-- All scripts and markup are already properly placed before the closing </body> and </html> tags. -->
