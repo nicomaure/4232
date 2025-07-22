@@ -1,361 +1,236 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RA en la Escuela Teresa Ghilardi N°4-232</title>
-    <!-- Chosen Palette: Neon Depths -->
-    <!-- Application Structure Plan: The structure remains task-oriented (Explore, Create, Projects) but the UI/UX is completely overhauled for a mobile-first, youth-focused audience. The redesign prioritizes visual impact and intuitive interaction on small screens. Key changes include a brighter color scheme, larger touch targets, more engaging hover effects, and animated entrances for content to make the experience feel dynamic and modern. The "Rincón del Profe" remains collapsible to keep the main interface clean for the primary student audience. -->
-    <!-- Visualization & Content Choices: The core information is presented with a new, vibrant aesthetic. App/Project cards are redesigned with icons and gradient borders to be more visually appealing. The filter buttons are larger and have clearer active states for better mobile usability. The comparative table in the "Rincón del Profe" is styled to be more readable within the new theme. The goal is to make the same information more digestible and engaging through superior visual design and micro-interactions, enhancing the original user flow. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0d1117;
-            background-image: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
-            color: #e6edf3;
-        }
-        .vibrant-gradient-text {
-            background: linear-gradient(45deg, #f72585, #b5179e, #4cc9f0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-fill-color: transparent;
-        }
-        .btn-vibrant {
-            background: linear-gradient(45deg, #f72585, #b5179e, #7209b7);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        .btn-vibrant:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 8px 30px rgba(247, 37, 133, 0.5);
-        }
-        .section-title {
-            font-weight: 800;
-        }
-        .card {
-            background-color: #161b22;
-            border-radius: 20px;
-            border: 1px solid #30363d;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            border-color: #4361ee;
-        }
-        .card-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .card-icon {
-            font-size: 3rem;
-            line-height: 1;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
-        }
-        .filter-btn {
-            padding: 0.5rem 1.25rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            color: #c9d1d9;
-            background-color: #21262d;
-            transition: all 0.3s ease;
-            border: 1px solid #30363d;
-        }
-        .filter-btn:hover {
-            background-color: #30363d;
-            color: #f0f6fc;
-        }
-        .filter-btn.active {
-            color: white;
-            background: linear-gradient(45deg, #7209b7, #4361ee);
-            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
-            border-color: transparent;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease-out forwards;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RA en la Escuela Teresa Ghilardi N°4‑232</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family:'Poppins',sans-serif; background:linear-gradient(180deg,#161b22, #0d1117); color:#e6edf3; }
+    .vibrant { background:linear-gradient(45deg,#f72585,#b5179e,#4cc9f0); -webkit-background-clip:text; color:transparent; }
+    .btn-vibrant { background:linear-gradient(45deg,#f72585,#b5179e,#7209b7); transition:.3s; box-shadow:0 4px 15px rgba(0,0,0,0.2); }
+    .btn-vibrant:hover { transform:translateY(-3px) scale(1.05); box-shadow:0 8px 30px rgba(247,37,133,0.5); }
+    .card { background:#161b22; border:1px solid #30363d; border-radius:20px; transition:.3s; display:flex; flex-direction:column; }
+    .card:hover { transform:translateY(-10px); box-shadow:0 20px 40px rgba(0,0,0,0.3); border-color:#4361ee; }
+    .card-icon { font-size:3rem; margin-bottom:1rem; text-shadow:0 0 15px rgba(76,201,240,0.5); }
+    .filter-btn { padding:.5rem 1.25rem; border-radius:9999px; font-weight:600; background:#21262d; color:#c9d1d9; border:1px solid #30363d; transition:.3s; }
+    .filter-btn:hover { background:#30363d; color:#f0f6fc; }
+    .filter-btn.active { background:linear-gradient(45deg,#7209b7,#4361ee); color:#fff; box-shadow:0 4px 15px rgba(67,97,238,0.4); border-color:transparent; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:translateY(0);} }
+    .fade-in { animation:fadeIn .5s ease-out forwards; }
+  </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header y Navegación -->
-    <header class="bg-slate-900/80 backdrop-blur-lg shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold">
-                <span class="vibrant-gradient-text">Escuela T. Ghilardi N°4-232</span>
-            </h1>
-            <nav class="hidden md:flex space-x-6 text-base font-semibold">
-                <a href="#explorar" class="text-gray-300 hover:vibrant-gradient-text transition">Explorar</a>
-                <a href="#crear" class="text-gray-300 hover:vibrant-gradient-text transition">Crear y Aprender</a>
-                <a href="#proyectos" class="text-gray-300 hover:vibrant-gradient-text transition">Proyectos</a>
-                <a href="#profes" class="text-gray-300 hover:vibrant-gradient-text transition">Profes</a>
-            </nav>
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
+  <!-- Header -->
+  <header class="bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-xl md:text-2xl font-bold"><span class="vibrant">Escuela T. Ghilardi N°4‑232</span></h1>
+      <nav class="hidden md:flex space-x-6 text-gray-300 font-semibold">
+        <a href="#herramientas" class="hover:vibrant">Herramientas</a>
+        <a href="#proyectos" class="hover:vibrant">Proyectos</a>
+        <a href="#profes" class="hover:vibrant">Profes</a>
+      </nav>
+      <button id="mobile-menu-button" class="md:hidden text-white text-2xl focus:outline-none"><i class="fas fa-bars"></i></button>
+    </div>
+    <div id="mobile-menu" class="hidden bg-slate-900/95">
+      <a href="#herramientas" class="block text-center py-3 text-white hover:bg-slate-800">Herramientas</a>
+      <a href="#proyectos" class="block text-center py-3 text-white hover:bg-slate-800">Proyectos</a>
+      <a href="#profes" class="block text-center py-3 text-white hover:bg-slate-800">Profes</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <main>
+    <section class="py-20 text-center">
+      <h2 class="vibrant text-5xl md:text-7xl font-extrabold mb-4">Realidad Aumentada e IA</h2>
+      <p class="text-lg md:text-2xl text-gray-300 mb-8 font-semibold">¡Lleva el aprendizaje a otra dimensión!</p>
+      <a href="#herramientas" class="btn-vibrant text-white py-3 px-8 rounded-full text-lg font-bold">Empezar a Explorar</a>
+    </section>
+
+    <!-- Herramientas -->
+    <section id="herramientas" class="py-16 bg-black/10">
+      <h3 class="text-center vibrant text-3xl md:text-4xl mb-12 font-bold">Herramientas de RA y IA</h3>
+      <div class="container mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6">
+        <!-- Quiver -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-palette text-pink-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">Quiver</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Colorea y observa tus dibujos cobrar vida en 3D.</p>
+          <a href="https://quivervision.com/education/" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver App</a>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95">
-            <a href="#explorar" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Explorar</a>
-            <a href="#crear" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Crear y Aprender</a>
-            <a href="#proyectos" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Proyectos</a>
-            <a href="#profes" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Profes</a>
+        <!-- ARLOON -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-flask text-purple-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">Arloon Anatomy/Geometry</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Explora ciencias y geometría con RA desde tu celular.</p>
+          <a href="https://arloon.com" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver App</a>
         </div>
-    </header>
+        <!-- Star Walk -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-star text-blue-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">Star Walk 2</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Identifica estrellas y planetas en tiempo real con RA.</p>
+          <a href="https://starwalk.space/" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver App</a>
+        </div>
+        <!-- SketchAR -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-pencil-ruler text-green-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">SketchAR</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Proyecta guías de dibujo directo sobre tu papel.</p>
+          <a href="https://sketchar.io/" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver App</a>
+        </div>
+        <!-- Google Lens -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-camera-retro text-yellow-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">Google Lens</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Reconoce plantas, traduce textos y resuelve ejercicios con RA.</p>
+          <a href="https://lens.google/" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver App</a>
+        </div>
+        <!-- IA de Gemini -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-brain text-red-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">IA de Gemini</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Pregunta lo que ves y aprende al instante con inteligencia artificial.</p>
+          <a href="https://gemini.google.com/" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Saber Más</a>
+        </div>
+        <!-- Assemblr EDU -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-cube text-yellow-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">Assemblr EDU</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Crea escenas educativas en RA directamente desde Android o web.</p>
+          <a href="https://edu.assemblrworld.com" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver App</a>
+        </div>
+        <!-- Merge Cube -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-cube text-cyan-400"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">Merge EDU</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Interactúa con modelos 3D usando el cubo Merge.</p>
+          <a href="https://mergeedu.com" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver Web</a>
+        </div>
+        <!-- CoSpaces Edu -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-lightbulb text-green-300"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">CoSpaces Edu</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Construye mundos virtuales y programas con bloques en RA/VR.</p>
+          <a href="https://cospaces.io/edu/" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver Web</a>
+        </div>
+        <!-- ExpeditionsPro -->
+        <div class="card p-6 fade-in">
+          <div class="text-center"><i class="card-icon fas fa-globe text-blue-300"></i></div>
+          <h4 class="text-xl font-bold text-center text-white mb-2">ExpeditionsPro</h4>
+          <p class="text-gray-400 mb-4 flex-grow text-center">Realiza recorridos educativos en realidad aumentada y 360°.</p>
+          <a href="https://www.expeditionspro.com" target="_blank" class="btn-vibrant text-white py-2 px-4 rounded-full block mx-auto">Ver Web</a>
+        </div>
+      </div>
+    </section>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="py-20 md:py-28 text-center bg-transparent">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl md:text-6xl font-extrabold mb-4 vibrant-gradient-text">Realidad Aumentada</h2>
-                <p class="text-lg md:text-2xl text-gray-300 mb-8 font-semibold">¡Lleva el aprendizaje a otra dimensión!</p>
-                <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-400 mb-10">
-                    Bienvenido al portal de Realidad Aumentada de la escuela. Aquí encontrarás una selección de las mejores aplicaciones gratuitas y en español para explorar, crear y aprender de una forma que nunca imaginaste.
-                </p>
-                <a href="#explorar" class="btn-vibrant text-white font-bold py-3 px-8 rounded-full text-lg">
-                    ¡Empezar a Explorar!
-                </a>
-            </div>
-        </section>
+    <!-- Galería de Proyectos -->
+    <section id="proyectos" class="py-16 bg-black/10">
+      <h3 class="text-center vibrant text-3xl md:text-4xl mb-8 font-bold">Galería de proyectos</h3>
+      <div class="flex justify-center flex-wrap gap-3 mb-10 px-6">
+        <button class="filter-btn active" data-filter="all">Todos</button>
+        <button class="filter-btn" data-filter="ciencias">Ciencias</button>
+        <button class="filter-btn" data-filter="arte">Arte</button>
+        <button class="filter-btn" data-filter="historia">Historia</button>
+        <button class="filter-btn" data-filter="lengua">Idiomas</button>
+      </div>
+      <div id="projects-grid" class="container mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6 px-6"></div>
+    </section>
 
-        <!-- Sección 1: Explorar -->
-        <section id="explorar" class="py-20 bg-black/10">
-            <div class="container mx-auto px-6">
-                <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">Explora el Mundo con RA</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    <div class="card p-6 text-center fade-in">
-                        <div class="card-content">
-                            <div class="card-icon text-pink-400"><i class="fas fa-palette"></i></div>
-                            <h4 class="text-2xl font-bold mb-2 text-white">Quiver</h4>
-                            <p class="text-gray-400 mb-4 flex-grow">Dale vida a tus dibujos. Imprime una plantilla, coloréala y mira cómo tus creaciones saltan de la hoja en 3D.</p>
-                        </div>
-                        <a href="https://quivervision.com/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
-                    </div>
-                    <div class="card p-6 text-center fade-in" style="animation-delay: 0.1s;">
-                        <div class="card-content">
-                            <div class="card-icon text-yellow-400"><i class="fas fa-landmark"></i></div>
-                            <h4 class="text-2xl font-bold mb-2 text-white">Google Arts & Culture</h4>
-                            <p class="text-gray-400 mb-4 flex-grow">Recorre los museos más famosos del mundo con Street View y proyecta obras de arte en tamaño real en tu aula.</p>
-                        </div>
-                        <a href="https://artsandculture.google.com/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
-                    </div>
-                    <div class="card p-6 text-center fade-in" style="animation-delay: 0.2s;">
-                        <div class="card-content">
-                            <div class="card-icon text-cyan-400"><i class="fas fa-cogs"></i></div>
-                            <h4 class="text-2xl font-bold mb-2 text-white">JigSpace</h4>
-                            <p class="text-gray-400 mb-4 flex-grow">Descubre cómo funcionan las cosas, desde un motor hasta el corazón humano, con increíbles instrucciones 3D en RA.</p>
-                        </div>
-                        <a href="https://www.jig.space/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
-                    </div>
-                    <div class="card p-6 text-center fade-in" style="animation-delay: 0.3s;">
-                        <div class="card-content">
-                            <div class="card-icon text-blue-400"><i class="fas fa-star"></i></div>
-                            <h4 class="text-2xl font-bold mb-2 text-white">Star Walk 2</h4>
-                            <p class="text-gray-400 mb-4 flex-grow">Un planetario de bolsillo. Apunta al cielo y descubre estrellas, planetas y constelaciones en tiempo real.</p>
-                        </div>
-                        <a href="https://starwalk.space/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <!-- Rincón del Profe -->
+    <section id="profes" class="py-16">
+      <h3 class="text-center vibrant text-3xl md:text-4xl mb-8 font-bold">Rincón del Profe</h3>
+      <div class="container mx-auto max-w-3xl">
+        <div class="card overflow-hidden">
+          <button class="accordion-toggle w-full p-5 text-left flex justify-between">
+            <span class="font-bold">Tabla comparativa de apps</span>
+            <i class="fas fa-chevron-down"></i>
+          </button>
+          <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500">
+            <table class="w-full text-gray-300 text-sm">
+              <thead>
+                <tr class="border-b border-gray-600"><th>App</th><th>Plataformas</th><th>Español</th><th>Uso educativo</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Quiver</td><td>Android/Web</td><td>Parcial</td><td>Arte, Ciencia</td></tr>
+                <tr><td>Arloon</td><td>Android</td><td>Sí</td><td>Ciencia, Matemática</td></tr>
+                <tr><td>Star Walk 2</td><td>Android</td><td>Sí</td><td>Astronomía</td></tr>
+                <tr><td>SketchAR</td><td>Android/Web</td><td>Sí</td><td>Arte, Dibujo</td></tr>
+                <tr><td>Google Lens</td><td>Android</td><td>Sí</td><td>Idiomas, Ciencia</td></tr>
+                <tr><td>Gemini IA</td><td>Android/Web</td><td>Sí</td><td>Investigación general</td></tr>
+                <tr><td>Assemblr EDU</td><td>Android/Web</td><td>Sí</td><td>Modelado 3D, STEAM</td></tr>
+                <tr><td>Merge EDU</td><td>Android/Web</td><td>Sí</td><td>Biología, Geografía</td></tr>
+                <tr><td>CoSpaces Edu</td><td>Android/Web</td><td>Sí</td><td>Programación, Narrativa</td></tr>
+                <tr><td>ExpeditionsPro</td><td>Android/Web</td><td>Sí</td><td>Historia, Cultura, Ciencia</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-        <!-- Sección 2: Crear y Aprender -->
-        <section id="crear" class="py-20">
-            <div class="container mx-auto px-6">
-                <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">Crea y Aprende con RA</h3>
-                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-                    <div class="card p-6 text-center fade-in">
-                        <div class="card-content">
-                            <div class="card-icon text-green-400"><i class="fas fa-pencil-ruler"></i></div>
-                            <h4 class="text-2xl font-bold mb-2 text-white">SketchAR</h4>
-                            <p class="text-gray-400 mb-4 flex-grow">Aprende a dibujar como un profesional. La app proyecta una guía sobre el papel para que puedas trazar y practicar.</p>
-                        </div>
-                        <a href="https://sketchar.io/" target="_blank" class="mt-auto btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
-                    </div>
-                    <div class="card p-6 text-center fade-in" style="animation-delay: 0.1s;">
-                        <div class="card-content">
-                            <div class="card-icon text-purple-400"><i class="fas fa-camera-retro"></i></div>
-                            <h4 class="text-2xl font-bold mb-2 text-white">Google Lens</h4>
-                            <p class="text-gray-400 mb-4 flex-grow">Usa la cámara de tu celular para traducir textos al instante, identificar plantas, resolver ecuaciones y mucho más.</p>
-                        </div>
-                        <a href="https://lens.google/" target="_blank" class="mt-auto btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
-                    </div>
-                     <div class="card p-6 text-center fade-in" style="animation-delay: 0.2s;">
-                        <div class="card-content">
-                            <div class="card-icon text-red-400"><i class="fas fa-brain"></i></div>
-                            <h4 class="text-2xl font-bold mb-2 text-white">IA de Gemini</h4>
-                            <p class="text-gray-400 mb-4 flex-grow">Usa la cámara en la App de Google para preguntarle a la IA sobre lo que ves. Identifica objetos, plantas o edificios.</p>
-                        </div>
-                        <a href="https://gemini.google.com/" target="_blank" class="mt-auto btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Saber Más</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Sección 4: Galería de Proyectos -->
-        <section id="proyectos" class="py-20 bg-black/10">
-            <div class="container mx-auto px-6">
-                <h3 class="text-3xl md:text-4xl text-center mb-4 section-title text-white">Galería de Proyectos</h3>
-                <p class="text-center text-lg text-gray-400 mb-10">¿Necesitas inspiración? Filtra por materia y descubre ideas para usar estas apps.</p>
-                
-                <div id="filter-container" class="flex flex-wrap justify-center gap-3 mb-10">
-                    <button class="filter-btn active" data-filter="all">Todos</button>
-                    <button class="filter-btn" data-filter="ciencias">Ciencias</button>
-                    <button class="filter-btn" data-filter="arte">Arte</button>
-                    <button class="filter-btn" data-filter="historia">Historia</button>
-                    <button class="filter-btn" data-filter="lengua">Lengua e Idiomas</button>
-                </div>
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-center py-8">
+    <p class="text-gray-400">Diseñada por el Prof. Nicolás Maure • Escuela N°4‑232 “Teresa Ghilardi” • Luján de Cuyo, Mendoza</p>
+  </footer>
 
-                <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Los proyectos se insertarán aquí con JS -->
-                </div>
-            </div>
-        </section>
+  <!-- Scripts -->
+  <script>
+    // Menú móvil toggle
+    const btnMenu = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+    btnMenu.onclick = () => {
+      menu.classList.toggle('hidden');
+      const icon = btnMenu.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    };
 
-        <!-- Sección 5: Rincón del Profe -->
-        <section id="profes" class="py-20">
-            <div class="container mx-auto px-6 max-w-4xl">
-                <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">Rincón del Profe</h3>
-                <div class="space-y-4">
-                    <div class="card overflow-hidden">
-                        <button class="accordion-toggle w-full p-5 text-left text-xl font-bold flex justify-between items-center text-white">
-                            <span>Info Rápida de Apps</span>
-                            <span class="transform transition-transform duration-300">▼</span>
-                        </button>
-                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
-                            <div class="p-5 space-y-4 text-gray-300">
-                                <div>
-                                    <h5 class="font-bold text-white">Quiver</h5>
-                                    <p class="text-sm">Da vida a dibujos coloreados. <strong class="text-cyan-300">Materias:</strong> Arte, Ciencias Naturales (células, volcanes).</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-white">Google Arts & Culture</h5>
-                                    <p class="text-sm">Recorre museos y proyecta arte en tu entorno. <strong class="text-cyan-300">Materias:</strong> Arte, Historia, Ciencias Sociales.</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-white">JigSpace</h5>
-                                    <p class="text-sm">Explora cómo funcionan objetos complejos en 3D. <strong class="text-cyan-300">Materias:</strong> Tecnología, Física, Biología.</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-white">Star Walk 2</h5>
-                                    <p class="text-sm">Identifica estrellas y planetas en el cielo. <strong class="text-cyan-300">Materias:</strong> Física, Geografía, Ciencias de la Tierra.</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-white">SketchAR</h5>
-                                    <p class="text-sm">Asistente de dibujo con guías proyectadas. <strong class="text-cyan-300">Materia:</strong> Arte.</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-white">Google Lens</h5>
-                                    <p class="text-sm">Herramienta de reconocimiento y traducción. <strong class="text-cyan-300">Materias:</strong> Idiomas, Biología (identificar plantas), Matemática.</p>
-                                </div>
-                                <div>
-                                    <h5 class="font-bold text-white">IA de Gemini</h5>
-                                    <p class="text-sm">Usa la cámara para hacerle preguntas a la IA sobre el mundo real. <strong class="text-cyan-300">Materias:</strong> Todas (investigación, curiosidad).</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+    // Accordion toggle
+    document.querySelectorAll('.accordion-toggle').forEach(btn => {
+      btn.onclick = () => {
+        const content = btn.nextElementSibling;
+        content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + 'px';
+        btn.querySelector('i').classList.toggle('rotate-180');
+      };
+    });
 
-    <footer class="bg-gray-900 text-center py-8">
-        <p class="text-gray-400">Diseñada por el profesor Nicolás Maure</p>
-        <p class="text-xs text-gray-500 mt-1">Escuela N°4-232 "Teresa Ghilardi de Luján" - Luján de Cuyo, Mendoza</p>
-    </footer>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-    document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
-
+    // Proyectos data
     const projects = [
-        { title: 'Célula Viva', description: 'Investiga las partes de una célula, colorea la plantilla de Quiver y graba un video explicando la función de cada orgánulo en RA.', tool: 'Quiver', category: 'ciencias' },
-        { title: 'Museo en el Aula', description: 'Cada grupo elige una corriente artística, proyecta una obra representativa en la pared con Google Arts y la analiza para la clase.', tool: 'Google Arts', category: 'arte' },
-        { title: '¿Cómo Funciona?', description: 'Explora un objeto complejo en JigSpace (ej: un motor) y crea una presentación explicando sus componentes y funcionamiento.', tool: 'JigSpace', category: 'ciencias' },
-        { title: 'Retrato Guiado', description: 'Usa SketchAR para practicar el retrato. Elige una foto y usa la guía de la app para aprender las proporciones del rostro.', tool: 'SketchAR', category: 'arte' },
-        { title: 'Herbario Digital', description: 'Sal al patio de la escuela, identifica 5 plantas nativas con Google Lens y crea un álbum digital con sus nombres y características.', tool: 'Google Lens', category: 'ciencias' },
-        { title: 'Traductor de Entorno', description: 'Recorre la escuela y usa Google Lens para traducir carteles y textos al inglés, creando un glosario visual bilingüe.', tool: 'Google Lens', category: 'lengua' },
-        { title: 'Galería de Arte Histórico', description: 'Crea una línea de tiempo en el aula proyectando obras de arte de diferentes épocas con Google Arts para visualizar la evolución del arte.', tool: 'Google Arts', category: 'historia' },
-        { title: 'Explorador Cósmico', description: 'Usa Star Walk 2 para identificar 5 constelaciones visibles esta noche y escribe un dato curioso sobre una estrella de cada constelación.', tool: 'Star Walk 2', category: 'ciencias' },
-        { title: 'Reportero Científico', description: 'Encuentra un objeto (una planta, una roca), usa la cámara de la IA de Gemini para preguntar "¿qué es esto?" y escribe un reportaje con la respuesta.', tool: 'IA de Gemini', category: 'ciencias' }
+      { title:'Célula Viva', desc:'Colorea una célula con Quiver y explica sus partes en RA.', tool:'Quiver', cat:'ciencias' },
+      { title:'Safari Aula', desc:'Proyecta animales de Arloon y compártelos.', tool:'Arloon', cat:'ciencias' },
+      { title:'Retrato RA', desc:'Practica proporciones con SketchAR.', tool:'SketchAR', cat:'arte' },
+      { title:'Museo Virtual', desc:'Crea escenas en 3D con Assemblr o CoSpaces.', tool:'Assemblr', cat:'historia' },
+      { title:'Explorador Cósmico', desc:'Identifica estrellas con Star Walk 2.', tool:'Star Walk 2', cat:'ciencias' },
+      { title:'Tour Educativo', desc:'Explora un lugar histórico con ExpeditionsPro.', tool:'ExpeditionsPro', cat:'historia' }
     ];
+    const grid = document.getElementById('projects-grid');
+    const filters = document.querySelectorAll('.filter-btn');
 
-    const projectsGrid = document.getElementById('projects-grid');
-    const filterContainer = document.getElementById('filter-container');
-
-    function renderProjects(filter = 'all') {
-        projectsGrid.innerHTML = '';
-        const filteredProjects = filter === 'all' ? projects : projects.filter(p => p.category === filter);
-        
-        filteredProjects.forEach((project, index) => {
-            const projectCard = document.createElement('div');
-            projectCard.className = 'project-card card p-6 text-left flex flex-col fade-in';
-            projectCard.style.animationDelay = `${index * 0.05}s`;
-            projectCard.innerHTML = `
-                <h5 class="text-xl font-bold text-white mb-2">${project.title}</h5>
-                <p class="text-gray-400 mb-3 flex-grow">${project.description}</p>
-                <div class="mt-auto pt-3">
-                    <span class="text-xs font-semibold inline-block py-1 px-3 uppercase rounded-full text-cyan-200 bg-cyan-900/50">
-                        ${project.tool}
-                    </span>
-                </div>
-            `;
-            projectsGrid.appendChild(projectCard);
+    function render(filter='all') {
+      grid.innerHTML = '';
+      projects.filter(p=>filter==='all'||p.cat===filter)
+        .forEach((p,i)=>{
+          grid.innerHTML += `
+            <div class="card p-6 fade-in" style="animation-delay:${i*0.05}s">
+              <h5 class="text-white font-bold mb-2">${p.title}</h5>
+              <p class="text-gray-400 mb-4">${p.desc}</p>
+              <span class="inline-block text-xs bg-cyan-900 text-cyan-200 px-3 py-1 rounded-full">${p.tool}</span>
+            </div>`;
         });
     }
 
-    filterContainer.addEventListener('click', (e) => {
-        if (e.target.tagName === 'BUTTON') {
-            document.querySelector('.filter-btn.active').classList.remove('active');
-            e.target.classList.add('active');
-            renderProjects(e.target.dataset.filter);
-        }
+    filters.forEach(btn => btn.onclick = ()=>{
+      document.querySelector('.filter-btn.active').classList.remove('active');
+      btn.classList.add('active');
+      render(btn.dataset.filter);
     });
 
-    renderProjects();
-
-    document.querySelectorAll('.accordion-toggle').forEach(button => {
-        button.addEventListener('click', () => {
-            const content = button.nextElementSibling;
-            const icon = button.querySelector('span:last-child');
-            const isActive = content.style.maxHeight;
-
-            document.querySelectorAll('.accordion-content').forEach(c => {
-                if (c !== content) {
-                    c.style.maxHeight = null;
-                    c.previousElementSibling.querySelector('span:last-child').style.transform = 'rotate(0deg)';
-                }
-            });
-            
-            if (!isActive) {
-                content.style.maxHeight = content.scrollHeight + "px";
-                icon.style.transform = 'rotate(180deg)';
-            } else {
-                content.style.maxHeight = null;
-                icon.style.transform = 'rotate(0deg)';
-            }
-        });
-    });
-});
-</script>
+    render();
+  </script>
 </body>
 </html>
