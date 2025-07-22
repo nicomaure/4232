@@ -9,6 +9,7 @@
     <!-- Visualization & Content Choices: The core information is presented with a new, vibrant aesthetic. App/Project cards are redesigned with icons and gradient borders to be more visually appealing. The filter buttons are larger and have clearer active states for better mobile usability. The comparative table in the "Rincón del Profe" is styled to be more readable within the new theme. The goal is to make the same information more digestible and engaging through superior visual design and micro-interactions, enhancing the original user flow. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -131,25 +132,25 @@
                 <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">¡Empieza Ya! Apps para Explorar</h3>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="card p-6 flex flex-col text-center fade-in">
-                        <div class="card-icon">🎨</div>
+                        <div class="card-icon text-pink-400"><i class="fas fa-palette"></i></div>
                         <h4 class="text-2xl font-bold mb-2 text-white">Quiver</h4>
                         <p class="text-gray-400 mb-4 flex-grow">Dale vida a tus dibujos. Imprime, colorea y mira cómo tus creaciones saltan de la hoja en 3D.</p>
                         <a href="https://quivervision.com/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
                     </div>
                     <div class="card p-6 flex flex-col text-center fade-in" style="animation-delay: 0.1s;">
-                        <div class="card-icon">❤️</div>
+                        <div class="card-icon text-red-500"><i class="fas fa-heartbeat"></i></div>
                         <h4 class="text-2xl font-bold mb-2 text-white">Irusu Anatomy 4D</h4>
                         <p class="text-gray-400 mb-4 flex-grow">Explora el cuerpo humano como nunca. Ideal para Biología, permite ver los sistemas y órganos en 3D.</p>
                         <a href="https://play.google.com/store/apps/details?id=com.irusu.humananatomy4d" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
                     </div>
                     <div class="card p-6 flex flex-col text-center fade-in" style="animation-delay: 0.2s;">
-                        <div class="card-icon">🔭</div>
+                        <div class="card-icon text-cyan-400"><i class="fas fa-satellite-dish"></i></div>
                         <h4 class="text-2xl font-bold mb-2 text-white">Star Walk 2</h4>
                         <p class="text-gray-400 mb-4 flex-grow">Un planetario en tu bolsillo. Apunta al cielo y descubre estrellas, planetas y constelaciones.</p>
                         <a href="https://starwalk.space/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
                     </div>
                     <div class="card p-6 flex flex-col text-center fade-in" style="animation-delay: 0.3s;">
-                        <div class="card-icon">🏛️</div>
+                        <div class="card-icon text-yellow-400"><i class="fas fa-landmark"></i></div>
                         <h4 class="text-2xl font-bold mb-2 text-white">Google Arts</h4>
                         <p class="text-gray-400 mb-4 flex-grow">Recorre museos con Street View y proyecta obras de arte o dinosaurios en tamaño real en tu aula.</p>
                         <a href="https://artsandculture.google.com/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
@@ -164,7 +165,7 @@
                 <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">Crea Tus Propios Mundos</h3>
                 <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
                     <div class="card p-6 flex flex-col fade-in">
-                        <div class="card-icon">🚀</div>
+                        <div class="card-icon text-purple-400"><i class="fas fa-rocket"></i></div>
                         <h4 class="text-2xl font-bold mb-2 text-white">CoSpaces Edu</h4>
                         <p class="text-gray-400 mb-4 flex-grow">Crea mundos 3D, animaciones y juegos. Ideal para contar historias o hacer simulaciones. ¡Puedes programar con bloques!</p>
                         <div class="bg-indigo-900/50 p-3 rounded-lg text-sm mb-4 text-indigo-200">
@@ -173,7 +174,7 @@
                         <a href="https://cospaces.io/edu/" target="_blank" class="mt-auto btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Empezar a Crear</a>
                     </div>
                     <div class="card p-6 flex flex-col fade-in" style="animation-delay: 0.1s;">
-                        <div class="card-icon">🧩</div>
+                        <div class="card-icon text-blue-400"><i class="fas fa-puzzle-piece"></i></div>
                         <h4 class="text-2xl font-bold mb-2 text-white">Assemblr EDU</h4>
                         <p class="text-gray-400 mb-4 flex-grow">Arma escenas 3D fácilmente arrastrando y soltando objetos. Muy bueno para hacer presentaciones y maquetas virtuales.</p>
                         <div class="bg-purple-900/50 p-3 rounded-lg text-sm mb-4 text-purple-200">
@@ -188,7 +189,7 @@
         <!-- Sección 3: Merge Cube -->
         <section id="cubo" class="py-20 bg-black/10">
             <div class="container mx-auto px-6 text-center">
-                 <h3 class="text-3xl md:text-4xl font-bold mb-4 section-title text-white">🧊 El Cubo Mágico</h3>
+                 <h3 class="text-3xl md:text-4xl font-bold mb-4 section-title text-white"><i class="fas fa-cube"></i> El Cubo Mágico</h3>
                  <p class="text-lg text-gray-400 mb-10">Sostén una galaxia en la palma de tu mano.</p>
                 <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
                     <div class="card p-8 text-left fade-in">
@@ -213,7 +214,8 @@
         <section id="proyectos" class="py-20">
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl md:text-4xl text-center mb-4 section-title text-white">Galería de Proyectos</h3>
-                <p class="text-center text-lg text-gray-400 mb-10">¿Necesitas inspiración? Filtra por materia y descubre ideas.</p>
+                <p class="text-center text-lg text-gray-400 mb-2">¿Necesitas inspiración? Filtra por materia y descubre ideas.</p>
+                <p class="text-center text-sm text-gray-500 mb-10">Nota: Estas son ideas de proyectos. Usa los enlaces a las apps en las otras secciones para crearlos.</p>
                 
                 <div id="filter-container" class="flex flex-wrap justify-center gap-3 mb-10">
                     <button class="filter-btn active" data-filter="all">Todos</button>
