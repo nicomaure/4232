@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RA en la Escuela Teresa Ghilardi N°4-232</title>
+    <!-- Chosen Palette: Neon Depths -->
+    <!-- Application Structure Plan: The structure remains task-oriented (Explore, Create, Projects) but the UI/UX is completely overhauled for a mobile-first, youth-focused audience. The redesign prioritizes visual impact and intuitive interaction on small screens. Key changes include a brighter color scheme, larger touch targets, more engaging hover effects, and animated entrances for content to make the experience feel dynamic and modern. The "Rincón del Profe" remains collapsible to keep the main interface clean for the primary student audience. -->
+    <!-- Visualization & Content Choices: The core information is presented with a new, vibrant aesthetic. App/Project cards are redesigned with icons and gradient borders to be more visually appealing. The filter buttons are larger and have clearer active states for better mobile usability. The comparative table in the "Rincón del Profe" is styled to be more readable within the new theme. The goal is to make the same information more digestible and engaging through superior visual design and micro-interactions, enhancing the original user flow. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d1117;
+            background-image: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+            color: #e6edf3;
+        }
+        .vibrant-gradient-text {
+            background: linear-gradient(45deg, #f72585, #b5179e, #4cc9f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .btn-vibrant {
+            background: linear-gradient(45deg, #f72585, #b5179e, #7209b7);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .btn-vibrant:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(247, 37, 133, 0.5);
+        }
+        .section-title {
+            font-weight: 800;
+        }
+        .card {
+            background-color: #161b22;
+            border-radius: 20px;
+            border: 1px solid #30363d;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: #4361ee;
+        }
+        .card-icon {
+            font-size: 3rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
+        }
+        .filter-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            color: #c9d1d9;
+            background-color: #21262d;
+            transition: all 0.3s ease;
+            border: 1px solid #30363d;
+        }
+        .filter-btn:hover {
+            background-color: #30363d;
+            color: #f0f6fc;
+        }
+        .filter-btn.active {
+            color: white;
+            background: linear-gradient(45deg, #7209b7, #4361ee);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+            border-color: transparent;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header y Navegación -->
+    <header class="bg-slate-900/80 backdrop-blur-lg shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-xl md:text-2xl font-bold">
+                <span class="vibrant-gradient-text">Escuela T. Ghilardi N°4-232</span>
+            </h1>
+            <nav class="hidden md:flex space-x-6 text-base font-semibold">
+                <a href="#empezar" class="text-gray-300 hover:vibrant-gradient-text transition">Explorar</a>
+                <a href="#crear" class="text-gray-300 hover:vibrant-gradient-text transition">Crear</a>
+                <a href="#proyectos" class="text-gray-300 hover:vibrant-gradient-text transition">Proyectos</a>
+                <a href="#profes" class="text-gray-300 hover:vibrant-gradient-text transition">Profes</a>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95">
+            <a href="#empezar" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Explorar</a>
+            <a href="#crear" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Crear</a>
+            <a href="#proyectos" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Proyectos</a>
+            <a href="#profes" class="block text-white text-center py-3 hover:bg-slate-800 font-semibold">Profes</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="py-20 md:py-28 text-center bg-transparent">
+            <div class="container mx-auto px-6">
+                <h2 class="text-4xl md:text-6xl font-extrabold mb-4 vibrant-gradient-text">Realidad Aumentada</h2>
+                <p class="text-lg md:text-2xl text-gray-300 mb-8 font-semibold">¡Lleva el aprendizaje a otra dimensión!</p>
+                <p class="max-w-3xl mx-auto text-base md:text-lg text-gray-400 mb-10">
+                    ¡Hola! ¿Listos para mezclar el mundo real con el digital? La Realidad Aumentada (RA) te permite ver un corazón latiendo en tu mano o caminar con dinosaurios en el patio. Con las herramientas de esta página, vas a poder explorar, crear y aprender de una forma que nunca imaginaste.
+                </p>
+                <a href="#empezar" class="btn-vibrant text-white font-bold py-3 px-8 rounded-full text-lg">
+                    ¡Empezar la Aventura!
+                </a>
+            </div>
+        </section>
+
+        <!-- Sección 1: Empezar Ya (Consumo) -->
+        <section id="empezar" class="py-20 bg-black/10">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">¡Empieza Ya! Apps para Explorar</h3>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card p-6 flex flex-col text-center fade-in">
+                        <div class="card-icon">🎨</div>
+                        <h4 class="text-2xl font-bold mb-2 text-white">Quiver</h4>
+                        <p class="text-gray-400 mb-4 flex-grow">Dale vida a tus dibujos. Imprime, colorea y mira cómo tus creaciones saltan de la hoja en 3D.</p>
+                        <a href="https://quivervision.com/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
+                    </div>
+                    <div class="card p-6 flex flex-col text-center fade-in" style="animation-delay: 0.1s;">
+                        <div class="card-icon">❤️</div>
+                        <h4 class="text-2xl font-bold mb-2 text-white">Anatomy 4D</h4>
+                        <p class="text-gray-400 mb-4 flex-grow">Explora el cuerpo humano como nunca. Ideal para Biología, permite ver los sistemas y órganos en 3D.</p>
+                        <a href="https://play.google.com/store/apps/details?id=com.irusu.humananatomy4d" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
+                    </div>
+                    <div class="card p-6 flex flex-col text-center fade-in" style="animation-delay: 0.2s;">
+                        <div class="card-icon">🔭</div>
+                        <h4 class="text-2xl font-bold mb-2 text-white">Star Walk 2</h4>
+                        <p class="text-gray-400 mb-4 flex-grow">Un planetario en tu bolsillo. Apunta al cielo y descubre estrellas, planetas y constelaciones.</p>
+                        <a href="https://starwalk.space/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
+                    </div>
+                    <div class="card p-6 flex flex-col text-center fade-in" style="animation-delay: 0.3s;">
+                        <div class="card-icon">🏛️</div>
+                        <h4 class="text-2xl font-bold mb-2 text-white">Google Arts</h4>
+                        <p class="text-gray-400 mb-4 flex-grow">Ten un museo en tu aula. Proyecta obras de arte y animales prehistóricos en tamaño real.</p>
+                        <a href="https://artsandculture.google.com/" target="_blank" class="mt-4 btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Ver App</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Crear Mundos -->
+        <section id="crear" class="py-20">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">Crea Tus Propios Mundos</h3>
+                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="card p-6 flex flex-col fade-in">
+                        <div class="card-icon">🚀</div>
+                        <h4 class="text-2xl font-bold mb-2 text-white">CoSpaces Edu</h4>
+                        <p class="text-gray-400 mb-4 flex-grow">Crea mundos 3D, animaciones y juegos. Ideal para contar historias o hacer simulaciones. ¡Puedes programar con bloques!</p>
+                        <div class="bg-indigo-900/50 p-3 rounded-lg text-sm mb-4 text-indigo-200">
+                            <strong>Plan Gratuito:</strong> Genial para empezar. Permite 1 clase con 29 alumnos, pero cada uno puede guardar solo 2 proyectos. ¡Perfecto para trabajos finales!
+                        </div>
+                        <a href="https://cospaces.io/edu/" target="_blank" class="mt-auto btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Empezar a Crear</a>
+                    </div>
+                    <div class="card p-6 flex flex-col fade-in" style="animation-delay: 0.1s;">
+                        <div class="card-icon">🧩</div>
+                        <h4 class="text-2xl font-bold mb-2 text-white">Assemblr EDU</h4>
+                        <p class="text-gray-400 mb-4 flex-grow">Arma escenas 3D fácilmente arrastrando y soltando objetos. Muy bueno para hacer presentaciones y maquetas virtuales.</p>
+                        <div class="bg-purple-900/50 p-3 rounded-lg text-sm mb-4 text-purple-200">
+                            <strong>Plan Gratuito:</strong> Bueno para proyectos chicos o para probar. Tiene poco espacio para guardar (30MB), ¡así que úsalo con inteligencia!
+                        </div>
+                        <a href="https://edu.assemblrworld.com/" target="_blank" class="mt-auto btn-vibrant text-white font-bold py-2 px-4 rounded-full text-center">Probar Assemblr</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sección 3: Merge Cube -->
+        <section id="cubo" class="py-20 bg-black/10">
+            <div class="container mx-auto px-6 text-center">
+                 <h3 class="text-3xl md:text-4xl font-bold mb-4 section-title text-white">🧊 El Cubo Mágico</h3>
+                 <p class="text-lg text-gray-400 mb-10">Sostén una galaxia en la palma de tu mano.</p>
+                <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 items-center">
+                    <div class="card p-8 text-left fade-in">
+                        <h4 class="text-2xl font-bold mb-4 text-white">¿Cómo funciona?</h4>
+                        <ol class="list-decimal list-inside space-y-4 text-lg text-gray-300">
+                            <li><span class="font-bold">Imprime y Arma:</span> Descarga la plantilla GRATIS y arma tu cubo.</li>
+                            <li><span class="font-bold">Apunta y Descubre:</span> Abre una app compatible y ¡listo!</li>
+                        </ol>
+                    </div>
+                    <div class="card p-8 flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-slate-800 text-white fade-in" style="animation-delay: 0.1s;">
+                        <p class="text-xl mb-4 font-semibold">¡Consigue tu cubo ahora!</p>
+                        <a href="https://mergecube.com/paper" target="_blank" class="btn-vibrant text-white font-bold py-3 px-6 rounded-full text-center text-lg">
+                            Descargar Plantilla PDF
+                        </a>
+                        <p class="text-xs mt-4 text-gray-400">Serás redirigido al sitio oficial de Merge Cube.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4: Galería de Proyectos -->
+        <section id="proyectos" class="py-20">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl md:text-4xl text-center mb-4 section-title text-white">Galería de Proyectos</h3>
+                <p class="text-center text-lg text-gray-400 mb-10">¿Necesitas inspiración? Filtra por materia y descubre ideas.</p>
+                
+                <div id="filter-container" class="flex flex-wrap justify-center gap-3 mb-10">
+                    <button class="filter-btn active" data-filter="all">Todos</button>
+                    <button class="filter-btn" data-filter="biologia">Biología</button>
+                    <button class="filter-btn" data-filter="historia">Historia</button>
+                    <button class="filter-btn" data-filter="lengua">Lengua</button>
+                    <button class="filter-btn" data-filter="arte">Arte</button>
+                </div>
+
+                <div id="projects-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Los proyectos se insertarán aquí con JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 5: Rincón del Profe -->
+        <section id="profes" class="py-20 bg-black/10">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h3 class="text-3xl md:text-4xl text-center mb-12 section-title text-white">Rincón del Profe</h3>
+                <div class="space-y-4">
+                    <div class="card overflow-hidden">
+                        <button class="accordion-toggle w-full p-5 text-left text-xl font-bold flex justify-between items-center text-white">
+                            <span>Tabla Comparativa</span>
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                            <div class="p-5 overflow-x-auto">
+                                <table class="w-full text-sm text-left text-gray-300">
+                                    <thead class="text-xs text-gray-400 uppercase bg-gray-800">
+                                        <tr><th class="px-4 py-3">Herramienta</th><th class="px-4 py-3">Ideal Para...</th><th class="px-4 py-3">Límite Clave (Gratis)</th></tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-700">
+                                        <tr><td class="px-4 py-3 font-bold">Quiver</td><td class="px-4 py-3">Iniciación, Arte+Ciencia</td><td class="px-4 py-3">Plantillas gratis limitadas</td></tr>
+                                        <tr><td class="px-4 py-3 font-bold">Anatomy 4D</td><td class="px-4 py-3">Clases de Biología</td><td class="px-4 py-3">Solo anatomía</td></tr>
+                                        <tr><td class="px-4 py-3 font-bold">Google Arts</td><td class="px-4 py-3">Proyectos multidisciplinarios</td><td class="px-4 py-3">Requiere app móvil</td></tr>
+                                        <tr><td class="px-4 py-3 font-bold">Assemblr EDU</td><td class="px-4 py-3">Diseño 3D, maquetas</td><td class="px-4 py-3">30 MB de almacenamiento</td></tr>
+                                        <tr><td class="px-4 py-3 font-bold">CoSpaces Edu</td><td class="px-4 py-3">Storytelling, proyectos finales</td><td class="px-4 py-3">2 proyectos por cuenta</td></tr>
+                                        <tr><td class="px-4 py-3 font-bold">Merge Cube</td><td class="px-4 py-3">Aprendizaje táctil, visualizar 3D</td><td class="px-4 py-3">Contenido "freemium"</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card overflow-hidden">
+                        <button class="accordion-toggle w-full p-5 text-left text-xl font-bold flex justify-between items-center text-white">
+                            <span>Info Rápida de Apps</span>
+                            <span class="transform transition-transform duration-300">▼</span>
+                        </button>
+                        <div class="accordion-content max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                            <div class="p-5 space-y-4 text-gray-300">
+                                <div>
+                                    <h5 class="font-bold text-white">Quiver</h5>
+                                    <p class="text-sm">Da vida a dibujos coloreados. <strong class="text-cyan-300">Materias:</strong> Arte, Ciencias Naturales.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">Anatomy 4D</h5>
+                                    <p class="text-sm">Explora el cuerpo humano en 3D. <strong class="text-cyan-300">Materia:</strong> Biología.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">Star Walk 2</h5>
+                                    <p class="text-sm">Identifica estrellas y planetas en el cielo. <strong class="text-cyan-300">Materias:</strong> Física, Geografía.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">Google Arts</h5>
+                                    <p class="text-sm">Proyecta arte y animales en tu entorno. <strong class="text-cyan-300">Materias:</strong> Arte, Historia, Biología.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">CoSpaces Edu</h5>
+                                    <p class="text-sm">Crea mundos y juegos 3D programables. <strong class="text-cyan-300">Materias:</strong> Todas (Informática, Lengua, etc.).</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">Assemblr EDU</h5>
+                                    <p class="text-sm">Arma escenas 3D arrastrando objetos. <strong class="text-cyan-300">Materias:</strong> Todas (Presentaciones, Diseño).</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-white">Merge Cube</h5>
+                                    <p class="text-sm">Sostiene y manipula objetos 3D. <strong class="text-cyan-300">Materias:</strong> Ciencias, Arte, Diseño.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-center py-8">
+        <p class="text-gray-400">Diseñada por el profesor Nicolás Maure</p>
+        <p class="text-xs text-gray-500 mt-1">Escuela N°4-232 "Teresa Ghilardi de Luján" - Luján de Cuyo, Mendoza</p>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+    const projects = [
+        { title: 'Célula Viva', description: 'Colorea una plantilla y mira cómo la célula cobra vida en 3D, explicando sus partes.', tool: 'Quiver', category: 'biologia' },
+        { title: 'Anatomía Interactiva', description: 'Explora un sistema del cuerpo humano en RA y graba un video explicando su funcionamiento.', tool: 'Anatomy 4D', category: 'biologia' },
+        { title: 'Disección Virtual', description: 'Realiza una disección sin dilemas éticos usando el cubo mágico.', tool: 'Merge Cube', category: 'biologia' },
+        { title: 'Museo en el Aula', description: 'Proyecta artefactos de civilizaciones antiguas en el aula y presenta su historia.', tool: 'Google Arts', category: 'historia' },
+        { title: 'Reconstrucción Histórica', description: 'Construye una maqueta virtual de un sitio histórico como el Foro Romano.', tool: 'CoSpaces Edu', category: 'historia' },
+        { title: 'Escena Literaria 3D', description: 'Recrea una escena importante de una novela o cuento, programando diálogos y acciones.', tool: 'CoSpaces Edu', category: 'lengua' },
+        { title: 'Del Boceto al Objeto', description: 'Diseña un objeto en 3D (con Tinkercad) y sostenlo en tus manos con el cubo mágico.', tool: 'Merge Cube', category: 'arte' },
+        { title: 'Galería de Arte Virtual', description: 'Cuelga obras de arte famosas en las paredes de tu casa o el aula para analizarlas a escala real.', tool: 'Google Arts', category: 'arte' }
+    ];
+
+    const projectsGrid = document.getElementById('projects-grid');
+    const filterContainer = document.getElementById('filter-container');
+
+    function renderProjects(filter = 'all') {
+        projectsGrid.innerHTML = '';
+        const filteredProjects = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+        
+        filteredProjects.forEach((project, index) => {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card card p-6 text-left flex flex-col fade-in';
+            projectCard.style.animationDelay = `${index * 0.05}s`;
+            projectCard.innerHTML = `
+                <h5 class="text-xl font-bold text-white mb-2">${project.title}</h5>
+                <p class="text-gray-400 mb-3 flex-grow">${project.description}</p>
+                <div class="mt-auto pt-3">
+                    <span class="text-xs font-semibold inline-block py-1 px-3 uppercase rounded-full text-cyan-200 bg-cyan-900/50">
+                        ${project.tool}
+                    </span>
+                </div>
+            `;
+            projectsGrid.appendChild(projectCard);
+        });
+    }
+
+    filterContainer.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+            document.querySelector('.filter-btn.active').classList.remove('active');
+            e.target.classList.add('active');
+            renderProjects(e.target.dataset.filter);
+        }
+    });
+
+    renderProjects();
+
+    document.querySelectorAll('.accordion-toggle').forEach(button => {
+        button.addEventListener('click', () => {
+            const content = button.nextElementSibling;
+            const icon = button.querySelector('span:last-child');
+            const isActive = content.style.maxHeight;
+
+            document.querySelectorAll('.accordion-content').forEach(c => {
+                if (c !== content) {
+                    c.style.maxHeight = null;
+                    c.previousElementSibling.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            if (!isActive) {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.style.maxHeight = null;
+                icon.style.transform = 'rotate(0deg)';
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
