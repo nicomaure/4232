@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RA en la Escuela Teresa Ghilardi N°4‑232</title>
+  <title>RA en la Escuela Teresa Ghilardi N°4-232</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -185,14 +185,12 @@
     // Menú móvil toggle
     const btnMenu = document.getElementById('mobile-menu-button');
     const menu = document.getElementById('mobile-menu');
-    if (btnMenu && menu) {
-      btnMenu.onclick = () => {
-        menu.classList.toggle('hidden');
-        const icon = btnMenu.querySelector('i');
-        icon.classList.toggle('fa-bars');
-        icon.classList.toggle('fa-times');
-      };
-    }
+    btnMenu.onclick = () => {
+      menu.classList.toggle('hidden');
+      const icon = btnMenu.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    };
 
     // Accordion toggle
     document.querySelectorAll('.accordion-toggle').forEach(btn => {
