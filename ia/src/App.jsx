@@ -424,7 +424,7 @@ const App = () => {
         <footer className="bg-gray-800 text-white py-10 px-4">
         <div className="max-w-6xl mx-auto text-center">
         <p className="text-lg font-semibold mb-2">
-        Desarrollado por el Profesor Nicolás Maure.
+        Desarrollado por Nicolás Maure - Admin. de Red.
         </p>
         <p className="text-gray-400 text-sm mb-4">
         Mendoza, Argentina
