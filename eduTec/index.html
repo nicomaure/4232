@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carro Escolar eduTec · Guía</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --brand:#2563eb;
+      --brand2:#7c3aed;
+      --ok:#16a34a;
+      --warn:#f59e0b;
+      --danger:#ef4444;
+    }
+    body{ font-family:'Inter',sans-serif; }
+    body.bg-anim{
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      background-size: 300% 300%;
+      animation: grad 14s ease infinite;
+    }
+    @keyframes grad{
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+    .glass{ background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); }
+    
+    /* --- CORRECCIÓN AQUÍ --- */
+    .slide{ animation:fade .35s ease; }
+    .slide:not(.active) { display: none; }
+    /* --- FIN DE LA CORRECCIÓN --- */
+
+    @keyframes fade{ from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none} }
+    .step-circle{
+      width:56px; height:56px; border-radius:9999px; color:white;
+      display:flex; align-items:center; justify-content:center;
+      font: 800 1.125rem/1 'Poppins', sans-serif;
+      box-shadow: 0 8px 18px rgba(0,0,0,.12);
+      flex-shrink: 0;
+    }
+    .dot{ width:12px; height:12px; border-radius:9999px; background:#cbd5e1; transition: background .3s ease; }
+    .dot.active{ background: var(--brand); }
+    .progress{ height:8px; border-radius:9999px; background:#e5e7eb; overflow:hidden; }
+    .progress > span{ display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--brand2)); width:0%; transition: width .3s ease; }
+    .btn{ display:inline-flex; align-items:center; justify-content: center; gap:.5rem; padding:.625rem 1rem; border-radius:14px; font-weight:700; transition: all .3s ease; }
+    .btn:hover{ transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
+    .btn:disabled{ opacity: .5; cursor: not-allowed; transform: none; box-shadow: none;}
+    .btn-primary{ color:#fff; background: linear-gradient(90deg,var(--brand),var(--brand2)); }
+    .btn-neutral{ background:#fff; color:#111827; border:1px solid #e5e7eb; }
+    h1,h2,h3{ font-family:'Poppins',sans-serif }
+    @media print{
+      body{ -webkit-print-color-adjust:exact; print-color-adjust:exact; background:#fff !important; }
+      @page{ size: landscape; margin: 0; }
+      .presentation{ box-shadow:none !important; border:none !important; background:#fff !important }
+      .slide{ display:block !important; page-break-after: always; height: 98vh; overflow: hidden; padding: 2rem !important; border: 1px solid #eee;}
+      .slide:last-child{ page-break-after:auto }
+      .screen-only{ display:none !important }
+      img{ max-width:100% !important; height:auto !important; }
+    }
+  </style>
+</head>
+<body class="bg-anim min-h-screen py-6 px-4 flex flex-col items-center">
+
+  <!-- Header -->
+  <header class="w-full max-w-[1100px] mb-5">
+    <div class="glass rounded-3xl p-5 md:p-6 shadow-xl border border-white/50 grid md:grid-cols-2 gap-4">
+      <div>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">
+          Carro Escolar <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">eduTec</span>
+        </h1>
+        <p class="text-slate-600 mt-1">Guía rápida · Escuela 4-232 “Teresa Ghilardi de Martín”</p>
+      </div>
+      <div class="flex justify-end items-center screen-only">
+        <button id="downloadBtn" class="btn btn-primary">📥 Descargar como PDF</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Presentation -->
+  <main class="presentation w-full max-w-[1100px] glass rounded-3xl shadow-2xl border border-white/50 overflow-hidden flex flex-col">
+    <div class="px-5 pt-5 screen-only"><div class="progress"><span id="progressFill"></span></div></div>
+
+    <!-- Slides -->
+    <div class="p-6 md:p-10 flex-grow">
+      
+      <section class="slide active h-full flex flex-col items-center justify-center text-center" data-slide="1">
+        <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Guía de Uso y Buenas Prácticas</h2>
+        <img src="img/3.jpeg" alt="Carro tecnológico eduTec" class="my-6 max-w-sm rounded-2xl shadow-xl">
+        <p class="text-xl font-bold text-slate-600">Escuela 4-232 Teresa Ghilardi de Martin</p>
+        <p class="text-lg text-slate-500">2025</p>
+      </section>
+
+      <section class="slide" data-slide="2">
+        <h2 class="text-3xl font-bold text-slate-800 mb-8">Roles y Responsabilidades</h2>
+        <div class="space-y-8 text-lg">
+            <div class="flex items-start gap-4">
+                <div class="step-circle" style="background:var(--brand)">01</div>
+                <div>
+                    <h3 class="font-bold text-xl text-slate-700">¿Quiénes pueden mover el carro?</h3>
+                    <ul class="list-disc list-inside mt-2 text-slate-600">
+                        <li>El/la docente a cargo del curso.</li>
+                        <li>Tres (3) alumnos tutores designados.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="flex items-start gap-4">
+                <div class="step-circle" style="background:var(--brand2)">02</div>
+                <div>
+                    <h3 class="font-bold text-xl text-slate-700">Responsabilidad Compartida</h3>
+                    <p class="mt-2 text-slate-600">El buen uso depende de la colaboración de todos. ¡Es una herramienta para que todos aprendamos!</p>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide grid md:grid-cols-2 gap-8 items-center" data-slide="3">
+        <div>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">"Mi Netbook, Mi Responsabilidad"</h2>
+            <p class="text-slate-600 mb-4">Cada alumno/a, utilizará en lo posible <span class="font-bold text-red-600">siempre el mismo número de netbook.</span></p>
+            <h3 class="font-bold text-lg text-slate-700">Beneficios:</h3>
+            <ul class="list-decimal list-inside mt-2 text-slate-600 space-y-1">
+                <li>Tus archivos estarán siempre en el mismo lugar.</li>
+                <li>Es más fácil detectar si un equipo tiene problemas.</li>
+                <li>Fomenta el cuidado del equipo asignado.</li>
+            </ul>
+        </div>
+        <img src="img/8.jpeg" alt="Netbooks ordenadas en el carro" class="rounded-2xl shadow-lg w-full">
+      </section>
+      
+      <section class="slide flex flex-col items-center justify-center text-center" data-slide="4">
+        <div class="step-circle mb-4" style="background:var(--warn)">⚠️</div>
+        <h2 class="text-3xl font-bold text-amber-600">¡Importante! Reporte de Daños</h2>
+        <p class="max-w-2xl mx-auto mt-4 text-slate-600 text-lg">
+            Al recibir tu netbook, revísala. Si encuentras algo roto, una raya nueva o cualquier problema, avisa <strong class="uppercase">inmediatamente</strong> a tu profesor/a.
+        </p>
+      </section>
+
+      <section class="slide grid md:grid-cols-2 gap-8 items-center" data-slide="5">
+          <div>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Paso 1: Desconectar Alimentación</h2>
+            <p class="text-red-600 font-bold mb-4">¡Seguridad primero!</p>
+            <ul class="list-decimal list-inside text-slate-600 space-y-2">
+                <li>Poner el interruptor rojo en '0' (apagado).</li>
+                <li>Desenchufar el cable desde la ficha, no tirar.</li>
+                <li>Enrollar y guardar el cable.</li>
+            </ul>
+          </div>
+          <img src="img/3.jpeg" alt="Interruptor y manija del carro" class="rounded-2xl shadow-lg w-full">
+      </section>
+
+      <section class="slide grid md:grid-cols-2 gap-8 items-center" data-slide="6">
+        <img src="img/11.jpeg" alt="Freno de la rueda del carro" class="rounded-2xl shadow-lg w-full">
+        <div>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Paso 2: Trasladar el Carro</h2>
+            <p class="text-red-600 font-bold mb-4">¡Revisar los frenos!</p>
+            <p class="text-slate-600">Verificar que el bloqueo de las ruedas esté <span class="font-bold">hacia arriba</span> (desbloqueado).</p>
+            <p class="mt-2 text-slate-600">Usar las <span class="font-bold">agarraderas (manijas)</span> para empujar con cuidado.</p>
+        </div>
+      </section>
+
+      <section class="slide grid md:grid-cols-2 gap-8 items-center" data-slide="7">
+        <div>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Paso 3: Abrir las Puertas</h2>
+            <ul class="list-decimal list-inside text-slate-600 space-y-2">
+                <li>Si tiene candado, retirarlo.</li>
+                <li>Presionar el botón **"PUSH"** y girar la manija.</li>
+                <li>Para la segunda puerta, presionar los **dos botones rojos** (superior e inferior).</li>
+            </ul>
+        </div>
+        <div class="space-y-4">
+            <img src="img/5.jpeg" alt="Manija PUSH" class="rounded-2xl shadow-lg w-full">
+            <img src="img/7.jpeg" alt="Botones rojos internos" class="rounded-2xl shadow-lg w-full">
+        </div>
+      </section>
+      
+      <section class="slide grid md:grid-cols-2 gap-8 items-center" data-slide="8">
+        <div>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Paso 4: Conexión Correcta</h2>
+            <div class="p-4 rounded-xl bg-green-100 border border-green-200 text-green-800">
+                <p class="font-bold">Referencia:</p>
+                <p>El conector de carga es redondo y va al lado del puerto **HDMI**.</p>
+            </div>
+            <p class="mt-4 text-slate-600">Verificar que la luz de carga se encienda.</p>
+        </div>
+        <img src="img/9.jpeg" alt="Conexión correcta del cargador" class="rounded-2xl shadow-lg w-full">
+      </section>
+      
+      <section class="slide grid md:grid-cols-2 gap-8 items-center" data-slide="9">
+        <img src="img/10.jpeg" alt="Lado incorrecto para conectar el cargador" class="rounded-2xl shadow-lg w-full">
+        <div>
+            <h2 class="text-3xl font-bold text-red-600 mb-4">¡ATENCIÓN! Conexión Incorrecta</h2>
+            <div class="p-4 rounded-xl bg-red-100 border border-red-200 text-red-800">
+                <p class="font-extrabold uppercase">Nunca conectar de este lado.</p>
+                <p class="mt-1">El orificio de auriculares es similar, pero conectar el cargador allí puede <span class="font-bold">dañar el equipo.</span></p>
+            </div>
+        </div>
+      </section>
+
+      <section class="slide" data-slide="10">
+        <h2 class="text-3xl font-bold text-slate-800 mb-8">Paso 5: Regreso y Puesta en Carga</h2>
+        <ul class="list-decimal list-inside text-slate-600 space-y-3 text-lg">
+            <li>Verificar que todas las netbooks estén conectadas.</li>
+            <li>Cerrar y asegurar las puertas del carro.</li>
+            <li>Trasladar el carro de vuelta al <span class="font-bold">sector de Informática.</span></li>
+            <li>Conectar el cable de alimentación principal.</li>
+            <li>Poner el interruptor en '1' (encendido) y verificar la luz de carga.</li>
+        </ul>
+      </section>
+
+      <section class="slide flex flex-col items-center justify-center text-center" data-slide="11">
+        <h2 class="text-3xl font-bold text-slate-800 mb-6">Resumen Final</h2>
+        <ul class="list-disc list-inside text-slate-600 space-y-2 text-lg bg-slate-50 p-6 rounded-2xl border">
+            <li>Usa siempre la netbook con tu número.</li>
+            <li class="font-bold text-red-600">Informa cualquier daño inmediatamente.</li>
+            <li>Desconecta el carro antes de moverlo.</li>
+            <li>Conecta bien cada netbook para que se cargue.</li>
+        </ul>
+        <p class="mt-8 text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">¡Gracias por tu colaboración!</p>
+      </section>
+    </div>
+
+    <!-- Navegación -->
+    <div class="screen-only bg-white/80 px-4 py-3 border-t border-slate-200 flex items-center justify-between">
+      <div class="flex items-center gap-2" id="dots"></div>
+      <div class="flex items-center gap-3">
+        <button id="prevBtn" class="btn btn-neutral">⬅️ Anterior</button>
+        <div id="slide-counter" class="text-sm font-semibold text-slate-600">Diapositiva 1 / 11</div>
+        <button id="nextBtn" class="btn btn-primary">Siguiente ➡️</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.slide');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const slideCounter = document.getElementById('slide-counter');
+      const dotsContainer = document.getElementById('dots');
+      const progressFill = document.getElementById('progressFill');
+      let currentSlide = 0;
+      const totalSlides = slides.length;
+
+      const dots = [];
+      for (let i = 0; i < totalSlides; i++) {
+        const d = document.createElement('div');
+        d.className = 'dot';
+        d.style.cursor = 'pointer';
+        d.addEventListener('click', () => { currentSlide = i; showSlide(currentSlide); });
+        dotsContainer.appendChild(d); dots.push(d);
+      }
+
+      function updateProgress(){ progressFill.style.width = (currentSlide/(totalSlides-1))*100 + '%'; }
+      function showSlide(index){
+        slides.forEach(s => s.classList.remove('active'));
+        slides[index].classList.add('active');
+        slideCounter.textContent = `Diapositiva ${index + 1} / ${totalSlides}`;
+        prevBtn.disabled = index === 0;
+        nextBtn.disabled = index === totalSlides - 1;
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        updateProgress();
+      }
+
+      prevBtn.addEventListener('click', () => { if (currentSlide > 0) { currentSlide--; showSlide(currentSlide); } });
+      nextBtn.addEventListener('click', () => { if (currentSlide < totalSlides - 1) { currentSlide++; showSlide(currentSlide); } });
+      downloadBtn.addEventListener('click', () => window.print());
+      document.addEventListener('keydown', e => { if (e.key==='ArrowRight') nextBtn.click(); if (e.key==='ArrowLeft') prevBtn.click(); });
+      showSlide(currentSlide);
+    });
+  </script>
+</body>
+</html>
