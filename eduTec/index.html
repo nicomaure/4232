@@ -6,53 +6,10 @@
   <title>Carro Escolar eduTec · Guía</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --brand:#2563eb;
-      --brand2:#7c3aed;
-      --ok:#16a34a;
-      --warn:#f59e0b;
-      --danger:#ef4444;
-    }
-    body{ font-family:'Inter',sans-serif; }
-    body.bg-anim{
-      background: linear-gradient(135deg, var(--brand), var(--brand2));
-      background-size: 300% 300%;
-      animation: grad 14s ease infinite;
-    }
-    @keyframes grad{
-      0%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-      100%{background-position:0% 50%}
-    }
-    .glass{ background: rgba(255,255,255,0.85); backdrop-filter: blur(8px); }
-    
-    .slide{ animation:fade .35s ease; }
-    .slide:not(.active) { display: none; }
-
-    @keyframes fade{ from{opacity:0; transform: translateY(8px)} to{opacity:1; transform:none} }
-    .step-circle{
-      width:48px; height:48px; border-radius:9999px; color:white;
-      display:flex; align-items:center; justify-content:center;
-      font: 800 1rem/1 'Poppins', sans-serif;
-      box-shadow: 0 8px 18px rgba(0,0,0,.12);
-      flex-shrink: 0;
-    }
-    .dot{ width:12px; height:12px; border-radius:9999px; background:#cbd5e1; transition: background .3s ease; }
-    .dot.active{ background: var(--brand); }
-    .progress{ height:8px; border-radius:9999px; background:#e5e7eb; overflow:hidden; }
-    .progress > span{ display:block; height:100%; background:linear-gradient(90deg,var(--brand),var(--brand2)); width:0%; transition: width .3s ease; }
-    .btn{ display:inline-flex; align-items:center; justify-content: center; gap:.5rem; padding:.625rem 1rem; border-radius:14px; font-weight:700; transition: all .3s ease; }
-    .btn:hover{ transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.1); }
-    .btn:disabled{ opacity: .5; cursor: not-allowed; transform: none; box-shadow: none;}
-    .btn-primary{ color:#fff; background: linear-gradient(90deg,var(--brand),var(--brand2)); }
-    .btn-neutral{ background:#fff; color:#111827; border:1px solid #e5e7eb; }
-    h1,h2,h3{ font-family:'Poppins',sans-serif }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body class="bg-anim min-h-screen py-4 px-2 sm:px-4 flex flex-col items-center">
 
-  <!-- Header -->
   <header class="w-full max-w-[1100px] mb-4">
     <div class="glass rounded-2xl p-4 md:p-6 shadow-xl border border-white/50">
       <div>
@@ -64,14 +21,12 @@
     </div>
   </header>
 
-  <!-- Presentation -->
   <main class="presentation w-full max-w-[1100px] glass rounded-2xl shadow-2xl border border-white/50 overflow-hidden flex flex-col flex-grow">
     <div class="px-4 pt-4 screen-only"><div class="progress"><span id="progressFill"></span></div></div>
 
-    <!-- Slides -->
-    <div class="p-4 md:p-10 flex-grow overflow-y-auto">
+    <div class="p-4 md:p-10 overflow-y-auto">
       
-      <section class="slide active h-full flex flex-col items-center justify-center text-center" data-slide="1">
+      <section class="slide" data-slide="1">
         <h2 class="text-2xl md:text-4xl font-bold text-slate-800">Guía de Uso y Buenas Prácticas</h2>
         <img src="img/3.jpeg" alt="Carro tecnológico eduTec" class="my-4 max-w-xs md:max-w-sm rounded-2xl shadow-xl">
         <p class="text-lg md:text-xl font-bold text-slate-600">Escuela 4-232 Teresa Ghilardi de Martin</p>
@@ -204,10 +159,13 @@
             <li>Conecta bien cada netbook para que se cargue.</li>
         </ul>
         <p class="mt-8 text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-violet-600">¡Gracias por tu colaboración!</p>
+        
+        <a href="https://nicomaure.github.io/4232/carrito/" class="mt-8 inline-block text-slate-500 hover:text-blue-600 underline">
+          ⬅️ Volver a la guía principal
+        </a>
       </section>
     </div>
 
-    <!-- Navegación -->
     <div class="screen-only bg-white/80 px-4 py-3 border-t border-slate-200 flex items-center justify-between">
       <div class="flex items-center gap-2" id="dots"></div>
       <div class="flex items-center gap-3">
@@ -219,6 +177,7 @@
   </main>
 
   <script>
+    // Tu script de Javascript no necesita cambios
     document.addEventListener('DOMContentLoaded', () => {
       const slides = document.querySelectorAll('.slide');
       const prevBtn = document.getElementById('prevBtn');
@@ -228,6 +187,12 @@
       const progressFill = document.getElementById('progressFill');
       let currentSlide = 0;
       const totalSlides = slides.length;
+
+      // Inicializa los slides para que solo el primero sea activo.
+      slides.forEach((s, i) => {
+        if(i === 0) s.classList.add('active');
+        else s.classList.remove('active');
+      });
 
       const dots = [];
       for (let i = 0; i < totalSlides; i++) {
