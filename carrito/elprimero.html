@@ -6,6 +6,7 @@
   <title>Guía de uso de Notebooks EduTec | Escuela 4-232 Teresa Ghilardi</title>
   
   <link rel="stylesheet" href="styles.css">
+  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
@@ -67,7 +68,7 @@
     <section>
       <div class="content-section">
         <h2>🧮 Hora de Matific</h2>
-        <p>Abre el navegador e ingresa con las credenciales que te entregó tu docente.</p>
+        <p>Abre el navegador e ingrésa con las credenciales que te entregó tu docente.</p>
         <a class="btn-secondary" href="https://www.matific.com" target="_blank">Ir a Matific</a>
       </div>
     </section>
@@ -84,18 +85,6 @@
         <a class="btn-danger" href="https://docs.google.com/forms/d/1S9o1IEMPbzD9pUr7a8qeZz8rDKCAopdSPC-xP4TuScY/viewform" target="_blank">
           Completar formulario de reporte
         </a>
-      </div>
-    </section>
-
-    <!-- 🔍 NUEVA SECCIÓN: Buscador -->
-    <section>
-      <div class="content-section">
-        <h2>🔍 Buscador de Netbooks</h2>
-        <input type="text" id="nombreAlumno" 
-               placeholder="Cargando alumnos..."
-               style="padding:12px; border-radius:8px; border:1px solid #ccc; width:100%; max-width:500px;"
-               disabled />
-        <div id="sugerencias" style="margin-top:15px; text-align:left;"></div>
       </div>
     </section>
     
@@ -122,73 +111,22 @@
       const toggleTheme = () => {
         const currentTheme = body.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        
         applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
       };
 
       const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) applyTheme(savedTheme); else applyTheme('dark');
+
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      } else {
+        applyTheme('dark');
+      }
 
       themeToggle.addEventListener('click', toggleTheme);
       window.onscroll = () => topButton.classList.toggle('show', window.scrollY > 300);
     });
   </script>
-
-  <!-- 🔍 Script del buscador -->
-  <script>
-    let alumnos = [];
-
-    function normalizeText(texto) {
-      return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    }
-
-    function mostrarSugerencias() {
-      const input = document.getElementById('nombreAlumno');
-      const sugerenciasDiv = document.getElementById('sugerencias');
-      const textoBuscado = input.value.trim();
-      sugerenciasDiv.innerHTML = '';
-
-      if (textoBuscado.length === 0) return;
-
-      const textoNormalizado = normalizeText(textoBuscado);
-      const alumnosSugeridos = alumnos.filter(alumno =>
-        normalizeText(alumno.nombre).includes(textoNormalizado)
-      );
-
-      if (alumnosSugeridos.length > 0) {
-        alumnosSugeridos.forEach(alumno => {
-          const item = document.createElement('div');
-          item.style.padding = "10px";
-          item.style.borderBottom = "1px solid #eee";
-          item.style.cursor = "pointer";
-          item.innerHTML = `
-            <p><strong>${alumno.nombre}</strong></p>
-            <p style="font-size:0.9em;color:#666;">Curso: ${alumno.curso} - Netbook: ${alumno.netbook}</p>
-          `;
-          item.onclick = () => {
-            input.value = alumno.nombre;
-            sugerenciasDiv.innerHTML = '';
-          };
-          sugerenciasDiv.appendChild(item);
-        });
-      } else {
-        sugerenciasDiv.innerHTML = `<p style="color:#999;">No se encontraron coincidencias</p>`;
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const resp = await fetch('alumnos.json', { cache: 'no-store' });
-        alumnos = await resp.json();
-        const input = document.getElementById('nombreAlumno');
-        input.placeholder = "Comenzá a escribir tu nombre y apellido...";
-        input.disabled = false;
-        input.addEventListener('input', mostrarSugerencias);
-      } catch (e) {
-        console.error("Error cargando alumnos.json", e);
-      }
-    });
-  </script>
-
 </body>
 </html>
