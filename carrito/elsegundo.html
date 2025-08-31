@@ -67,7 +67,7 @@
     <section>
       <div class="content-section">
         <h2>🧮 Hora de Matific</h2>
-        <p>Abre el navegador e ingrésa con las credenciales que te entregó tu docente.</p>
+        <p>Abre el navegador e ingresa con las credenciales que te entregó tu docente.</p>
         <a class="btn-secondary" href="https://www.matific.com" target="_blank">Ir a Matific</a>
       </div>
     </section>
@@ -87,6 +87,7 @@
       </div>
     </section>
 
+    <!-- 🔍 NUEVA SECCIÓN: Buscador -->
     <section>
       <div class="content-section">
         <h2>🔍 Buscador de Netbooks</h2>
@@ -133,6 +134,7 @@
     });
   </script>
 
+  <!-- 🔍 Script del buscador -->
   <script>
     let alumnos = [];
 
@@ -148,20 +150,10 @@
 
       if (textoBuscado.length === 0) return;
 
-      let alumnosSugeridos = [];
-
-      // Verificamos si el texto introducido es un número
-      if (!isNaN(textoBuscado) && textoBuscado !== "") {
-        // Si es un número, buscamos por el número de netbook
-        const numeroNetbook = parseInt(textoBuscado, 10);
-        alumnosSugeridos = alumnos.filter(alumno => alumno.netbook === numeroNetbook);
-      } else {
-        // Si no es un número, buscamos por el nombre del alumno (como antes)
-        const textoNormalizado = normalizeText(textoBuscado);
-        alumnosSugeridos = alumnos.filter(alumno =>
-          normalizeText(alumno.nombre).includes(textoNormalizado)
-        );
-      }
+      const textoNormalizado = normalizeText(textoBuscado);
+      const alumnosSugeridos = alumnos.filter(alumno =>
+        normalizeText(alumno.nombre).includes(textoNormalizado)
+      );
 
       if (alumnosSugeridos.length > 0) {
         alumnosSugeridos.forEach(alumno => {
@@ -189,7 +181,7 @@
         const resp = await fetch('alumnos.json', { cache: 'no-store' });
         alumnos = await resp.json();
         const input = document.getElementById('nombreAlumno');
-        input.placeholder = "Escribe un nombre o N° de netbook...";
+        input.placeholder = "Comenzá a escribir tu nombre y apellido...";
         input.disabled = false;
         input.addEventListener('input', mostrarSugerencias);
       } catch (e) {
