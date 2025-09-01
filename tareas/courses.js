@@ -76,7 +76,7 @@ const coursesData = [
             {
                 name: "2º 3º",
                 subjects: [
-                    { name: "Lengua", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Lengua", driveLink: "https://drive.google.com/drive/folders/1Z1_8kpw2P_q0iGQwuovClHbQiDoebk-L?usp=sharing", status: "available", lastUpdated: "2025-09-01" },
                     { name: "Educación Tecnológica", driveLink: "", status: "coming_soon", lastUpdated: "" },
                     { name: "Ciencias Sociales: Historia-Formación Ética y Ciudadana", driveLink: "", status: "coming_soon", lastUpdated: "" },
                     { name: "Lengua Extranjera - Inglés", driveLink: "", status: "coming_soon", lastUpdated: "" },
