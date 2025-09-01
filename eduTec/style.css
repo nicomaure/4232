@@ -1,0 +1,135 @@
+/* style.css */
+
+:root {
+  --brand: #2563eb;
+  --brand2: #7c3aed;
+  --ok: #16a34a;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+body.bg-anim {
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  background-size: 300% 300%;
+  animation: grad 14s ease infinite;
+}
+
+@keyframes grad {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.slide {
+  animation: fade .35s ease;
+}
+
+.slide:not(.active) {
+  display: none;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.step-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 800 1rem/1 'Poppins', sans-serif;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .12);
+  flex-shrink: 0;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #cbd5e1;
+  transition: background .3s ease;
+}
+
+.dot.active {
+  background: var(--brand);
+}
+
+.progress {
+  height: 8px;
+  border-radius: 9999px;
+  background: #e5e7eb;
+  overflow: hidden;
+}
+
+.progress > span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--brand), var(--brand2));
+  width: 0%;
+  transition: width .3s ease;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  padding: .625rem 1rem;
+  border-radius: 14px;
+  font-weight: 700;
+  transition: all .3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+}
+
+.btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-primary {
+  color: #fff;
+  background: linear-gradient(90deg, var(--brand), var(--brand2));
+}
+
+.btn-neutral {
+  background: #fff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Poppins', sans-serif;
+}

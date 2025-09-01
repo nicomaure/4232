@@ -6,7 +6,6 @@
   <title>Guía de uso de Notebooks EduTec | Escuela 4-232 Teresa Ghilardi</title>
   
   <link rel="stylesheet" href="styles.css">
-  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
@@ -28,17 +27,20 @@
     <section>
       <h2>👣 Primeros Pasos</h2>
       <div class="grid">
-        <div class="card"><i class="fas fa-laptop"></i><h3>Encuentra tu notebook</h3><p>Las notebooks están numeradas del <strong>1 al 30</strong>. Usa siempre la misma.</p></div>
+        <div class="card">
+          <i class="fas fa-laptop"></i>
+          <h3>Encuentra tu notebook</h3>
+          <p>Las notebooks están numeradas del <strong>1 al 30</strong>. Usa siempre la misma.</p>
+          <a class="btn-primary" href="#buscador">Buscar ahora</a>
+        </div>
         <div class="card"><i class="fas fa-key"></i><h3>Inicia sesión</h3><p>Usuario: <em>alumno</em> / Contraseña: <em>Estudiante</em> (con E mayúscula).</p></div>
         <div class="card"><i class="fas fa-wifi"></i><h3>Conexión automática</h3><p>Se conecta sola a la red <strong>Plataformas WIFI</strong>.</p></div>
-        <a href="https://nicomaure.github.io/4232/googledrive/" target="_blank" class="card-link">
-          <div class="card">
-            <span class="card-link__icon"><i class="fas fa-arrow-up-right-from-square"></i></span>
-            <i class="fas fa-cloud-arrow-up"></i>
-            <h3>Tu carpeta en la nube</h3>
-            <p>Aprende a guardar tus trabajos en Google Drive. ¡Haz clic aquí para ver la guía!</p>
-          </div>
-        </a>
+        <div class="card">
+          <i class="fas fa-cloud-arrow-up"></i>
+          <h3>Tu carpeta en la nube</h3>
+          <p>Aprende a guardar y organizar tus trabajos en Google Drive.</p>
+          <a class="btn-primary" href="https://nicomaure.github.io/4232/googledrive/" target="_blank">Ver Guía</a>
+        </div>
       </div>
     </section>
     
@@ -66,7 +68,14 @@
         <a class="btn-primary" href="https://nicomaure.github.io/4232/eduTec/" target="_blank">📦 Guía de uso del carrito</a>
       </div>
     </section>
-    
+
+    <section>
+      <div class="content-section">
+        <h2>💻 ¿Qué es el Programa EduTec?</h2>
+        <p>Descubre los materiales educativos digitales, las plataformas y el equipamiento que forman parte de esta iniciativa.</p>
+        <a class="btn-primary" href="https://www.mendoza.edu.ar/edutec/" target="_blank">Conocer más</a>
+      </div>
+    </section>
     <section>
       <div class="content-section">
         <h2>🧮 Hora de Matific</h2>
@@ -87,6 +96,17 @@
         <a class="btn-danger" href="https://docs.google.com/forms/d/1S9o1IEMPbzD9pUr7a8qeZz8rDKCAopdSPC-xP4TuScY/viewform" target="_blank">
           Completar formulario de reporte
         </a>
+      </div>
+    </section>
+
+    <section id="buscador">
+      <div class="content-section">
+        <h2>🔍 Buscador de Netbooks</h2>
+        <input type="text" id="nombreAlumno" 
+               placeholder="Cargando alumnos..."
+               style="padding:12px; border-radius:8px; border:1px solid #ccc; width:100%; max-width:500px;"
+               disabled />
+        <div id="sugerencias" style="margin-top:15px; text-align:left;"></div>
       </div>
     </section>
     
@@ -113,22 +133,82 @@
       const toggleTheme = () => {
         const currentTheme = body.getAttribute('data-theme');
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
         applyTheme(newTheme);
         localStorage.setItem('theme', newTheme);
       };
 
       const savedTheme = localStorage.getItem('theme');
-
-      if (savedTheme) {
-        applyTheme(savedTheme);
-      } else {
-        applyTheme('dark');
-      }
+      if (savedTheme) applyTheme(savedTheme); else applyTheme('dark');
 
       themeToggle.addEventListener('click', toggleTheme);
       window.onscroll = () => topButton.classList.toggle('show', window.scrollY > 300);
     });
   </script>
+
+  <script>
+    let alumnos = [];
+
+    function normalizeText(texto) {
+      return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    function mostrarSugerencias() {
+      const input = document.getElementById('nombreAlumno');
+      const sugerenciasDiv = document.getElementById('sugerencias');
+      const textoBuscado = input.value.trim();
+      sugerenciasDiv.innerHTML = '';
+
+      if (textoBuscado.length === 0) return;
+
+      let alumnosSugeridos = [];
+
+      // Verificamos si el texto introducido es un número
+      if (!isNaN(textoBuscado) && textoBuscado !== "") {
+        // Si es un número, buscamos por el número de netbook
+        const numeroNetbook = parseInt(textoBuscado, 10);
+        alumnosSugeridos = alumnos.filter(alumno => alumno.netbook === numeroNetbook);
+      } else {
+        // Si no es un número, buscamos por el nombre del alumno (como antes)
+        const textoNormalizado = normalizeText(textoBuscado);
+        alumnosSugeridos = alumnos.filter(alumno =>
+          normalizeText(alumno.nombre).includes(textoNormalizado)
+        );
+      }
+
+      if (alumnosSugeridos.length > 0) {
+        alumnosSugeridos.forEach(alumno => {
+          const item = document.createElement('div');
+          item.style.padding = "10px";
+          item.style.borderBottom = "1px solid #eee";
+          item.style.cursor = "pointer";
+          item.innerHTML = `
+            <p><strong>${alumno.nombre}</strong></p>
+            <p style="font-size:0.9em;color:#666;">Curso: ${alumno.curso} - Netbook: ${alumno.netbook}</p>
+          `;
+          item.onclick = () => {
+            input.value = alumno.nombre;
+            sugerenciasDiv.innerHTML = '';
+          };
+          sugerenciasDiv.appendChild(item);
+        });
+      } else {
+        sugerenciasDiv.innerHTML = `<p style="color:#999;">No se encontraron coincidencias</p>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const resp = await fetch('alumnos.json', { cache: 'no-store' });
+        alumnos = await resp.json();
+        const input = document.getElementById('nombreAlumno');
+        input.placeholder = "Escribe un nombre o N° de netbook...";
+        input.disabled = false;
+        input.addEventListener('input', mostrarSugerencias);
+      } catch (e) {
+        console.error("Error cargando alumnos.json", e);
+      }
+    });
+  </script>
+
 </body>
 </html>
