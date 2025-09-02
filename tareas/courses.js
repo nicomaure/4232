@@ -36,7 +36,7 @@ const coursesData = [
                 subjects: [
                     { name: "Ciencias Naturales", driveLink: "", status: "coming_soon", lastUpdated: "" },
                     { name: "Matemática", driveLink: "", status: "coming_soon", lastUpdated: "" },
-                    { name: "Lengua", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Lengua", driveLink: "https://drive.google.com/drive/folders/1KCmIgCdq5RVcW8lW9y0I5b1iA1iqrXP5?usp=sharing", status: "available", lastUpdated: "2025-09-02" },
                     { name: "Ciencias Sociales: Historia-Formación Ética y Ciudadana", driveLink: "", status: "coming_soon", lastUpdated: "" },
                     { name: "Ciencias Sociales: Geografía", driveLink: "", status: "coming_soon", lastUpdated: "" },
                     { name: "Educación Artística (B) Música", driveLink: "", status: "coming_soon", lastUpdated: "" },
