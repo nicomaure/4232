@@ -6,15 +6,15 @@ const coursesData = [
             {
                 name: "1º 1º",
                 subjects: [
-                    { name: "Ciencias Sociales: Geografía", driveLink: "https://drive.google.com/drive/folders/1M8e5tbIWPMijNWeU_fJ55TCidT9TREWC?usp=sharing", status: "coming_soon", lastUpdated: "" },
-                    { name: "Lengua", driveLink: "https://drive.google.com/drive/folders/1t7b-Y9HlEKP81ojFrwUD0Bs-Gl-frhqg?usp=sharing", status: "coming_soon", lastUpdated: "" },
-                    { name: "Matemática", driveLink: "https://drive.google.com/drive/folders/14S80VxF781X5EQYZel7L-8ZRdiRHb21p?usp=sharing", status: "coming_soon", lastUpdated: "" },
-                    { name: "Educación Artística (B) Música", driveLink: "https://drive.google.com/drive/folders/1lTxz3EaFz17A4NWLZ2QK8a2UkGZZDF-q?usp=sharing", status: "coming_soon", lastUpdated: "" },
-                    { name: "Ciencias Sociales: Historia-Formación Ética y Ciudadana", driveLink: "https://drive.google.com/drive/folders/ID_DE_TU_CARPETA_HISTORIA_1_1", status: "coming_soon", lastUpdated: "2025-06-22" },
-                    { name: "Ciencias Naturales", driveLink: "https://drive.google.com/drive/folders/1kbDyo6flPDq9QdX55TFmTczOUUrngoFs?usp=sharing", status: "coming_soon", lastUpdated: "" },
-                    { name: "Lengua Extranjera - Inglés", driveLink: "https://drive.google.com/drive/folders/1BjLitfq1DBOh3GtRb-zTAPHBmexDJ2L0?usp=sharing", status: "coming_soon", lastUpdated: "" },
-                    { name: "Educación Artística (C) Artes Visuales", driveLink: "https://drive.google.com/drive/folders/1Hv2zZAfyA6rbQuV2apEy5ANrZokx8QhD?usp=sharing", status: "coming_soon", lastUpdated: "" },
-                    { name: "Educación Física", driveLink: "https://drive.google.com/drive/folders/1t03K5AV3Y1Qi3xQyq_cQVzGj9PRGtDp2?usp=sharing", status: "coming_soon", lastUpdated: "" }
+                    { name: "Ciencias Sociales: Geografía", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Lengua", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Matemática", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Educación Artística (B) Música", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Ciencias Sociales: Historia-Formación Ética y Ciudadana", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Ciencias Naturales", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Lengua Extranjera - Inglés", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Educación Artística (C) Artes Visuales", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Educación Física", driveLink: "", status: "coming_soon", lastUpdated: "" }
                 ]
             },
             {
