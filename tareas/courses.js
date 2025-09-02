@@ -49,7 +49,7 @@ const coursesData = [
                 name: "2º 1º",
                 subjects: [
                     { name: "Lengua Extranjera - Inglés", driveLink: "", status: "coming_soon", lastUpdated: "" },
-                    { name: "Lengua", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                    { name: "Lengua", driveLink: "https://drive.google.com/drive/folders/1fxFDFZw1yzAVql9ujD1NTuoZBgTxx9dI?usp=sharing", status: "available", lastUpdated: "2025-09-02" },
                     { name: "Matemática", driveLink: "", status: "coming_soon", lastUpdated: "" },
                     { name: "Ciencias Sociales: Historia-Formación Ética y Ciudadana", driveLink: "", status: "coming_soon", lastUpdated: "" },
                     { name: "Comunicación Social", driveLink: "", status: "coming_soon", lastUpdated: "" },
