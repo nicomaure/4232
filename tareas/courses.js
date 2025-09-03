@@ -175,7 +175,7 @@ const coursesData = [
             name: "5º 1º",
             subjects: [
                 { name: "Procesos Productivos", driveLink: "", status: "coming_soon", lastUpdated: "" },
-                { name: "Matemática", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                { name: "Matemática", driveLink: "https://drive.google.com/drive/folders/1Oo9y1ZCMSetOxLeuynQdWsRPQC3fBcv6?usp=sharing", status: "available", lastUpdated: "2025-09-03" },
                 { name: "Comunicación", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Agricultura Familiar y Desarrollo Sustentable", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Taller de investigación sobre Problemáticas Ambientales y rurales locales", driveLink: "", status: "coming_soon", lastUpdated: "" },
