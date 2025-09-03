@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Educativo CUMBRE</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Enlace a la hoja de estilos externa -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-900 text-white antialiased">
+
+    <!-- Contenedor Principal -->
+    <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-900 to-blue-900 p-4 sm:p-6">
+
+        <!-- Logo y Título Principal -->
+        <header class="text-center mb-10 animate-fade-in-down">
+            <p class="text-xl md:text-2xl font-semibold tracking-tight text-gray-300 mb-4">Escuela 4-232 Teresa Ghilardi de Martin</p>
+            <img src="img/logo-cumbre.png" alt="Logo de la Plataforma CUMBRE" class="mx-auto mb-6 h-20 md:h-24">
+            <p class="text-lg text-blue-200 -mt-4">Tu portal de acceso al conocimiento.</p>
+        </header>
+
+        <!-- Acceso a la Plataforma -->
+        <section class="w-full max-w-md text-center mb-12 animate-fade-in-up">
+            <a href="https://cumbre.mendoza.edu.ar/login" target="_blank" rel="noopener noreferrer" 
+               class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-transform transform hover:scale-105 shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-400">
+                Ingresar a la Plataforma
+            </a>
+            <p class="text-sm text-gray-400 mt-3">Para estudiantes y docentes.</p>
+        </section>
+
+        <!-- Sección para Alumnos -->
+        <section class="w-full max-w-2xl bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl animate-fade-in-up mb-8" style="animation-delay: 0.25s;">
+            <div class="flex items-center justify-center gap-x-3 mb-6">
+                <svg xmlns="http://www.w.org/2000/svg" class="h-8 w-8 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h2 class="text-2xl font-bold text-yellow-300">Alumnos: ¿Ingresas por primera vez?</h2>
+            </div>
+            <a href="https://nicomaure.github.io/4232/mendozaxmi/" target="_blank" rel="noopener noreferrer" class="group bg-gray-700 hover:bg-gray-600 p-6 rounded-lg flex items-center space-x-4 transition-all duration-300">
+                <img class="h-14 w-14 object-cover rounded-lg flex-shrink-0" src="img/logo-mendozapormi.png" alt="Logo Mendoza por Mí">
+                <div>
+                    <h3 class="font-semibold text-lg text-white">Crea tu usuario "Mendoza por Mí"</h3>
+                    <p class="text-gray-300 text-sm">Guía paso a paso para tu primer ingreso a CUMBRE.</p>
+                </div>
+                <svg xmlns="http://www.w.org/2000/svg" class="h-5 w-5 text-gray-400 ml-auto transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </a>
+        </section>
+
+        <!-- Sección para Docentes -->
+        <section class="w-full max-w-2xl bg-gray-800 bg-opacity-50 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl animate-fade-in-up" style="animation-delay: 0.5s;">
+            <div class="flex items-center justify-center gap-x-3 mb-6">
+                <svg xmlns="http://www.w.org/2000/svg" class="h-8 w-8 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <h2 class="text-2xl font-bold text-blue-300">Recursos para Docentes</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- Link a Capacitación Canva -->
+                <a href="https://www.canva.com/design/DAGjq1QeHhI/6x8E3qxb7s5kpYwzAtMWfQ/edit?ui=eyJIIjp7IkEiOnRydWV9fQ" target="_blank" rel="noopener noreferrer" class="group bg-gray-700 hover:bg-gray-600 p-6 rounded-lg flex items-center space-x-4 transition-all duration-300">
+                    <div class="bg-purple-500 p-3 rounded-lg">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg text-white">Capacitación en Canva</h3>
+                        <p class="text-gray-300 text-sm">Acceder a la presentación.</p>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 ml-auto transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+
+                <!-- Link a Archivo para Descargar -->
+                <a href="https://drive.google.com/file/d/1vi5pMu2-Ed2EN4LCbY64asE_jXDhY91L/view?usp=sharing" target="_blank" rel="noopener noreferrer" 
+                   class="group bg-gray-700 hover:bg-gray-600 p-6 rounded-lg flex items-center space-x-4 transition-all duration-300">
+                    <div class="bg-green-500 p-3 rounded-lg">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg text-white">Material de Capacitación</h3>
+                        <p class="text-gray-300 text-sm">Descargar archivo PDF.</p>
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 ml-auto transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-400 text-sm mt-10 animate-fade-in-up" style="animation-delay: 0.75s;">
+            <p>Diseñada por Nicolás Maure - Admin de Red</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
+
