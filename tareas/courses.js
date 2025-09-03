@@ -97,7 +97,7 @@ const coursesData = [
                 { name: "Lengua Extranjera - Inglés", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Biología", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Química", driveLink: "", status: "coming_soon", lastUpdated: "" },
-                { name: "Matemática", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                { name: "Matemática", driveLink: "https://drive.google.com/drive/folders/1XuRlMRpLaPvKUKESgUmHs8RFU2Rb4ado?usp=sharing", status: "available", lastUpdated: "2025-09-03" },
                 { name: "Prácticas Artísticas", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Agroecosistemas", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Física", driveLink: "", status: "coming_soon", lastUpdated: "" },
