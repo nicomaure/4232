@@ -197,7 +197,7 @@ const coursesData = [
                 { name: "Formación para la Vida y el Trabajo", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Lengua Extranjera - Inglés", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Taller de investigación sobre Problemáticas Ambientales y rurales locales", driveLink: "", status: "coming_soon", lastUpdated: "" },
-                { name: "Matemática", driveLink: "", status: "coming_soon", lastUpdated: "" },
+                { name: "Matemática", driveLink: "https://drive.google.com/drive/folders/1gke1LNQ634Iln1FLyPEBljGlledIpoB6?usp=sharing", status: "available", lastUpdated: "2025-09-03" },
                 { name: "Procesos Productivos", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Economía Social", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Educación Física", driveLink: "", status: "coming_soon", lastUpdated: "" }
