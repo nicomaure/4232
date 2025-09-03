@@ -115,7 +115,7 @@ const coursesData = [
                 { name: "Prácticas Artísticas", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Biología", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Geografía", driveLink: "", status: "coming_soon", lastUpdated: "" },
-                { name: "Matemática", driveLink: "https://drive.google.com/drive/folders/1Z0F-kA5H1NsuzJqKHyxSWoVy-t2XkRR6?usp=drive_link", status: "available", lastUpdated: "Prof. Marcela Ramallo" },
+                { name: "Matemática", driveLink: "https://drive.google.com/drive/folders/1Z0F-kA5H1NsuzJqKHyxSWoVy-t2XkRR6?usp=drive_link", status: "available", lastUpdated: "25-09-03" },
                 { name: "Química", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Física", driveLink: "", status: "coming_soon", lastUpdated: "" },
                 { name: "Historia", driveLink: "", status: "coming_soon", lastUpdated: "" },
