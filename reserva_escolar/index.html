@@ -44,9 +44,15 @@
     <div class="status-message" id="statusMessage"></div>
   </form>
 
-  <h2>Reservas Realizadas</h2>
+  <div class="reservas-header">
+    <h2>Reservas Realizadas</h2>
+    <button type="button" class="refresh-btn" onclick="recargarReservas()" title="Actualizar lista de reservas">
+      🔄 Actualizar
+    </button>
+  </div>
+  
   <ul id="listaReservas">
-    <li class="placeholder">Las reservas aparecerán aquí una vez que se guarden correctamente</li>
+    <li class="placeholder">Cargando reservas...</li>
   </ul>
 
   <script src="script.js"></script>

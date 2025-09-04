@@ -1,9 +1,10 @@
 // IMPORTANTE: Reemplaza esta URL por la URL de tu Google Apps Script
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPCDUDuO0I3XsanyjMeIlOD8sdF9GFB9Nif2RmYkuENFSw6A9tKvOG75Jeya7oSdfgiQ/exec';
 
-// Configurar fecha mínima (hoy) cuando se carga la página
+// Configurar fecha mínima (hoy) y cargar reservas cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('fecha').min = new Date().toISOString().split('T')[0];
+  cargarReservasExistentes();
 });
 
 document.getElementById('reservaForm').addEventListener('submit', function(e) {
@@ -42,27 +43,26 @@ document.getElementById('reservaForm').addEventListener('submit', function(e) {
 
   fetch(SCRIPT_URL, {
     method: 'POST',
-    mode: 'no-cors', // Importante para Google Apps Script
+    mode: 'no-cors',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(data)
   })
   .then(() => {
-    // Con mode: 'no-cors', no podemos leer la respuesta
-    // Asumimos que fue exitoso si no hubo error de red
     showMessage('¡Reserva enviada exitosamente!', 'success');
     document.getElementById('reservaForm').reset();
     
-    // Agregar a la lista local para feedback inmediato
-    agregarReservaALista(data);
+    // Recargar la lista completa después de enviar
+    setTimeout(() => {
+      cargarReservasExistentes();
+    }, 1000);
   })
   .catch(error => {
     console.error('Error:', error);
     showMessage('Hubo un problema al enviar la reserva. Por favor, verifica tu conexión e inténtalo de nuevo.', 'error');
   })
   .finally(() => {
-    // Rehabilitar botón y ocultar loading
     submitBtn.disabled = false;
     submitBtn.textContent = 'Enviar Reserva';
     loading.style.display = 'none';
@@ -75,79 +75,232 @@ function showMessage(message, type) {
   statusMessage.className = 'status-message ' + type;
   statusMessage.style.display = 'block';
   
-  // Ocultar mensaje después de 5 segundos
   setTimeout(() => {
     statusMessage.style.display = 'none';
   }, 5000);
 }
 
-function agregarReservaALista(data) {
-  const lista = document.getElementById('listaReservas');
-  
-  // Limpiar mensaje inicial si existe
-  const placeholder = lista.querySelector('.placeholder');
-  if (placeholder) {
-    placeholder.remove();
-  }
-  
-  const li = document.createElement('li');
-  li.innerHTML = `
-    <strong>${data.nombre}</strong> - ${data.asignatura}<br>
-    <small>Fecha: ${formatearFecha(data.fecha)} | ${data.retiro} - ${data.entrega}</small><br>
-    <small>Proyector: ${data.proyector} | Pizarra: ${data.pizarra}</small>
-  `;
-  
-  // Insertar al principio de la lista
-  lista.insertBefore(li, lista.firstChild);
-}
-
 function formatearFecha(fecha) {
-  const date = new Date(fecha + 'T00:00:00');
-  const opciones = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  };
+  if (!fecha) return 'Sin fecha';
   
-  try {
-    return date.toLocaleDateString('es-ES', opciones);
-  } catch (error) {
-    // Fallback si hay problemas con el formato
-    return fecha;
+  console.log('Formateando fecha:', fecha, typeof fecha);
+  
+  // Si es un objeto Date, convertirlo a string
+  if (fecha instanceof Date) {
+    fecha = fecha.toISOString().split('T')[0];
   }
+  
+  // Convertir a string si no lo es
+  fecha = fecha.toString();
+  
+  // Si ya viene formateada de Google Sheets (dd/mm/yyyy)
+  if (fecha.includes('/')) {
+    try {
+      const partes = fecha.split('/');
+      if (partes.length === 3) {
+        const dia = parseInt(partes[0], 10);
+        const mes = parseInt(partes[1], 10);
+        const año = parseInt(partes[2], 10);
+        
+        if (!isNaN(dia) && !isNaN(mes) && !isNaN(año)) {
+          const fechaObj = new Date(año, mes - 1, dia);
+          
+          return fechaObj.toLocaleDateString('es-ES', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+        }
+      }
+    } catch (error) {
+      console.log('Error al formatear fecha dd/mm/yyyy:', error);
+    }
+  }
+  
+  // Si es formato ISO (yyyy-mm-dd)
+  if (fecha.includes('-')) {
+    try {
+      const partes = fecha.split('-');
+      if (partes.length === 3) {
+        const año = parseInt(partes[0], 10);
+        const mes = parseInt(partes[1], 10);
+        const dia = parseInt(partes[2], 10);
+        
+        if (!isNaN(dia) && !isNaN(mes) && !isNaN(año)) {
+          const fechaObj = new Date(año, mes - 1, dia);
+          
+          return fechaObj.toLocaleDateString('es-ES', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric'
+          });
+        }
+      }
+    } catch (error) {
+      console.log('Error al formatear fecha ISO:', error);
+    }
+  }
+  
+  // Fallback: intentar crear Date directamente
+  try {
+    const fechaObj = new Date(fecha);
+    if (!isNaN(fechaObj.getTime())) {
+      return fechaObj.toLocaleDateString('es-ES', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+    }
+  } catch (error) {
+    console.log('Error en fallback de fecha:', error);
+  }
+  
+  // Si todo falla, retornar la fecha original
+  return fecha;
 }
 
-// Función opcional para cargar reservas existentes
-function cargarReservasExistentes() {
-  fetch(SCRIPT_URL + '?action=get', {
-    method: 'GET',
-    mode: 'cors'
-  })
-  .then(response => response.json())
-  .then(reservas => {
-    if (Array.isArray(reservas) && reservas.length > 0) {
-      const lista = document.getElementById('listaReservas');
-      const placeholder = lista.querySelector('.placeholder');
-      if (placeholder) {
-        placeholder.remove();
-      }
-      
-      reservas.reverse().forEach(reserva => {
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <strong>${reserva.nombre}</strong> - ${reserva.asignatura}<br>
-          <small>Fecha: ${reserva.fecha} | ${reserva.retiro} - ${reserva.entrega}</small><br>
-          <small>Proyector: ${reserva.proyector} | Pizarra: ${reserva.pizarra}</small>
-        `;
-        lista.appendChild(li);
+function formatearHora(hora) {
+  if (!hora || hora.length === 0) return 'Sin hora';
+  
+  // Si es un objeto Date de Google Sheets
+  if (hora instanceof Date) {
+    return hora.toLocaleTimeString('es-ES', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    });
+  }
+  
+  // Convertir a string
+  hora = hora.toString();
+  
+  // Si contiene información de fecha completa, extraer solo la hora
+  if (hora.includes('T')) {
+    try {
+      const date = new Date(hora);
+      return date.toLocaleTimeString('es-ES', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
       });
+    } catch (error) {
+      console.log('Error al formatear hora completa:', error);
+    }
+  }
+  
+  // Si ya es formato HH:MM o HH:MM:SS
+  if (hora.includes(':')) {
+    return hora.substring(0, 5); // Solo HH:MM
+  }
+  
+  return hora;
+}
+
+function esReservaValida(reserva) {
+  if (!reserva || !reserva.nombre || !reserva.asignatura) return false;
+  
+  // Filtrar entradas que parecen ser encabezados o datos de prueba
+  const nombre = reserva.nombre.toString().toLowerCase();
+  const asignatura = reserva.asignatura.toString().toLowerCase();
+  
+  if (nombre.includes('nombre') || 
+      nombre.includes('docente') ||
+      asignatura.includes('asignatura') ||
+      nombre.trim().length === 0 ||
+      asignatura.trim().length === 0) {
+    return false;
+  }
+  
+  return true;
+}
+
+function cargarReservasExistentes() {
+  const lista = document.getElementById('listaReservas');
+  const placeholder = lista.querySelector('.placeholder');
+  
+  if (placeholder) {
+    placeholder.textContent = 'Cargando reservas existentes...';
+    placeholder.style.color = '#007BFF';
+  }
+
+  console.log('Intentando cargar reservas existentes...');
+  
+  fetch(SCRIPT_URL + '?action=getReservas&t=' + Date.now(), {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'Accept': 'application/json'
+    }
+  })
+  .then(response => {
+    console.log('Respuesta recibida:', response.status);
+    if (!response.ok) {
+      throw new Error('Error en la respuesta: ' + response.status);
+    }
+    return response.json();
+  })
+  .then(reservas => {
+    console.log('Reservas recibidas:', reservas);
+    
+    lista.innerHTML = '';
+    
+    if (Array.isArray(reservas) && reservas.length > 0) {
+      const reservasValidas = reservas.filter(esReservaValida);
+      
+      console.log('Reservas válidas filtradas:', reservasValidas.length);
+      
+      if (reservasValidas.length > 0) {
+        reservasValidas.reverse().forEach(reserva => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <div class="reserva-info">
+              <strong>${reserva.nombre}</strong> - <em>${reserva.asignatura}</em>
+            </div>
+            <div class="reserva-detalles">
+              <small><strong>Fecha:</strong> ${formatearFecha(reserva.fecha)}</small><br>
+              <small><strong>Horario:</strong> ${formatearHora(reserva.retiro)} - ${formatearHora(reserva.entrega)}</small><br>
+              <small><strong>Recursos:</strong> Proyector: ${reserva.proyector || 'No'} | Pizarra: ${reserva.pizarra || 'No'}</small>
+              ${reserva.timestamp ? `<br><small class="timestamp">Registrado: ${reserva.timestamp}</small>` : ''}
+            </div>
+          `;
+          lista.appendChild(li);
+        });
+      } else {
+        mostrarMensajeSinReservas();
+      }
+    } else {
+      mostrarMensajeSinReservas();
     }
   })
   .catch(error => {
-    console.log('No se pudieron cargar las reservas existentes:', error);
+    console.error('Error al cargar reservas:', error);
+    
+    lista.innerHTML = '';
+    const li = document.createElement('li');
+    li.className = 'placeholder error';
+    li.innerHTML = `
+      <span style="color: #dc3545;">⚠️ No se pudieron cargar las reservas existentes</span><br>
+      <small style="color: #6c757d;">Las nuevas reservas aparecerán aquí después de enviarlas</small>
+    `;
+    lista.appendChild(li);
   });
 }
 
-// Cargar reservas al cargar la página (opcional)
-// window.addEventListener('load', cargarReservasExistentes);
+function mostrarMensajeSinReservas() {
+  const lista = document.getElementById('listaReservas');
+  const li = document.createElement('li');
+  li.className = 'placeholder';
+  li.innerHTML = `
+    <span style="color: #6c757d;">📋 No hay reservas registradas aún</span><br>
+    <small>Las reservas aparecerán aquí una vez que se envíen</small>
+  `;
+  lista.appendChild(li);
+}
+
+function recargarReservas() {
+  console.log('Recargando reservas manualmente...');
+  cargarReservasExistentes();
+}

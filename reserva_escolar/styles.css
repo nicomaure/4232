@@ -190,14 +190,95 @@ li:last-child {
     margin-bottom: 0;
 }
 
+/* Estilos mejorados para las reservas */
+.reserva-info {
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.reserva-info strong {
+    color: #007BFF;
+    font-size: 16px;
+}
+
+.reserva-info em {
+    color: #6c757d;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.reserva-detalles {
+    line-height: 1.4;
+}
+
+.reserva-detalles small {
+    display: block;
+    margin-bottom: 2px;
+    color: #495057;
+}
+
+.timestamp {
+    color: #868e96 !important;
+    font-size: 11px !important;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px dotted #dee2e6;
+}
+
+/* Mejorar el placeholder */
 .placeholder {
     text-align: center;
+    padding: 30px 20px;
     color: #6c757d;
     font-style: italic;
     border-left: 4px solid #6c757d;
+    background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);
 }
 
-/* Responsive design */
+.placeholder.error {
+    border-left-color: #dc3545;
+    background: linear-gradient(90deg, #f8d7da 0%, #ffffff 100%);
+}
+
+/* Header de reservas */
+.reservas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 5px;
+}
+
+.refresh-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0;
+    width: auto;
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.refresh-btn:hover {
+    background: linear-gradient(135deg, #218838, #1ea27c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.refresh-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
 @media (max-width: 600px) {
     body {
         padding: 10px;
@@ -230,5 +311,25 @@ li:last-child {
     
     input[type="checkbox"] {
         margin-bottom: 8px;
+    }
+    
+    .reservas-header {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+    
+    .refresh-btn {
+        width: 100%;
+        max-width: 200px;
+        justify-content: center;
+    }
+    
+    .reserva-info strong {
+        font-size: 15px;
+    }
+    
+    .reserva-detalles small {
+        font-size: 12px;
     }
 }
