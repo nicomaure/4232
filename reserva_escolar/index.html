@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reserva Carro eduTec Escuela 4-232</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Reserva Carro eduTec Escuela 4-232</h1>
+
+  <form id="reservaForm">
+    <label for="nombre">Nombre del Docente</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="asignatura">Asignatura</label>
+    <input type="text" id="asignatura" name="asignatura" required>
+
+    <label for="fecha">Fecha</label>
+    <input type="date" id="fecha" name="fecha" required>
+
+    <label for="retiro">Hora de Retiro</label>
+    <input type="time" id="retiro" name="retiro" required>
+
+    <label for="entrega">Hora de Entrega</label>
+    <input type="time" id="entrega" name="entrega" required>
+
+    <label>
+      <input type="checkbox" id="proyector" name="proyector">
+      ¿Requiere Proyector?
+    </label>
+
+    <label>
+      <input type="checkbox" id="pizarra" name="pizarra">
+      ¿Requiere Pizarra Digital?
+    </label>
+
+    <button type="submit">Enviar Reserva</button>
+  </form>
+
+  <h2>Reservas Realizadas</h2>
+  <ul id="listaReservas"></ul>
+
+  <script src="script.js"></script>
+</body>
+</html>
