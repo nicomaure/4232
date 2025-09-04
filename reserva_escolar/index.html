@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reserva Carro eduTec Escuela 4-232</title>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -9,36 +10,44 @@
   <h1>Reserva Carro eduTec Escuela 4-232</h1>
 
   <form id="reservaForm">
-    <label for="nombre">Nombre del Docente</label>
+    <label for="nombre">Nombre del Docente *</label>
     <input type="text" id="nombre" name="nombre" required>
 
-    <label for="asignatura">Asignatura</label>
+    <label for="asignatura">Asignatura *</label>
     <input type="text" id="asignatura" name="asignatura" required>
 
-    <label for="fecha">Fecha</label>
+    <label for="fecha">Fecha *</label>
     <input type="date" id="fecha" name="fecha" required>
 
-    <label for="retiro">Hora de Retiro</label>
+    <label for="retiro">Hora de Retiro *</label>
     <input type="time" id="retiro" name="retiro" required>
 
-    <label for="entrega">Hora de Entrega</label>
+    <label for="entrega">Hora de Entrega *</label>
     <input type="time" id="entrega" name="entrega" required>
 
-    <label>
+    <div class="checkbox-container">
       <input type="checkbox" id="proyector" name="proyector">
-      ¿Requiere Proyector?
-    </label>
+      <label for="proyector" class="checkbox-label">¿Requiere Proyector?</label>
+    </div>
 
-    <label>
+    <div class="checkbox-container">
       <input type="checkbox" id="pizarra" name="pizarra">
-      ¿Requiere Pizarra Digital?
-    </label>
+      <label for="pizarra" class="checkbox-label">¿Requiere Pizarra Digital?</label>
+    </div>
 
-    <button type="submit">Enviar Reserva</button>
+    <button type="submit" id="submitBtn">Enviar Reserva</button>
+    
+    <div class="loading" id="loading">
+      Procesando reserva...
+    </div>
+    
+    <div class="status-message" id="statusMessage"></div>
   </form>
 
   <h2>Reservas Realizadas</h2>
-  <ul id="listaReservas"></ul>
+  <ul id="listaReservas">
+    <li class="placeholder">Las reservas aparecerán aquí una vez que se guarden correctamente</li>
+  </ul>
 
   <script src="script.js"></script>
 </body>
