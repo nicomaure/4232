@@ -2,58 +2,110 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reserva Carro eduTec Escuela 4-232</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Reserva Carro eduTec - Escuela 4-232</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
-  <h1>Reserva Carro eduTec Escuela 4-232</h1>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>💻 Reserva Carro eduTec</h1>
+      <p class="subtitle">Escuela 4-232 "Teresa Ghilardi de Martín"</p>
+    </header>
 
-  <form id="reservaForm">
-    <label for="nombre">Nombre del Docente *</label>
-    <input type="text" id="nombre" name="nombre" required>
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Formulario de Reserva -->
+      <section class="form-container">
+        <form id="reservaForm">
+          <div class="form-grid">
+            <!-- Nombre del Docente -->
+            <div class="form-group full-width">
+              <label for="nombre" class="required">👤 Nombre del Docente</label>
+              <input type="text" id="nombre" name="nombre" class="form-input" required placeholder="Ingrese su nombre completo">
+            </div>
 
-    <label for="asignatura">Asignatura *</label>
-    <input type="text" id="asignatura" name="asignatura" required>
+            <!-- Asignatura -->
+            <div class="form-group full-width">
+              <label for="asignatura" class="required">📚 Asignatura</label>
+              <input type="text" id="asignatura" name="asignatura" class="form-input" required placeholder="Materia que dicta">
+            </div>
 
-    <label for="fecha">Fecha *</label>
-    <input type="date" id="fecha" name="fecha" required>
+            <!-- Fecha -->
+            <div class="form-group">
+              <label for="fecha" class="required">📅 Fecha de Uso</label>
+              <input type="date" id="fecha" name="fecha" class="form-input" required>
+            </div>
 
-    <label for="retiro">Hora de Retiro *</label>
-    <input type="time" id="retiro" name="retiro" required>
+            <!-- Hora de Retiro -->
+            <div class="form-group">
+              <label for="retiro" class="required">🕐 Hora de Retiro</label>
+              <input type="time" id="retiro" name="retiro" class="form-input" required>
+            </div>
 
-    <label for="entrega">Hora de Entrega *</label>
-    <input type="time" id="entrega" name="entrega" required>
+            <!-- Hora de Entrega -->
+            <div class="form-group">
+              <label for="entrega" class="required">🕐 Hora de Entrega</label>
+              <input type="time" id="entrega" name="entrega" class="form-input" required>
+            </div>
 
-    <div class="checkbox-container">
-      <input type="checkbox" id="proyector" name="proyector">
-      <label for="proyector" class="checkbox-label">¿Requiere Proyector?</label>
-    </div>
+            <!-- Recursos Adicionales -->
+            <div class="form-group full-width">
+              <label>🔧 Recursos Adicionales</label>
+              
+              <div class="checkbox-group">
+                <input type="checkbox" id="proyector" name="proyector">
+                <label for="proyector">📽️ Proyector</label>
+              </div>
 
-    <div class="checkbox-container">
-      <input type="checkbox" id="pizarra" name="pizarra">
-      <label for="pizarra" class="checkbox-label">¿Requiere Pizarra Digital?</label>
-    </div>
+              <div class="checkbox-group">
+                <input type="checkbox" id="pizarra" name="pizarra">
+                <label for="pizarra">📺 Pizarra Digital</label>
+              </div>
+            </div>
+          </div>
 
-    <button type="submit" id="submitBtn">Enviar Reserva</button>
-    
-    <div class="loading" id="loading">
-      Procesando reserva...
-    </div>
-    
-    <div class="status-message" id="statusMessage"></div>
-  </form>
+          <!-- Botón de envío -->
+          <button type="submit" id="submitBtn" class="btn-primary">
+            <span>Confirmar Reserva</span>
+          </button>
+          
+          <!-- Loading y mensajes -->
+          <div class="loading" id="loading">
+            Procesando su reserva...
+          </div>
+          
+          <div class="status-message" id="statusMessage"></div>
+        </form>
+      </section>
 
-  <div class="reservas-header">
-    <h2>Reservas Realizadas</h2>
-    <button type="button" class="refresh-btn" onclick="recargarReservas()" title="Actualizar lista de reservas">
-      🔄 Actualizar
-    </button>
+      <!-- Sección de Reservas -->
+      <section class="reservas-section">
+        <div class="reservas-header">
+          <h2>📋 Reservas Actuales</h2>
+          <button type="button" class="btn-refresh" onclick="recargarReservas()" aria-label="Actualizar lista de reservas">
+            <span>🔄</span>
+            <span>Actualizar</span>
+          </button>
+        </div>
+        
+        <ul id="listaReservas" class="reservas-list">
+          <li class="placeholder">
+            <span class="placeholder-icon">⏳</span>
+            <div>Cargando reservas existentes...</div>
+          </li>
+        </ul>
+      </section>
+    </main>
   </div>
-  
-  <ul id="listaReservas">
-    <li class="placeholder">Cargando reservas...</li>
-  </ul>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Diseñada por <strong>Nicolás Maure</strong> - Admin de Red</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
