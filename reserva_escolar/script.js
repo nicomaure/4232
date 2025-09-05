@@ -1,4 +1,4 @@
-// IMPORTANTE: Reemplaza esta URL por la URL de tu Google Apps Script
+// URL de tu Google Apps Script (ya configurada correctamente)
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPCDUDuO0I3XsanyjMeIlOD8sdF9GFB9Nif2RmYkuENFSw6A9tKvOG75Jeya7oSdfgiQ/exec';
 
 // Configurar fecha mínima y cargar reservas cuando se carga la página
