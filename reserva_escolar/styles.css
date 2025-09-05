@@ -141,23 +141,49 @@ body {
     font-weight: 400;
 }
 
-/* Checkbox personalizado */
+/* Sección de recursos adicionales mejorada */
+.recursos-section {
+    margin-top: 12px;
+}
+
+.recursos-title {
+    display: block;
+    font-weight: 700;
+    color: #000000 !important;
+    margin-bottom: 16px;
+    font-size: 15px;
+    padding: 0;
+}
+
+.recursos-container {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+}
+
+/* Checkbox personalizado mejorado */
 .checkbox-group {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 16px;
+    padding: 16px 20px;
     background: #f8f9fa;
     border-radius: 12px;
     border: 2px solid #e9ecef;
     transition: all 0.3s ease;
     cursor: pointer;
     user-select: none;
+    margin: 0;
 }
 
 .checkbox-group:hover {
     background: #e9ecef;
     border-color: #0d6efd;
+    transform: translateY(-1px);
+}
+
+.checkbox-group:active {
+    transform: translateY(0);
 }
 
 .checkbox-group input[type="checkbox"] {
@@ -166,6 +192,7 @@ body {
     margin: 0;
     cursor: pointer;
     accent-color: #0d6efd;
+    flex-shrink: 0;
 }
 
 .checkbox-group label {
@@ -175,6 +202,7 @@ body {
     font-weight: 600 !important;
     color: #000000 !important;
     font-size: 14px !important;
+    padding: 0 !important;
 }
 
 /* Botón principal */
@@ -506,6 +534,11 @@ body {
     .form-group.full-width {
         grid-column: 1 / -1;
     }
+    
+    .recursos-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -544,28 +577,67 @@ body {
     }
 }
 
-/* Mejoras para dispositivos táctiles */
-@media (hover: none) and (pointer: coarse) {
+/* Mejoras específicas para dispositivos móviles */
+@media (max-width: 767px) {
+    /* Asegurar fondo blanco en móvil */
+    body {
+        background: #f8f9fa;
+    }
+    
+    .container {
+        background: #ffffff !important;
+        margin: 0;
+        border-radius: 16px;
+    }
+    
+    .main-content,
+    .form-container,
+    .reservas-section {
+        background: #ffffff !important;
+    }
+    
+    /* Checkbox stack vertical en móvil */
+    .recursos-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .checkbox-group {
+        padding: 18px 20px;
+        margin-bottom: 0;
+    }
+    
+    /* Inputs más grandes para móvil */
     .form-input {
         padding: 16px;
         font-size: 16px; /* Evita zoom en iOS */
+        border-width: 2px;
     }
     
     .btn-primary {
         padding: 18px 24px;
         font-size: 18px;
     }
-    
-    .checkbox-group {
-        padding: 18px;
-    }
-    
+}
+
+/* Mejoras para dispositivos táctiles */
+@media (hover: none) and (pointer: coarse) {
     .reserva-item:hover {
         transform: none;
     }
+    
+    .checkbox-group:hover {
+        transform: none;
+    }
+    
+    .btn-primary:hover,
+    .btn-refresh:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }
 
-/* Modo oscuro manual (opcional) */
+/* Modo oscuro */
 @media (prefers-color-scheme: dark) {
     body {
         background: linear-gradient(135deg, #212529 0%, #343a40 100%);
@@ -573,54 +645,59 @@ body {
     }
     
     .container {
-        background: #343a40;
+        background: #343a40 !important;
         border-color: #495057;
     }
     
     .main-content,
     .form-container,
     .reservas-section {
-        background: #343a40;
+        background: #343a40 !important;
         border-color: #495057;
     }
     
     .form-input {
-        background: #495057;
+        background: #495057 !important;
         border-color: #6c757d;
-        color: #ffffff;
+        color: #ffffff !important;
     }
     
     .form-input:focus {
         border-color: #6ea8fe;
-        background: #495057;
+        background: #495057 !important;
         box-shadow: 0 0 0 4px rgba(110, 168, 254, 0.25);
     }
     
     .checkbox-group {
-        background: #495057;
+        background: #495057 !important;
         border-color: #6c757d;
     }
     
+    .checkbox-group:hover {
+        background: #5a6268 !important;
+    }
+    
     .reserva-item {
-        background: #495057;
+        background: #495057 !important;
         border-color: #6c757d;
     }
     
     .reserva-docente,
     .detail-text {
-        color: #ffffff;
+        color: #ffffff !important;
     }
     
     .form-group label,
     .checkbox-group label,
-    .reservas-header h2 {
+    .reservas-header h2,
+    .recursos-title {
         color: #ffffff !important;
     }
     
     .placeholder {
-        background: #495057;
+        background: #495057 !important;
         border-color: #6c757d;
-        color: #ffffff;
+        color: #ffffff !important;
     }
     
     .reserva-asignatura {
@@ -632,16 +709,16 @@ body {
     }
     
     .footer {
-        background: linear-gradient(135deg, #343a40, #495057);
+        background: linear-gradient(135deg, #343a40, #495057) !important;
         border-color: #6c757d;
     }
     
     .footer p {
-        color: #adb5bd;
+        color: #adb5bd !important;
     }
     
     .footer strong {
-        color: #ffffff;
+        color: #ffffff !important;
     }
 }
 
@@ -713,27 +790,27 @@ html {
 
 /* Mejoras de contraste adicionales */
 .form-input:disabled {
-    background-color: #e9ecef;
-    color: #495057;
+    background-color: #e9ecef !important;
+    color: #495057 !important;
     border-color: #ced4da;
 }
 
 .form-input:read-only {
-    background-color: #f8f9fa;
-    color: #343a40;
+    background-color: #f8f9fa !important;
+    color: #343a40 !important;
 }
 
-/* Forzar texto negro en elementos importantes */
+/* Forzar colores consistentes */
 .form-group label,
 .checkbox-group label,
 .reserva-docente,
 .detail-text,
-.reservas-header h2 {
+.reservas-header h2,
+.recursos-title {
     color: #000000 !important;
     font-weight: 600 !important;
 }
 
-/* Texto oscuro pero no negro para elementos secundarios */
 .reserva-asignatura {
     color: #343a40 !important;
     font-weight: 600 !important;
@@ -753,13 +830,12 @@ html {
     font-weight: 500 !important;
 }
 
-/* Asegurar que los inputs tengan texto negro */
 .form-input {
     color: #000000 !important;
     font-weight: 500 !important;
+    background: #ffffff !important;
 }
 
-/* Placeholders más oscuros */
 .form-input::placeholder {
     color: #495057 !important;
     font-weight: 400 !important;
