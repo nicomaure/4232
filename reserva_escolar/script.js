@@ -3,9 +3,61 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxPCDUDuO0I3XsanyjMe
 
 // Configurar fecha mínima (hoy) y cargar reservas cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('fecha').min = new Date().toISOString().split('T')[0];
+  // Obtener fecha actual más tolerante
+  const hoy = new Date();
+  // Permitir fechas desde hace 30 días para ser más flexible con problemas de sistema
+  const fechaMinima = new Date(hoy.getTime() - (30 * 24 * 60 * 60 * 1000));
+  document.getElementById('fecha').min = fechaMinima.toISOString().split('T')[0];
+  
+  console.log('Fecha del sistema:', hoy.toISOString());
+  console.log('Fecha mínima permitida:', fechaMinima.toISOString().split('T')[0]);
+  
+  // Agregar listener para validar horarios cuando cambie la fecha
+  document.getElementById('fecha').addEventListener('change', validarHorariosMinimosPorFecha);
+  document.getElementById('retiro').addEventListener('change', validarHorariosMinimosPorFecha);
+  
   cargarReservasExistentes();
 });
+
+// Nueva función para validar que los horarios sean posteriores a la hora actual
+function validarHorariosMinimosPorFecha() {
+  const fechaSeleccionada = document.getElementById('fecha').value;
+  const inputRetiro = document.getElementById('retiro');
+  const inputEntrega = document.getElementById('entrega');
+  
+  if (!fechaSeleccionada) return;
+  
+  const hoy = new Date();
+  const fechaHoy = hoy.toISOString().split('T')[0];
+  const fechaSeleccionadaObj = new Date(fechaSeleccionada + 'T00:00:00');
+  
+  console.log('Fecha seleccionada:', fechaSeleccionada);
+  console.log('Fecha de hoy:', fechaHoy);
+  console.log('Diferencia en días:', Math.floor((fechaSeleccionadaObj - hoy) / (1000 * 60 * 60 * 24)));
+  
+  // Si la fecha seleccionada es hoy o muy cercana (diferencia menor a 1 día)
+  const diferenciaEnDias = Math.floor((fechaSeleccionadaObj - hoy) / (1000 * 60 * 60 * 24));
+  
+  if (diferenciaEnDias <= 0) {
+    // Calcular hora mínima (hora actual + 30 minutos de margen)
+    const horaMinima = new Date(hoy.getTime() + 30 * 60000); // 30 minutos después
+    const horaminimaString = horaMinima.toTimeString().slice(0, 5); // HH:MM
+    
+    // Establecer hora mínima para retiro
+    inputRetiro.min = horaminimaString;
+    
+    console.log('Aplicando restricción de hora mínima:', horaminimaString);
+    
+    // Si ya hay una hora de retiro seleccionada que es menor a la mínima, mostrar advertencia
+    if (inputRetiro.value && inputRetiro.value < horaminimaString) {
+      showMessage(`Para reservas de hoy, se recomienda que la hora de retiro sea posterior a las ${horaminimaString}`, 'error');
+    }
+  } else {
+    // Para fechas futuras, no hay restricción de hora mínima
+    inputRetiro.removeAttribute('min');
+    console.log('Sin restricción de hora para fecha futura');
+  }
+}
 
 document.getElementById('reservaForm').addEventListener('submit', function(e) {
   e.preventDefault();
@@ -14,13 +66,34 @@ document.getElementById('reservaForm').addEventListener('submit', function(e) {
   const loading = document.getElementById('loading');
   const statusMessage = document.getElementById('statusMessage');
   
-  // Validar que la hora de entrega sea posterior a la de retiro
+  // Validaciones
+  const fecha = document.getElementById('fecha').value;
   const retiro = document.getElementById('retiro').value;
   const entrega = document.getElementById('entrega').value;
   
+  // Validar que la hora de entrega sea posterior a la de retiro
   if (retiro >= entrega) {
     showMessage('La hora de entrega debe ser posterior a la hora de retiro', 'error');
     return;
+  }
+
+  // Validación más flexible para reservas del mismo día
+  const hoy = new Date();
+  const fechaSeleccionadaObj = new Date(fecha + 'T00:00:00');
+  const diferenciaEnDias = Math.floor((fechaSeleccionadaObj - hoy) / (1000 * 60 * 60 * 24));
+  
+  if (diferenciaEnDias <= 0) {
+    const ahora = new Date();
+    const horaMinima = new Date(ahora.getTime() + 30 * 60000);
+    const horaminimaString = horaMinima.toTimeString().slice(0, 5);
+    
+    if (retiro < horaminimaString) {
+      // Solo mostrar advertencia, no bloquear completamente
+      const confirmar = confirm(`La hora de retiro (${retiro}) es muy próxima a la hora actual. Se recomienda al menos 30 minutos de anticipación (${horaminimaString}). ¿Deseas continuar de todos modos?`);
+      if (!confirmar) {
+        return;
+      }
+    }
   }
 
   // Deshabilitar botón y mostrar loading
@@ -32,9 +105,9 @@ document.getElementById('reservaForm').addEventListener('submit', function(e) {
   const data = {
     nombre: document.getElementById('nombre').value.trim(),
     asignatura: document.getElementById('asignatura').value.trim(),
-    fecha: document.getElementById('fecha').value,
-    retiro: document.getElementById('retiro').value,
-    entrega: document.getElementById('entrega').value,
+    fecha: fecha,
+    retiro: retiro,
+    entrega: entrega,
     proyector: document.getElementById('proyector').checked ? 'Sí' : 'No',
     pizarra: document.getElementById('pizarra').checked ? 'Sí' : 'No'
   };
@@ -52,6 +125,11 @@ document.getElementById('reservaForm').addEventListener('submit', function(e) {
   .then(() => {
     showMessage('¡Reserva enviada exitosamente!', 'success');
     document.getElementById('reservaForm').reset();
+    
+    // Restablecer validaciones de fecha después del reset
+    const hoy = new Date();
+    const fechaMinima = new Date(hoy.getTime() - (30 * 24 * 60 * 60 * 1000));
+    document.getElementById('fecha').min = fechaMinima.toISOString().split('T')[0];
     
     // Recargar la lista completa después de enviar
     setTimeout(() => {
