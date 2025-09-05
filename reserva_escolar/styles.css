@@ -1,842 +1,437 @@
+/* ==========================================================================
+   1. CONFIGURACIÓN BASE Y VARIABLES DE COLOR
+   ========================================================================== */
+
+:root {
+  /* Paleta de Colores Principal */
+  --color-fondo: #f8f9fa;
+  --color-superficie: #ffffff; /* Para tarjetas y contenedores */
+  --color-borde: #dee2e6;
+  --color-encabezado-fondo: linear-gradient(135deg, #343a40, #495057);
+  --color-encabezado-texto: #ffffff;
+
+  /* Paleta de Texto */
+  --color-texto-principal: #212529;
+  --color-texto-secundario: #495057;
+  --color-texto-placeholder: #6c757d;
+
+  /* Paleta de Acento y Estado */
+  --color-primario: #007bff;
+  --color-primario-hover: #0056b3;
+  --color-exito: #28a745;
+  --color-exito-hover: #218838;
+  --color-error: #dc3545;
+  --color-error-hover: #c82333;
+
+  /* Sombras y Radios */
+  --sombra-suave: 0 8px 32px rgba(0, 0, 0, 0.08);
+  --sombra-media: 0 12px 24px rgba(0, 0, 0, 0.1);
+  --radio-borde: 16px;
+}
+
+/* Modo oscuro (Opcional, se activa según la configuración del sistema) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-fondo: #121212;
+    --color-superficie: #1e1e1e;
+    --color-borde: #333333;
+    --color-encabezado-fondo: linear-gradient(135deg, #1e1e1e, #2c2c2c);
+    --color-encabezado-texto: #ffffff;
+    --color-texto-principal: #e0e0e0;
+    --color-texto-secundario: #a0a0a0;
+    --color-texto-placeholder: #888888;
+  }
+}
+
 /* Reset y configuración base */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    min-height: 100vh;
-    padding: 16px;
-    line-height: 1.6;
-    color: #000000;
-    display: flex;
-    flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--color-fondo);
+  min-height: 100vh;
+  padding: 16px;
+  line-height: 1.6;
+  color: var(--color-texto-principal);
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s, color 0.3s;
 }
+
+/* ==========================================================================
+   2. CONTENEDOR PRINCIPAL Y LAYOUT
+   ========================================================================== */
 
 .container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    border: 1px solid #dee2e6;
-    flex: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--color-superficie);
+  border-radius: var(--radio-borde);
+  box-shadow: var(--sombra-media);
+  overflow: hidden;
+  border: 1px solid var(--color-borde);
+  flex: 1;
+  animation: fadeInUp 0.6s ease-out;
 }
 
-/* Header */
+.main-content {
+  padding: 24px;
+}
+
+/* ==========================================================================
+   3. ENCABEZADO (HEADER)
+   ========================================================================== */
+
 .header {
-    background: linear-gradient(135deg, #343a40, #495057);
-    color: white;
-    padding: 24px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.header::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="20" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
-    animation: float 20s linear infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-100px) rotate(360deg); }
+  background: var(--color-encabezado-fondo);
+  color: var(--color-encabezado-texto);
+  padding: 24px;
+  text-align: center;
 }
 
 .header h1 {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 700;
-    margin-bottom: 8px;
-    position: relative;
-    z-index: 1;
-    color: #ffffff;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .header .subtitle {
-    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-    opacity: 0.95;
-    position: relative;
-    z-index: 1;
-    color: #ffffff;
+  font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+  opacity: 0.9;
 }
 
-/* Main content */
-.main-content {
-    padding: 24px;
-    background: #ffffff;
-}
+/* ==========================================================================
+   4. FORMULARIO
+   ========================================================================== */
 
-/* Formulario */
 .form-container {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 32px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 2px solid #e9ecef;
+  background: var(--color-superficie);
+  border-radius: var(--radio-borde);
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: var(--sombra-suave);
+  border: 1px solid var(--color-borde);
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .form-grid {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: 1fr;
-}
-
-.form-group {
-    position: relative;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
 }
 
 .form-group label {
-    display: block;
-    font-weight: 700;
-    color: #000000 !important;
-    margin-bottom: 8px;
-    font-size: 15px;
-    transition: color 0.3s ease;
+  display: block;
+  font-weight: 600;
+  color: var(--color-texto-principal);
+  margin-bottom: 8px;
+  font-size: 15px;
 }
 
 .form-group label.required::after {
-    content: ' *';
-    color: #dc3545;
-    font-weight: bold;
+  content: ' *';
+  color: var(--color-error);
 }
 
 .form-input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #ced4da;
-    border-radius: 12px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background: #ffffff;
-    position: relative;
-    color: #000000;
-    font-weight: 500;
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--color-borde);
+  border-radius: 12px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: var(--color-superficie);
+  color: var(--color-texto-principal);
 }
 
 .form-input:focus {
-    outline: none;
-    border-color: #0d6efd;
-    background: #ffffff;
-    box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.1);
-    transform: translateY(-1px);
-}
-
-.form-input:focus + .form-icon {
-    color: #0d6efd;
+  outline: none;
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.15);
 }
 
 .form-input::placeholder {
-    color: #495057;
-    font-weight: 400;
+  color: var(--color-texto-placeholder);
 }
 
-/* Sección de recursos adicionales mejorada */
-.recursos-section {
-    margin-top: 12px;
-}
-
-.recursos-title {
-    display: block;
-    font-weight: 700;
-    color: #000000 !important;
-    margin-bottom: 16px;
-    font-size: 15px;
-    padding: 0;
-}
-
+/* Recursos adicionales */
 .recursos-container {
-    display: grid;
-    gap: 12px;
-    grid-template-columns: 1fr;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr;
 }
 
-/* Checkbox personalizado mejorado */
 .checkbox-group {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 16px 20px;
-    background: #f8f9fa;
-    border-radius: 12px;
-    border: 2px solid #e9ecef;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    user-select: none;
-    margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--color-fondo);
+  border-radius: 12px;
+  border: 1px solid var(--color-borde);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .checkbox-group:hover {
-    background: #e9ecef;
-    border-color: #0d6efd;
-    transform: translateY(-1px);
-}
-
-.checkbox-group:active {
-    transform: translateY(0);
+  border-color: var(--color-primario);
+  transform: translateY(-2px);
 }
 
 .checkbox-group input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin: 0;
-    cursor: pointer;
-    accent-color: #0d6efd;
-    flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--color-primario);
 }
 
-.checkbox-group label {
-    margin: 0 !important;
-    cursor: pointer;
-    flex: 1;
-    font-weight: 600 !important;
-    color: #000000 !important;
-    font-size: 14px !important;
-    padding: 0 !important;
-}
+/* ==========================================================================
+   5. BOTONES Y MENSAJES DE ESTADO
+   ========================================================================== */
 
-/* Botón principal */
 .btn-primary {
-    width: 100%;
-    padding: 16px 24px;
-    background: linear-gradient(135deg, #0d6efd, #0a58ca);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    position: relative;
-    overflow: hidden;
-    margin-top: 24px;
-}
-
-.btn-primary::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
+  width: 100%;
+  padding: 16px 24px;
+  background: var(--color-primario);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 24px;
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 24px rgba(13, 110, 253, 0.3);
-    background: linear-gradient(135deg, #0a58ca, #084298);
-}
-
-.btn-primary:hover::before {
-    left: 100%;
-}
-
-.btn-primary:active {
-    transform: translateY(0);
+  background: var(--color-primario-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 123, 255, 0.2);
 }
 
 .btn-primary:disabled {
-    background: #adb5bd;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-    color: #ffffff;
+  background: #adb5bd;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-/* Loading y mensajes */
 .loading {
-    display: none;
-    text-align: center;
-    color: #0d6efd;
-    margin-top: 16px;
-    font-weight: 600;
-    animation: pulse 1.5s ease-in-out infinite;
-    font-size: 16px;
-}
-
-.loading::before {
-    content: '⏳ ';
-    margin-right: 8px;
+  display: none;
+  text-align: center;
+  color: var(--color-primario);
+  margin-top: 16px;
+  font-weight: 600;
 }
 
 .status-message {
-    padding: 16px 20px;
-    margin-top: 16px;
-    border-radius: 12px;
-    text-align: center;
-    display: none;
-    font-weight: 600;
-    animation: slideIn 0.3s ease;
-    color: #ffffff;
-    font-size: 15px;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 12px;
+  text-align: center;
+  display: none;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 .status-message.success {
-    background: linear-gradient(135deg, #198754, #157347);
-    border: 2px solid #146c43;
+  background: var(--color-exito);
 }
 
 .status-message.error {
-    background: linear-gradient(135deg, #dc3545, #b02a37);
-    border: 2px solid #a02834;
+  background: var(--color-error);
 }
 
-/* Sección de reservas */
+/* ==========================================================================
+   6. SECCIÓN DE RESERVAS
+   ========================================================================== */
+
 .reservas-section {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 24px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-    border: 2px solid #e9ecef;
+  background: var(--color-superficie);
+  border-radius: var(--radio-borde);
+  padding: 24px;
+  box-shadow: var(--sombra-suave);
+  border: 1px solid var(--color-borde);
+  animation: fadeInUp 1s ease-out;
 }
 
 .reservas-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    gap: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
 .reservas-header h2 {
-    color: #000000;
-    font-size: clamp(1.3rem, 3vw, 1.8rem);
-    font-weight: 700;
-    margin: 0;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
 }
 
 .btn-refresh {
-    background: linear-gradient(135deg, #198754, #157347);
-    color: #ffffff;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
+  background: var(--color-exito);
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-refresh:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 16px rgba(25, 135, 84, 0.3);
-    background: linear-gradient(135deg, #157347, #146c43);
-}
-
-.btn-refresh:active {
-    transform: scale(0.95);
+  background: var(--color-exito-hover);
+  transform: translateY(-2px);
 }
 
 /* Lista de reservas */
 .reservas-list {
-    list-style: none;
-    display: grid;
-    gap: 16px;
+  list-style: none;
+  display: grid;
+  gap: 16px;
 }
 
 .reserva-item {
-    background: #ffffff;
-    border: 2px solid #e9ecef;
-    border-radius: 16px;
-    padding: 20px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.reserva-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-left: 5px solid var(--color-primario);
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
 }
 
 .reserva-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: #0d6efd;
-}
-
-.reserva-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-    gap: 12px;
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-media);
+  border-color: var(--color-primario);
 }
 
 .reserva-docente {
-    font-size: 18px;
-    font-weight: 700;
-    color: #000000;
-    line-height: 1.2;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-texto-principal);
 }
 
 .reserva-asignatura {
-    font-size: 14px;
-    color: #343a40;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  font-size: 14px;
+  color: var(--color-texto-secundario);
+  text-transform: uppercase;
 }
 
 .reserva-details {
-    display: grid;
-    gap: 8px;
-    margin-bottom: 12px;
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
 }
 
 .detail-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: #212529;
-}
-
-.detail-icon {
-    width: 16px;
-    height: 16px;
-    color: #0d6efd;
-    flex-shrink: 0;
-}
-
-.detail-text {
-    font-weight: 600;
-    color: #000000;
-}
-
-.reserva-recursos {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
 }
 
 .recurso-tag {
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .recurso-tag.activo {
-    background: linear-gradient(135deg, #198754, #157347);
-    color: #ffffff;
+  background: var(--color-exito);
+  color: #ffffff;
 }
 
 .recurso-tag.inactivo {
-    background: #f8f9fa;
-    color: #343a40;
-    border: 1px solid #dee2e6;
+  background: var(--color-fondo);
+  color: var(--color-texto-secundario);
+  border: 1px solid var(--color-borde);
 }
 
 .reserva-timestamp {
-    font-size: 11px;
-    color: #495057;
-    border-top: 1px solid #e9ecef;
-    padding-top: 8px;
-    margin-top: 8px;
-    font-weight: 500;
+  font-size: 11px;
+  color: var(--color-texto-secundario);
+  border-top: 1px solid var(--color-borde);
+  padding-top: 8px;
+  margin-top: 8px;
 }
 
-/* Placeholder */
 .placeholder {
-    text-align: center;
-    padding: 40px 20px;
-    color: #343a40;
-    font-style: italic;
-    border: 2px dashed #ced4da;
-    border-radius: 16px;
-    background: #f8f9fa;
-    font-weight: 500;
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--color-texto-secundario);
+  border: 2px dashed var(--color-borde);
+  border-radius: var(--radio-borde);
+  background: var(--color-fondo);
 }
 
-.placeholder.error {
-    border-color: #dc3545;
-    background: #f8d7da;
-    color: #721c24;
-    font-weight: 600;
-}
+/* ==========================================================================
+   7. FOOTER
+   ========================================================================== */
 
-.placeholder-icon {
-    font-size: 2em;
-    margin-bottom: 16px;
-    display: block;
-}
-
-/* Footer */
 .footer {
-    margin-top: 32px;
-    padding: 20px;
-    text-align: center;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    border-radius: 12px;
-    border: 1px solid #dee2e6;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
+  margin-top: 32px;
+  padding: 20px;
+  text-align: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 1.2s ease-out;
 }
 
 .footer p {
-    color: #495057;
-    font-size: 14px;
-    font-weight: 500;
-    margin: 0;
+  color: var(--color-texto-secundario);
+  font-size: 14px;
 }
 
-.footer strong {
-    color: #212529;
-    font-weight: 700;
-}
+/* ==========================================================================
+   8. MEDIA QUERIES (DISEÑO RESPONSIVO)
+   ========================================================================== */
 
-/* Grid responsivo para formulario */
 @media (min-width: 640px) {
-    .form-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    
-    .form-group.full-width {
-        grid-column: 1 / -1;
-    }
-    
-    .recursos-container {
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-    }
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .form-group.full-width {
+    grid-column: 1 / -1;
+  }
+  .recursos-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (min-width: 768px) {
-    body {
-        padding: 24px;
-    }
-    
-    .main-content {
-        padding: 32px;
-    }
-    
-    .form-container,
-    .reservas-section {
-        padding: 32px;
-    }
-    
-    .form-grid {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
-    
-    .form-group.span-2 {
-        grid-column: span 2;
-    }
-    
-    .reservas-list {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-    
-    .footer {
-        margin-top: 40px;
-        padding: 24px;
-    }
-    
-    .footer p {
-        font-size: 15px;
-    }
+  .main-content {
+    padding: 32px;
+  }
+  .form-grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  .reservas-list {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
 }
 
-/* Mejoras específicas para dispositivos móviles */
-@media (max-width: 767px) {
-    /* Asegurar fondo blanco en móvil */
-    body {
-        background: #f8f9fa;
-    }
-    
-    .container {
-        background: #ffffff !important;
-        margin: 0;
-        border-radius: 16px;
-    }
-    
-    .main-content,
-    .form-container,
-    .reservas-section {
-        background: #ffffff !important;
-    }
-    
-    /* Checkbox stack vertical en móvil */
-    .recursos-container {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-    
-    .checkbox-group {
-        padding: 18px 20px;
-        margin-bottom: 0;
-    }
-    
-    /* Inputs más grandes para móvil */
-    .form-input {
-        padding: 16px;
-        font-size: 16px; /* Evita zoom en iOS */
-        border-width: 2px;
-    }
-    
-    .btn-primary {
-        padding: 18px 24px;
-        font-size: 18px;
-    }
-}
+/* ==========================================================================
+   9. ANIMACIONES Y MEJORAS
+   ========================================================================== */
 
-/* Mejoras para dispositivos táctiles */
-@media (hover: none) and (pointer: coarse) {
-    .reserva-item:hover {
-        transform: none;
-    }
-    
-    .checkbox-group:hover {
-        transform: none;
-    }
-    
-    .btn-primary:hover,
-    .btn-refresh:hover {
-        transform: none;
-        box-shadow: none;
-    }
-}
-
-/* Modo oscuro */
-@media (prefers-color-scheme: dark) {
-    body {
-        background: linear-gradient(135deg, #212529 0%, #343a40 100%);
-        color: #ffffff;
-    }
-    
-    .container {
-        background: #343a40 !important;
-        border-color: #495057;
-    }
-    
-    .main-content,
-    .form-container,
-    .reservas-section {
-        background: #343a40 !important;
-        border-color: #495057;
-    }
-    
-    .form-input {
-        background: #495057 !important;
-        border-color: #6c757d;
-        color: #ffffff !important;
-    }
-    
-    .form-input:focus {
-        border-color: #6ea8fe;
-        background: #495057 !important;
-        box-shadow: 0 0 0 4px rgba(110, 168, 254, 0.25);
-    }
-    
-    .checkbox-group {
-        background: #495057 !important;
-        border-color: #6c757d;
-    }
-    
-    .checkbox-group:hover {
-        background: #5a6268 !important;
-    }
-    
-    .reserva-item {
-        background: #495057 !important;
-        border-color: #6c757d;
-    }
-    
-    .reserva-docente,
-    .detail-text {
-        color: #ffffff !important;
-    }
-    
-    .form-group label,
-    .checkbox-group label,
-    .reservas-header h2,
-    .recursos-title {
-        color: #ffffff !important;
-    }
-    
-    .placeholder {
-        background: #495057 !important;
-        border-color: #6c757d;
-        color: #ffffff !important;
-    }
-    
-    .reserva-asignatura {
-        color: #adb5bd !important;
-    }
-    
-    .reserva-timestamp {
-        color: #adb5bd !important;
-    }
-    
-    .footer {
-        background: linear-gradient(135deg, #343a40, #495057) !important;
-        border-color: #6c757d;
-    }
-    
-    .footer p {
-        color: #adb5bd !important;
-    }
-    
-    .footer strong {
-        color: #ffffff !important;
-    }
-}
-
-/* Animaciones de entrada */
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.container {
-    animation: fadeInUp 0.6s ease-out;
-}
-
-.form-container {
-    animation: fadeInUp 0.8s ease-out;
-}
-
-.reservas-section {
-    animation: fadeInUp 1s ease-out;
-}
-
-.footer {
-    animation: fadeInUp 1.2s ease-out;
-}
-
-/* Estados de focus mejorados */
-.form-input:focus,
-.checkbox-group:focus-within {
-    transform: translateY(-2px);
-}
-
-/* Pulse animation */
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-}
-
-/* Scroll suave */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Estilos para mejor accesibilidad */
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* Focus visible para navegación por teclado */
-.btn-primary:focus-visible,
-.btn-refresh:focus-visible,
-.form-input:focus-visible {
-    outline: 2px solid #0d6efd;
-    outline-offset: 2px;
-}
-
-/* Mejoras de contraste adicionales */
-.form-input:disabled {
-    background-color: #e9ecef !important;
-    color: #495057 !important;
-    border-color: #ced4da;
-}
-
-.form-input:read-only {
-    background-color: #f8f9fa !important;
-    color: #343a40 !important;
-}
-
-/* Forzar colores consistentes */
-.form-group label,
-.checkbox-group label,
-.reserva-docente,
-.detail-text,
-.reservas-header h2,
-.recursos-title {
-    color: #000000 !important;
-    font-weight: 600 !important;
-}
-
-.reserva-asignatura {
-    color: #343a40 !important;
-    font-weight: 600 !important;
-}
-
-.detail-item {
-    color: #212529 !important;
-}
-
-.reserva-timestamp {
-    color: #495057 !important;
-    font-weight: 500 !important;
-}
-
-.placeholder {
-    color: #343a40 !important;
-    font-weight: 500 !important;
-}
-
-.form-input {
-    color: #000000 !important;
-    font-weight: 500 !important;
-    background: #ffffff !important;
-}
-
-.form-input::placeholder {
-    color: #495057 !important;
-    font-weight: 400 !important;
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
