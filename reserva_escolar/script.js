@@ -1,7 +1,7 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-const API_URL = 'https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLiha-DGq5mYHsZZy890dD5fK-65a54Gz9iiX2a_cpRU42DD2ChKDiRNGMb8fyXT_opAVQ5psy2-NGMUZGJDLxS4dBi5va1nGbu9tdmklK-FMEGFx63vIzbH5B-E4usmH4bw9eQhZHFKPlx3jaLn_oZyUO-KDlrKoXmasTxAzYG3ZRXX3r09YPZdekRMlwfZSyR-VCq4IbO1Xo2MedCaEWlOEyBbqCjS759pj4y2U1fsUrWgNO_43tx1sxyEAiK4zeY-H7ZaTEBRigUoom3BQC2RFj1XX6GNhyW5XAei&lib=MK2zH-K6HboaHqgE6Tk2huZqi43K6K11s';
+const API_URL = 'https://script.google.com/macros/s/AKfycbwQnOGaGEcE88RyaJCurFmfmxqCFyrPZPv0pZKzhXVCp3xzfqzzDcbJzE7G_9sG8oiIWQ/exec';
 
 // ===============================
 // MANEJO DEL FORMULARIO
