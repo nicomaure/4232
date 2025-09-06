@@ -1,7 +1,7 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-const API_URL = "https://schttps://script.google.com/macros/s/AKfycbxQbT4uiVSLaM4GRRX9WZcPR1E5hh1sa6pCeJsjr9dUsyZV0NhBVdg3MMYXBm1hfQ3mmg/execript.google.com/macros/s/PEGÁ_ACÁ_TU_URL/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbxcn_W32mbfRbsPj1lo-FodeNa9wLQFlRUSCxHioj_xbMVy1nGlrUDRYqhKbZpl9mPLVA/exec";
 
 // ===============================
 // MANEJO DEL FORMULARIO
