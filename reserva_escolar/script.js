@@ -1,5 +1,5 @@
 // URL de tu Google Apps Script - CORREGIDA
-const SCRIPT_URL = 'https://script.google.com/a/mendoza.edu.ar/macros/s/AKfycbynXcELS6g5B_PtyRpX9gmE6EP0LyGaX8bFb2f4mvhf/dev';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxQbT4uiVSLaM4GRRX9WZcPR1E5hh1sa6pCeJsjr9dUsyZV0NhBVdg3MMYXBm1hfQ3mmg/exec';
 
 // Configurar fecha mínima y cargar reservas cuando se carga la página
 document.addEventListener('DOMContentLoaded', function() {
