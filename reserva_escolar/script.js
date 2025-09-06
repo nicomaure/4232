@@ -2,7 +2,7 @@
 // CONFIGURACIÓN
 // ===============================
 let API_URL = localStorage.getItem('https://script.google.com/macros/s/AKfycbzgWIzDcSLUw9LO4wRSOS-uZNoOLR9xHHf6An-ZTJZds0jODePUUZim_toQnFsmRBtOVA/exec') || '';
-let SHEET_ID = localStorage.getItem('sheetId') || '';
+let SHEET_ID = localStorage.getItem('AKfycbzgWIzDcSLUw9LO4wRSOS-uZNoOLR9xHHf6An-ZTJZds0jODePUUZim_toQnFsmRBtOVA') || '';
 
 // ===============================
 // MANEJO DEL FORMULARIO
