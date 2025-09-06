@@ -1,12 +1,12 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-const API_URL = "https://script.google.com/macros/s/AKfycbxhH7llv5zsUFuGVdvrvSKGRpLNqw4dQhaSaU7f3wSxtopDgQtFeBK1SfVLpNmntsFtbA/exec";
+const API_URL = 'https://script.google.com/macros/s/AKfycbxhH7llv5zsUFuGVdvrvSKGRpLNqw4dQhaSaU7f3wSxtopDgQtFeBK1SfVLpNmntsFtbA/exec';
 
 // ===============================
 // MANEJO DEL FORMULARIO
 // ===============================
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById("reservaForm");
   const loading = document.getElementById("loading");
   const statusMessage = document.getElementById("statusMessage");
