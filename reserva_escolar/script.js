@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
       try {
         reservas = JSON.parse(text);
       } catch (e) {
-        console.error("Error parsing reservations:", e, "Response:", text);
+        console.error("Error parsing reservas:", e, "Response:", text);
         throw new Error("Formato de respuesta inválido del servidor");
       }
 
