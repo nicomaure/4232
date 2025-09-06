@@ -2,11 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reserva Carro eduTec - Escuela 4-232</title>
   <link rel="stylesheet" href="styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 </head>
 <body>
   <div class="container">
@@ -14,10 +12,22 @@
     <header class="header">
       <h1>💻 Reserva Carro eduTec</h1>
       <p class="subtitle">Escuela 4-232 "Teresa Ghilardi de Martín"</p>
+      <div id="connectionStatus" class="connection-status">Comprobando conexión...</div>
     </header>
 
     <!-- Main Content -->
     <main class="main-content">
+      <!-- Panel de configuración para la URL de la API -->
+      <details class="config-panel">
+        <summary>🔧 Configuración avanzada</summary>
+        <div class="form-group">
+          <label for="apiUrl">URL de la API</label>
+          <input type="text" id="apiUrl" class="form-input" placeholder="Pega aquí la URL de tu Google Apps Script">
+        </div>
+        <button id="saveApiUrl" class="btn-primary">Guardar URL</button>
+        <div id="urlStatus" class="status-message" style="display:none; margin-top:10px"></div>
+      </details>
+
       <!-- Formulario de Reserva -->
       <section class="form-container">
         <form id="reservaForm">
