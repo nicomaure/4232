@@ -21,11 +21,17 @@
       <details class="config-panel">
         <summary>🔧 Configuración avanzada</summary>
         <div class="form-group">
-          <label for="apiUrl">URL de la API</label>
+          <label for="apiUrl">URL de la API de Google Apps Script</label>
           <input type="text" id="apiUrl" class="form-input" placeholder="Pega aquí la URL de tu Google Apps Script">
+          <small class="help-text">Obtén esta URL desde "Implementar" > "Nueva implementación" en el editor de scripts</small>
         </div>
-        <button id="saveApiUrl" class="btn-primary">Guardar URL</button>
-        <div id="urlStatus" class="status-message" style="display:none; margin-top:10px"></div>
+        <div class="form-group">
+          <label for="sheetId">ID de la Hoja de Cálculo</label>
+          <input type="text" id="sheetId" class="form-input" placeholder="Ej: 1abc123def456ghi789jkl012mno345pqr">
+          <small class="help-text">Encuentra este ID en la URL de tu hoja de cálculo: https://docs.google.com/spreadsheets/d/ID_DE_TU_HOJA/</small>
+        </div>
+        <button id="saveConfig" class="btn-primary">Guardar Configuración</button>
+        <div id="configStatus" class="status-message" style="display:none; margin-top:10px"></div>
       </details>
 
       <!-- Formulario de Reserva -->
@@ -112,6 +118,30 @@
             <div>Cargando reservas existentes...</div>
           </li>
         </ul>
+      </section>
+
+      <!-- Sección de solución de problemas -->
+      <section class="troubleshoot-section">
+        <details>
+          <summary>🛠️ Solución de problemas de conexión</summary>
+          <div class="troubleshoot-content">
+            <h3>Si tienes problemas de conexión, sigue estos pasos:</h3>
+            <ol>
+              <li>Abre tu hoja de cálculo de Google</li>
+              <li>Haz clic en "Extensiones" > "Apps Script"</li>
+              <li>Pega el código del script proporcionado y guárdalo</li>
+              <li>Haz clic en "Implementar" > "Nueva implementación"</li>
+              <li>Selecciona "Aplicación web" como tipo de implementación</li>
+              <li>Configura "Ejecutar como" con tu cuenta de Google</li>
+              <li>Configura "Quién tiene acceso" como "Cualquier persona"</li>
+              <li>Haz clic en "Implementar" y copia la URL proporcionada</li>
+              <li>Pega esa URL en el campo de arriba "URL de la API"</li>
+              <li>Copia el ID de tu hoja de cálculo de la URL y pégala en el campo "ID de la Hoja de Cálculo"</li>
+              <li>Haz clic en "Guardar Configuración"</li>
+            </ol>
+            <p>¿Necesitas más ayuda? <a href="#" id="testConnection">Probar conexión nuevamente</a></p>
+          </div>
+        </details>
       </section>
     </main>
   </div>

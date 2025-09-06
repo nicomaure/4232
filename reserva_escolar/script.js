@@ -1,8 +1,8 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-// Esta es la URL por defecto, pero se puede cambiar desde la interfaz
-let API_URL = localStorage.getItem('apiUrl') || 'https://script.google.com/macros/s/AKfycbyOIgwj-pN7qmmkqkZjJtUc45J7uotxnIOSpQTSzhDVxA54iJUuHGIRZPa-vsENBza-3g/exec';
+let API_URL = localStorage.getItem('https://script.google.com/macros/s/AKfycbzgWIzDcSLUw9LO4wRSOS-uZNoOLR9xHHf6An-ZTJZds0jODePUUZim_toQnFsmRBtOVA/exec') || '';
+let SHEET_ID = localStorage.getItem('sheetId') || '';
 
 // ===============================
 // MANEJO DEL FORMULARIO
@@ -14,40 +14,62 @@ document.addEventListener('DOMContentLoaded', () => {
   const listaReservas = document.getElementById("listaReservas");
   const connectionStatus = document.getElementById("connectionStatus");
   const apiUrlInput = document.getElementById("apiUrl");
-  const saveApiUrlBtn = document.getElementById("saveApiUrl");
-  const urlStatus = document.getElementById("urlStatus");
+  const sheetIdInput = document.getElementById("sheetId");
+  const saveConfigBtn = document.getElementById("saveConfig");
+  const configStatus = document.getElementById("configStatus");
+  const testConnectionLink = document.getElementById("testConnection");
 
-  // Establecer fecha mínima como hoy
-  const fechaInput = document.getElementById("fecha");
-  const today = new Date().toISOString().split('T')[0];
-  fechaInput.setAttribute('min', today);
-
-  // Cargar URL guardada si existe
+  // Cargar configuración guardada
   if (localStorage.getItem('apiUrl')) {
     apiUrlInput.value = localStorage.getItem('apiUrl');
     API_URL = localStorage.getItem('apiUrl');
   }
+  
+  if (localStorage.getItem('sheetId')) {
+    sheetIdInput.value = localStorage.getItem('sheetId');
+    SHEET_ID = localStorage.getItem('sheetId');
+  }
 
-  // Guardar nueva URL
-  saveApiUrlBtn.addEventListener('click', () => {
+  // Guardar nueva configuración
+  saveConfigBtn.addEventListener('click', () => {
     const newUrl = apiUrlInput.value.trim();
-    if (newUrl) {
+    const newSheetId = sheetIdInput.value.trim();
+    
+    if (newUrl && newSheetId) {
       localStorage.setItem('apiUrl', newUrl);
+      localStorage.setItem('sheetId', newSheetId);
       API_URL = newUrl;
-      mostrarMensajeURL("✅ URL guardada correctamente", "success");
+      SHEET_ID = newSheetId;
+      mostrarMensajeConfig("✅ Configuración guardada correctamente", "success");
       testConnection();
       recargarReservas();
     } else {
-      mostrarMensajeURL("❌ Por favor ingresa una URL válida", "error");
+      mostrarMensajeConfig("❌ Por favor completa ambos campos", "error");
     }
   });
 
   // Probar conexión al cargar la página
-  testConnection();
+  if (API_URL && SHEET_ID) {
+    testConnection();
+  } else {
+    connectionStatus.textContent = "⚠️ Configura la URL y el ID de la hoja de cálculo";
+    connectionStatus.className = "connection-status error";
+  }
+
+  // Enlace para probar conexión
+  testConnectionLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    testConnection();
+  });
 
   // Envío del formulario
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (!API_URL || !SHEET_ID) {
+      mostrarMensaje("❌ Configura primero la URL y el ID de la hoja de cálculo", "error");
+      return;
+    }
 
     // Validar que la hora de entrega sea posterior a la de retiro
     const retiro = document.getElementById("retiro").value;
@@ -72,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
       entrega: document.getElementById("entrega").value,
       proyector: document.getElementById("proyector").checked ? "Sí" : "No",
       pizarra: document.getElementById("pizarra").checked ? "Sí" : "No",
+      sheetId: SHEET_ID
     };
 
     console.log("Enviando reserva:", reserva);
@@ -85,8 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(reserva),
       });
 
-      // Google Apps Script devuelve respuestas HTML incluso cuando se solicita JSON
-      // Necesitamos manejar esto de manera especial
       const responseText = await response.text();
       let data;
       
@@ -117,8 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Cargar reservas al inicio
-  recargarReservas();
+  // Cargar reservas al inicio si hay configuración
+  if (API_URL && SHEET_ID) {
+    recargarReservas();
+  }
 
   // Función para mostrar mensajes
   function mostrarMensaje(msg, type) {
@@ -134,35 +157,57 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Función para mostrar mensajes de URL
-  function mostrarMensajeURL(msg, type) {
-    urlStatus.textContent = msg;
-    urlStatus.className = "status-message " + type;
-    urlStatus.style.display = "block";
+  // Función para mostrar mensajes de configuración
+  function mostrarMensajeConfig(msg, type) {
+    configStatus.textContent = msg;
+    configStatus.className = "status-message " + type;
+    configStatus.style.display = "block";
     
     setTimeout(() => {
-      urlStatus.style.display = "none";
+      configStatus.style.display = "none";
     }, 3000);
   }
 
   // Función para probar conexión con la API
   async function testConnection() {
+    if (!API_URL || !SHEET_ID) {
+      connectionStatus.textContent = "⚠️ Configura la URL y el ID de la hoja de cálculo";
+      connectionStatus.className = "connection-status error";
+      return;
+    }
+    
     try {
       connectionStatus.textContent = "Comprobando conexión...";
       connectionStatus.className = "connection-status checking";
       
-      const response = await fetch(API_URL);
+      // Enviar una solicitud de prueba
+      const testData = {
+        action: "test",
+        sheetId: SHEET_ID
+      };
+      
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(testData),
+      });
+      
       const text = await response.text();
       
-      // Intentar parsear como JSON, pero no es crítico si falla
       try {
         const data = JSON.parse(text);
-        connectionStatus.textContent = "✅ Conectado al servidor";
-        connectionStatus.className = "connection-status connected";
+        if (data.status === "success" || data.status === "error") {
+          connectionStatus.textContent = "✅ Conectado al servidor";
+          connectionStatus.className = "connection-status connected";
+        } else {
+          connectionStatus.textContent = "⚠️ Respuesta inesperada del servidor";
+          connectionStatus.className = "connection-status error";
+        }
       } catch (e) {
-        // Si no es JSON válido, pero la respuesta existe, asumimos que está conectado
-        connectionStatus.textContent = "✅ Conectado al servidor";
-        connectionStatus.className = "connection-status connected";
+        connectionStatus.textContent = "❌ Error en la respuesta del servidor";
+        connectionStatus.className = "connection-status error";
       }
     } catch (err) {
       console.error("Error de conexión:", err);
@@ -173,6 +218,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Función pública para refrescar reservas
   window.recargarReservas = async function () {
+    if (!API_URL || !SHEET_ID) {
+      listaReservas.innerHTML = `
+        <li class="placeholder">
+          <span class="placeholder-icon">⚙️</span>
+          <div>Configura la URL y el ID de la hoja de cálculo para ver las reservas</div>
+        </li>`;
+      return;
+    }
+
     listaReservas.innerHTML = `
       <li class="placeholder">
         <span class="placeholder-icon">⏳</span>
@@ -180,7 +234,18 @@ document.addEventListener('DOMContentLoaded', () => {
       </li>`;
 
     try {
-      const response = await fetch(API_URL);
+      // Enviar solicitud para obtener reservas
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          action: "get",
+          sheetId: SHEET_ID
+        }),
+      });
+      
       const text = await response.text();
       let reservas;
       
