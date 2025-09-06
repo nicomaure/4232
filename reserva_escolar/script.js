@@ -1,8 +1,8 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-let API_URL = localStorage.getItem('https://script.google.com/macros/s/AKfycbzgWIzDcSLUw9LO4wRSOS-uZNoOLR9xHHf6An-ZTJZds0jODePUUZim_toQnFsmRBtOVA/exec') || '';
-let SHEET_ID = localStorage.getItem('AKfycbzgWIzDcSLUw9LO4wRSOS-uZNoOLR9xHHf6An-ZTJZds0jODePUUZim_toQnFsmRBtOVA') || '';
+let API_URL = localStorage.getItem('apiUrl') || '';
+let SHEET_ID = localStorage.getItem('sheetId') || '';
 
 // ===============================
 // MANEJO DEL FORMULARIO
@@ -87,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Construir objeto de reserva
     const reserva = {
+      action: "create", // Agregar acción explícita
       nombre: document.getElementById("nombre").value.trim(),
       asignatura: document.getElementById("asignatura").value.trim(),
       fecha: document.getElementById("fecha").value,
@@ -103,19 +104,28 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded", // Cambio importante
         },
-        body: JSON.stringify(reserva),
+        body: JSON.stringify(reserva), // Google Apps Script a veces prefiere JSON como string
       });
 
       const responseText = await response.text();
+      console.log("Respuesta del servidor:", responseText);
+      
       let data;
       
       try {
         data = JSON.parse(responseText);
       } catch (e) {
         console.error("Error parsing JSON:", e, "Response:", responseText);
-        throw new Error("Formato de respuesta inválido del servidor");
+        // Si no es JSON, intentar extraer información útil del HTML de error
+        if (responseText.includes("Authorization required") || responseText.includes("sign in")) {
+          throw new Error("Error de autorización: La aplicación web no tiene permisos públicos");
+        } else if (responseText.includes("Script function not found")) {
+          throw new Error("Función no encontrada en el script");
+        } else {
+          throw new Error("Respuesta inválida del servidor. Verifica la configuración del Apps Script");
+        }
       }
 
       loading.style.display = "none";
@@ -134,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error("❌ Error de conexión:", err);
       loading.style.display = "none";
       document.getElementById("submitBtn").disabled = false;
-      mostrarMensaje("❌ Error de conexión: " + err.message, "error");
+      mostrarMensaje("❌ " + err.message, "error");
     }
   });
 
@@ -186,15 +196,18 @@ document.addEventListener('DOMContentLoaded', () => {
         sheetId: SHEET_ID
       };
       
+      console.log("Enviando prueba de conexión:", testData);
+      
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
         body: JSON.stringify(testData),
       });
       
       const text = await response.text();
+      console.log("Respuesta de prueba:", text);
       
       try {
         const data = JSON.parse(text);
@@ -206,8 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
           connectionStatus.className = "connection-status error";
         }
       } catch (e) {
-        connectionStatus.textContent = "❌ Error en la respuesta del servidor";
-        connectionStatus.className = "connection-status error";
+        if (text.includes("Authorization required") || text.includes("sign in")) {
+          connectionStatus.textContent = "❌ Error de autorización - Configura permisos públicos";
+          connectionStatus.className = "connection-status error";
+        } else {
+          connectionStatus.textContent = "❌ Error en la respuesta del servidor";
+          connectionStatus.className = "connection-status error";
+        }
       }
     } catch (err) {
       console.error("Error de conexión:", err);
@@ -238,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
         body: JSON.stringify({
           action: "get",
@@ -247,6 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       
       const text = await response.text();
+      console.log("Respuesta de reservas:", text);
+      
       let reservas;
       
       try {
@@ -256,7 +276,12 @@ document.addEventListener('DOMContentLoaded', () => {
         throw new Error("Formato de respuesta inválido del servidor");
       }
 
-      if (!reservas || reservas.length === 0) {
+      // Si la respuesta es un objeto con datos, extraer el array
+      if (reservas && reservas.status === "success" && reservas.data) {
+        reservas = reservas.data;
+      }
+
+      if (!Array.isArray(reservas) || reservas.length === 0) {
         listaReservas.innerHTML = `
           <li class="placeholder">
             <span class="placeholder-icon">📭</span>
