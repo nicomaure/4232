@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Función para probar conexión con la API
+  // Función para probar conexión con la API usando JSONP
   async function testConnection() {
     if (!API_URL || !SHEET_ID) {
       connectionStatus.textContent = "⚠️ Configura la URL y el ID de la hoja de cálculo";
@@ -248,13 +248,46 @@ document.addEventListener('DOMContentLoaded', () => {
       connectionStatus.textContent = "Comprobando conexión...";
       connectionStatus.className = "connection-status checking";
       
-      // Enviar una solicitud de prueba
-      const testData = {
-        action: "test",
-        sheetId: SHEET_ID
-      };
+      // Crear un ID único para la llamada JSONP
+      const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
       
-      console.log("Enviando prueba de conexión:", testData);
+      // Configurar la URL con parámetros
+      const url = new URL(API_URL);
+      url.searchParams.append('action', 'test');
+      url.searchParams.append('sheetId', SHEET_ID);
+      url.searchParams.append('callback', callbackName);
+      
+      console.log("Enviando prueba de conexión a:", url.toString());
+      
+      // Crear un script para la llamada JSONP
+      return new Promise((resolve, reject) => {
+        window[callbackName] = function(data) {
+          delete window[callbackName];
+          document.body.removeChild(script);
+          
+          console.log("Respuesta de prueba:", data);
+          
+          if (data.status === 'success') {
+            connectionStatus.textContent = "✅ Conexión exitosa";
+            connectionStatus.className = "connection-status success";
+            resolve(data);
+          } else {
+            throw new Error(data.message || 'Error desconocido');
+          }
+        };
+        
+        const script = document.createElement('script');
+        script.src = url.toString();
+        script.onerror = () => {
+          delete window[callbackName];
+          const error = new Error('Error de red al conectar con el servidor');
+          connectionStatus.textContent = `❌ ${error.message}`;
+          connectionStatus.className = "connection-status error";
+          reject(error);
+        };
+        
+        document.body.appendChild(script);
+      });
       
       const response = await fetch(API_URL, {
         method: "POST",
