@@ -1,7 +1,7 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-let API_URL = localStorage.getItem('apiUrl') || 'https://script.google.com/macros/s/AKfycbyLgdDd8VkCKqWvz1fciDrgqp-DN8nIj1xsalgMFU3LYv1DXSutv_I5w7tSvso0XUk/exec';
+let API_URL = localStorage.getItem('apiUrl') || 'https://script.google.com/macros/s/AKfycbwc2RKDwPvrS3ONtKKiXrw2k-WMZ-Zz3cH4pCM0Chr8M5r3ZlVls6lJ3XWj7GfSXLLb/exec';
 let SHEET_ID = localStorage.getItem('sheetId') || '1-qbKXCYLEUZ9E-qOclKLLj81EZ4-hmVxXI0KGMvqHQM';
 
 // ===============================
