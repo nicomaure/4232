@@ -1,8 +1,8 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-let API_URL = localStorage.getItem('apiUrl') || 'https://script.google.com/macros/s/AKfycbwc2RKDwPvrS3ONtKKiXrw2k-WMZ-Zz3cH4pCM0Chr8M5r3ZlVls6lJ3XWj7GfSXLLb/exec';
-let SHEET_ID = localStorage.getItem('sheetId') || '1-qbKXCYLEUZ9E-qOclKLLj81EZ4-hmVxXI0KGMvqHQM';
+let API_URL = localStorage.getItem('apiUrl') || 'https://script.google.com/macros/s/AKfycbxjsNoN1aAko2ofpLWujuXdArneoJ0J3bYdarDgshsY0h7lt5ZdIH2quLES30lPJf_A/exec';
+let SHEET_ID = localStorage.getItem('sheetId') || '1Cr7MxcjcutiCUBJzpDMTZGrtVl1i2vpoXvGCIb_4E7s';
 
 // ===============================
 // MANEJO DEL FORMULARIO
