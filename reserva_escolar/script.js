@@ -1,8 +1,8 @@
 // ===============================
 // CONFIGURACIÓN
 // ===============================
-let API_URL = localStorage.getItem('') || '';
-let SHEET_ID = localStorage.getItem('') || '';
+let API_URL = localStorage.getItem('apiUrl') || 'https://script.google.com/macros/s/AKfycbxkGUgKAZGflgn9epL1ZUg6GMwYdTmt-QHb4E12pxTq6N0pkKxClzFfkxxHWr9XFS-8/exec';
+let SHEET_ID = localStorage.getItem('sheetId') || '1-qbKXCYLEUZ9E-qOclKLLj81EZ4-hmVxXI0KGMvqHQM';
 
 // ===============================
 // MANEJO DEL FORMULARIO
@@ -177,6 +177,64 @@ document.addEventListener('DOMContentLoaded', () => {
       configStatus.style.display = "none";
     }, 3000);
   }
+
+  // Función para recargar las reservas
+  window.recargarReservas = async function() {
+    if (!API_URL || !SHEET_ID) {
+      console.error('Falta configurar la URL o el ID de la hoja');
+      return;
+    }
+
+    const listaReservas = document.getElementById('listaReservas');
+    if (!listaReservas) return;
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'get',
+          sheetId: SHEET_ID
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.status === 'success' && Array.isArray(data.data)) {
+        listaReservas.innerHTML = '';
+        
+        if (data.data.length === 0) {
+          listaReservas.innerHTML = '<li class="no-reservas">No hay reservas registradas</li>';
+          return;
+        }
+
+        data.data.forEach(reserva => {
+          const li = document.createElement('li');
+          li.className = 'reserva-item';
+          li.innerHTML = `
+            <div class="reserva-header">
+              <span class="reserva-fecha">${formatearFecha(reserva.fecha)}</span>
+              <span class="reserva-horario">${reserva.retiro} - ${reserva.entrega}</span>
+            </div>
+            <div class="reserva-docente">👤 ${reserva.nombre}</div>
+            <div class="reserva-asignatura">📚 ${reserva.asignatura}</div>
+            <div class="reserva-recursos">
+              ${reserva.proyector === 'Sí' ? '📽️ ' : ''}
+              ${reserva.pizarra === 'Sí' ? '📺' : ''}
+            </div>
+          `;
+          listaReservas.appendChild(li);
+        });
+      } else {
+        listaReservas.innerHTML = '<li class="error">Error al cargar las reservas</li>';
+      }
+    } catch (error) {
+      console.error('Error al cargar reservas:', error);
+      listaReservas.innerHTML = '<li class="error">Error de conexión al cargar reservas</li>';
+    }
+  };
 
   // Función para probar conexión con la API
   async function testConnection() {
