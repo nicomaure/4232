@@ -4,98 +4,17 @@
 let API_URL = localStorage.getItem('apiUrl') || 'https://script.google.com/macros/s/AKfycbxjsNoN1aAko2ofpLWujuXdArneoJ0J3bYdarDgshsY0h7lt5ZdIH2quLES30lPJf_A/exec';
 let SHEET_ID = localStorage.getItem('sheetId') || '1Cr7MxcjcutiCUBJzpDMTZGrtVl1i2vpoXvGCIb_4E7s';
 
+// Asegurarse de que la URL use HTTPS
+if (API_URL && API_URL.startsWith('http://')) {
+  API_URL = 'https' + API_URL.substring(4);
+}
+
 // Función global para formatear fechas
 function formatearFecha(fechaStr) {
   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
   const fecha = new Date(fechaStr + 'T00:00:00');
   return fecha.toLocaleDateString('es-AR', options);
 }
-
-// Función global para recargar reservas
-window.recargarReservas = async function() {
-  const listaReservas = document.getElementById('listaReservas');
-  if (!listaReservas) return;
-  
-  if (!API_URL || !SHEET_ID) {
-    listaReservas.innerHTML = `
-      <li class="placeholder">
-        <span class="placeholder-icon">⚙️</span>
-        <div>Configura la URL y el ID de la hoja de cálculo</div>
-      </li>`;
-    return;
-  }
-
-  try {
-    listaReservas.innerHTML = `
-      <li class="placeholder">
-        <span class="placeholder-icon">⏳</span>
-        <div>Cargando reservas existentes...</div>
-      </li>`;
-
-    // Usar JSONP para cargar las reservas
-    return new Promise((resolve, reject) => {
-      const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
-      
-      window[callbackName] = function(data) {
-        delete window[callbackName];
-        document.body.removeChild(script);
-        
-        if (data.status === 'success' && Array.isArray(data.data)) {
-          listaReservas.innerHTML = '';
-          
-          if (data.data.length === 0) {
-            listaReservas.innerHTML = '<li class="no-reservas">No hay reservas registradas</li>';
-            return;
-          }
-
-          data.data.forEach(reserva => {
-            const li = document.createElement('li');
-            li.className = 'reserva-item';
-            li.innerHTML = `
-              <div class="reserva-header">
-                <span class="reserva-fecha">${formatearFecha(reserva.fecha)}</span>
-                <span class="reserva-horario">${reserva.retiro} - ${reserva.entrega}</span>
-              </div>
-              <div class="reserva-docente">👤 ${reserva.nombre}</div>
-              <div class="reserva-asignatura">📚 ${reserva.asignatura}</div>
-              <div class="reserva-recursos">
-                ${reserva.proyector === 'Sí' ? '📽️ ' : ''}
-                ${reserva.pizarra === 'Sí' ? '📺' : ''}
-              </div>
-            `;
-            listaReservas.appendChild(li);
-          });
-        } else {
-          throw new Error('Formato de respuesta inválido del servidor');
-        }
-        
-        resolve(data);
-      };
-      
-      const script = document.createElement('script');
-      const url = `${API_URL}?action=get&sheetId=${encodeURIComponent(SHEET_ID)}&callback=${callbackName}`;
-      script.src = url;
-      script.onerror = () => {
-        delete window[callbackName];
-        const error = new Error('Error al cargar las reservas');
-        listaReservas.innerHTML = `
-          <li class="error">
-            ❌ ${error.message}
-          </li>`;
-        reject(error);
-      };
-      
-      document.body.appendChild(script);
-    });
-    
-  } catch (error) {
-    console.error('Error al cargar reservas:', error);
-    listaReservas.innerHTML = `
-      <li class="error">
-        ❌ Error al cargar las reservas: ${error.message}
-      </li>`;
-  }
-};
 
 // ===============================
 // MANEJO DEL FORMULARIO
@@ -339,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Función para probar la conexión
+  // Función para probar la conexión usando un proxy CORS
   async function testConnection() {
     if (!API_URL || !SHEET_ID) {
       connectionStatus.textContent = "⚠️ Configura la URL y el ID de la hoja de cálculo";
@@ -351,19 +270,21 @@ document.addEventListener('DOMContentLoaded', () => {
       connectionStatus.textContent = "Comprobando conexión...";
       connectionStatus.className = "connection-status checking";
       
-      // Usar la URL directamente sin modificar
+      // Usar un proxy CORS gratuito
+      const proxyUrl = 'https://api.allorigins.win/get?url=';
       const testUrl = `${API_URL}?action=test&sheetId=${encodeURIComponent(SHEET_ID)}`;
-      console.log("Enviando prueba de conexión a:", testUrl);
+      const url = proxyUrl + encodeURIComponent(testUrl);
       
-      // Usar JSONP para evitar problemas de CORS
-      return new Promise((resolve, reject) => {
-        const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+      console.log("Enviando prueba de conexión a través de proxy:", url);
+      
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.contents) {
+        const responseData = JSON.parse(data.contents);
+        console.log("Respuesta de prueba:", responseData);
         
-        window[callbackName] = function(data) {
-          delete window[callbackName];
-          document.body.removeChild(script);
-          
-          console.log("Respuesta de prueba:", data);
+        if (responseData.status === 'success') {
           connectionStatus.textContent = "✅ Conexión exitosa";
           connectionStatus.className = "connection-status success";
           
@@ -372,22 +293,13 @@ document.addEventListener('DOMContentLoaded', () => {
             window.recargarReservas();
           }
           
-          resolve(data);
-        };
-        
-        const script = document.createElement('script');
-        script.src = `${testUrl}${testUrl.includes('?') ? '&' : '?'}callback=${callbackName}`;
-        script.onerror = () => {
-          delete window[callbackName];
-          const error = new Error('Error de red al conectar con el servidor');
-          console.error("Error en la prueba de conexión:", error);
-          connectionStatus.textContent = `❌ ${error.message}`;
-          connectionStatus.className = "connection-status error";
-          reject(error);
-        };
-        
-        document.body.appendChild(script);
-      });
+          return responseData;
+        } else {
+          throw new Error(responseData.message || 'Error en la respuesta del servidor');
+        }
+      } else {
+        throw new Error('No se pudo conectar con el servidor');
+      }
       
     } catch (error) {
       console.error("Error en la prueba de conexión:", error);
