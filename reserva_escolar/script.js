@@ -178,6 +178,74 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
+  // Mover recargarReservas al ámbito global
+  window.recargarReservas = async function() {
+    if (!API_URL || !SHEET_ID) {
+      listaReservas.innerHTML = `
+        <li class="placeholder">
+          <span class="placeholder-icon">⚙️</span>
+          <div>Configura la URL y el ID de la hoja de cálculo para ver las reservas</div>
+        </li>`;
+      return;
+    }
+
+    try {
+      listaReservas.innerHTML = `
+        <li class="placeholder">
+          <span class="placeholder-icon">⏳</span>
+          <div>Cargando reservas existentes...</div>
+        </li>`;
+
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'get',
+          sheetId: SHEET_ID
+        })
+      });
+
+      const data = await response.json();
+      
+      if (data.status === 'success' && Array.isArray(data.data)) {
+        listaReservas.innerHTML = '';
+        
+        if (data.data.length === 0) {
+          listaReservas.innerHTML = '<li class="no-reservas">No hay reservas registradas</li>';
+          return;
+        }
+
+        data.data.forEach(reserva => {
+          const li = document.createElement('li');
+          li.className = 'reserva-item';
+          li.innerHTML = `
+            <div class="reserva-header">
+              <span class="reserva-fecha">${formatearFecha(reserva.fecha)}</span>
+              <span class="reserva-horario">${reserva.retiro} - ${reserva.entrega}</span>
+            </div>
+            <div class="reserva-docente">👤 ${reserva.nombre}</div>
+            <div class="reserva-asignatura">📚 ${reserva.asignatura}</div>
+            <div class="reserva-recursos">
+              ${reserva.proyector === 'Sí' ? '📽️ ' : ''}
+              ${reserva.pizarra === 'Sí' ? '📺' : ''}
+            </div>
+          `;
+          listaReservas.appendChild(li);
+        });
+      } else {
+        throw new Error('Formato de respuesta inválido del servidor');
+      }
+    } catch (error) {
+      console.error('Error al cargar reservas:', error);
+      listaReservas.innerHTML = `
+        <li class="error">
+          ❌ Error al cargar las reservas: ${error.message}
+        </li>`;
+    }
+  };
+
   // Función para probar la conexión
   async function testConnection() {
     if (!API_URL || !SHEET_ID) {
@@ -190,8 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
       connectionStatus.textContent = "Comprobando conexión...";
       connectionStatus.className = "connection-status checking";
       
-      // Usar el endpoint de prueba GET
-      const testUrl = `${API_URL}?action=test&sheetId=${encodeURIComponent(SHEET_ID)}`;
+      // Asegurarse de que la URL no esté duplicada
+      let cleanApiUrl = API_URL;
+      if (cleanApiUrl.includes('script.google.com/macros/s/')) {
+        cleanApiUrl = cleanApiUrl.split('script.google.com/macros/s/').pop();
+        cleanApiUrl = `https://script.google.com/macros/s/${cleanApiUrl.split('/exec')[0]}/exec`;
+      }
+      
+      const testUrl = `${cleanApiUrl}?action=test&sheetId=${encodeURIComponent(SHEET_ID)}`;
       console.log("Enviando prueba de conexión a:", testUrl);
       
       const response = await fetch(testUrl, {
@@ -206,6 +280,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Si llegamos aquí, la conexión fue exitosa (aunque no podamos leer la respuesta por CORS)
       connectionStatus.textContent = "✅ Conexión exitosa";
       connectionStatus.className = "connection-status success";
+      
+      // Recargar las reservas después de una conexión exitosa
+      recargarReservas();
       
       return { status: 'success', message: 'Conexión exitosa' };
       
