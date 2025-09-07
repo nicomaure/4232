@@ -104,9 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded", // Cambio importante
+          "Content-Type": "application/json", // Cambiado a application/json
         },
-        body: JSON.stringify(reserva), // Google Apps Script a veces prefiere JSON como string
+        body: JSON.stringify(reserva),
       });
 
       const responseText = await response.text();
