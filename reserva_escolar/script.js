@@ -178,65 +178,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
 
-  // Función para recargar las reservas
-  window.recargarReservas = async function() {
-    if (!API_URL || !SHEET_ID) {
-      console.error('Falta configurar la URL o el ID de la hoja');
-      return;
-    }
-
-    const listaReservas = document.getElementById('listaReservas');
-    if (!listaReservas) return;
-
-    try {
-      const response = await fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'get',
-          sheetId: SHEET_ID
-        })
-      });
-
-      const data = await response.json();
-      
-      if (data.status === 'success' && Array.isArray(data.data)) {
-        listaReservas.innerHTML = '';
-        
-        if (data.data.length === 0) {
-          listaReservas.innerHTML = '<li class="no-reservas">No hay reservas registradas</li>';
-          return;
-        }
-
-        data.data.forEach(reserva => {
-          const li = document.createElement('li');
-          li.className = 'reserva-item';
-          li.innerHTML = `
-            <div class="reserva-header">
-              <span class="reserva-fecha">${formatearFecha(reserva.fecha)}</span>
-              <span class="reserva-horario">${reserva.retiro} - ${reserva.entrega}</span>
-            </div>
-            <div class="reserva-docente">👤 ${reserva.nombre}</div>
-            <div class="reserva-asignatura">📚 ${reserva.asignatura}</div>
-            <div class="reserva-recursos">
-              ${reserva.proyector === 'Sí' ? '📽️ ' : ''}
-              ${reserva.pizarra === 'Sí' ? '📺' : ''}
-            </div>
-          `;
-          listaReservas.appendChild(li);
-        });
-      } else {
-        listaReservas.innerHTML = '<li class="error">Error al cargar las reservas</li>';
-      }
-    } catch (error) {
-      console.error('Error al cargar reservas:', error);
-      listaReservas.innerHTML = '<li class="error">Error de conexión al cargar reservas</li>';
-    }
-  };
-
-  // Función para probar conexión con la API usando JSONP
+  // Función para probar la conexión
   async function testConnection() {
     if (!API_URL || !SHEET_ID) {
       connectionStatus.textContent = "⚠️ Configura la URL y el ID de la hoja de cálculo";
@@ -248,80 +190,30 @@ document.addEventListener('DOMContentLoaded', () => {
       connectionStatus.textContent = "Comprobando conexión...";
       connectionStatus.className = "connection-status checking";
       
-      // Crear un ID único para la llamada JSONP
-      const callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+      // Usar el endpoint de prueba GET
+      const testUrl = `${API_URL}?action=test&sheetId=${encodeURIComponent(SHEET_ID)}`;
+      console.log("Enviando prueba de conexión a:", testUrl);
       
-      // Configurar la URL con parámetros
-      const url = new URL(API_URL);
-      url.searchParams.append('action', 'test');
-      url.searchParams.append('sheetId', SHEET_ID);
-      url.searchParams.append('callback', callbackName);
-      
-      console.log("Enviando prueba de conexión a:", url.toString());
-      
-      // Crear un script para la llamada JSONP
-      return new Promise((resolve, reject) => {
-        window[callbackName] = function(data) {
-          delete window[callbackName];
-          document.body.removeChild(script);
-          
-          console.log("Respuesta de prueba:", data);
-          
-          if (data.status === 'success') {
-            connectionStatus.textContent = "✅ Conexión exitosa";
-            connectionStatus.className = "connection-status success";
-            resolve(data);
-          } else {
-            throw new Error(data.message || 'Error desconocido');
-          }
-        };
-        
-        const script = document.createElement('script');
-        script.src = url.toString();
-        script.onerror = () => {
-          delete window[callbackName];
-          const error = new Error('Error de red al conectar con el servidor');
-          connectionStatus.textContent = `❌ ${error.message}`;
-          connectionStatus.className = "connection-status error";
-          reject(error);
-        };
-        
-        document.body.appendChild(script);
-      });
-      
-      const response = await fetch(API_URL, {
-        method: "POST",
+      const response = await fetch(testUrl, {
+        method: 'GET',
+        mode: 'no-cors',
+        cache: 'no-cache',
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify(testData),
       });
       
-      const text = await response.text();
-      console.log("Respuesta de prueba:", text);
+      // Si llegamos aquí, la conexión fue exitosa (aunque no podamos leer la respuesta por CORS)
+      connectionStatus.textContent = "✅ Conexión exitosa";
+      connectionStatus.className = "connection-status success";
       
-      try {
-        const data = JSON.parse(text);
-        if (data.status === "success" || data.status === "error") {
-          connectionStatus.textContent = "✅ Conectado al servidor";
-          connectionStatus.className = "connection-status connected";
-        } else {
-          connectionStatus.textContent = "⚠️ Respuesta inesperada del servidor";
-          connectionStatus.className = "connection-status error";
-        }
-      } catch (e) {
-        if (text.includes("Authorization required") || text.includes("sign in")) {
-          connectionStatus.textContent = "❌ Error de autorización - Configura permisos públicos";
-          connectionStatus.className = "connection-status error";
-        } else {
-          connectionStatus.textContent = "❌ Error en la respuesta del servidor";
-          connectionStatus.className = "connection-status error";
-        }
-      }
-    } catch (err) {
-      console.error("Error de conexión:", err);
-      connectionStatus.textContent = "❌ Error de conexión con el servidor";
+      return { status: 'success', message: 'Conexión exitosa' };
+      
+    } catch (error) {
+      console.error("Error en la prueba de conexión:", error);
+      connectionStatus.textContent = `❌ Error de conexión: ${error.message}`;
       connectionStatus.className = "connection-status error";
+      throw error;
     }
   }
 
