@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Chat IA de la Escuela 4232</title>
+<meta name="description" content="Asistente escolar gratuito para consultas por materia. Escuela 4232." />
+<style>
+  :root{
+    --bg: #0ea5e9;
+    --bg2:#8b5cf6;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --brand:#2563eb;
+    --accent:#22c55e;
+    --bubble:#eef2ff;
+    --bubble2:#e0f2fe;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; 
+    font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+    color:var(--text);
+    background: linear-gradient(135deg,var(--bg) 0%, var(--bg2) 100%) fixed;
+    min-height:100vh; 
+    display:flex; 
+    flex-direction:column;
+    padding:0;
+  }
+  .wrap{
+    width:100%; 
+    max-width:1200px;
+    margin:0 auto;
+    padding:16px;
+    flex:1;
+    display:flex;
+    flex-direction:column;
+  }
+  .hero{
+    color:#fff; 
+    text-align:center; 
+    margin-bottom:20px;
+    padding:20px 10px;
+  }
+  .title{
+    margin:0 0 12px; 
+    font-size:clamp(24px,6vw,48px); 
+    font-weight:900; 
+    letter-spacing:.5px;
+    text-shadow:0 4px 20px rgba(0,0,0,.3);
+    background:linear-gradient(to right, #fff, #e0f2fe);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .subtitle{
+    margin:0 auto; 
+    max-width:700px; 
+    line-height:1.5; 
+    font-size:clamp(14px,2.5vw,17px);
+    opacity:.95;
+    font-weight:500;
+  }
+  .card{
+    background:var(--card); 
+    border-radius:24px; 
+    padding:0;
+    box-shadow:0 25px 60px rgba(2,6,23,.3);
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  
+  /* SELECTOR DE MATERIA DESTACADO */
+  .materia-selector{
+    background:linear-gradient(135deg, #3b82f6, #8b5cf6);
+    padding:20px;
+    border-radius:24px 24px 0 0;
+    box-shadow:0 4px 12px rgba(0,0,0,.1);
+  }
+  .materia-label{
+    color:#fff;
+    font-weight:700;
+    font-size:14px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    margin-bottom:10px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .materia-input-wrap{
+    position:relative;
+  }
+  .materia-input{
+    width:100%; 
+    padding:14px 50px 14px 16px; 
+    border:2px solid rgba(255,255,255,.3); 
+    border-radius:16px; 
+    outline:none;
+    font-size:16px;
+    font-weight:600;
+    background:rgba(255,255,255,.95);
+    transition:all .3s;
+  }
+  .materia-input:focus{
+    border-color:#fff;
+    background:#fff;
+    transform:scale(1.02);
+  }
+  .materia-icon{
+    position:absolute;
+    right:16px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:24px;
+  }
+
+  /* ÁREA DE MENSAJES */
+  .messages-container{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    padding:20px;
+    overflow:hidden;
+  }
+  #messages{
+    background:linear-gradient(to bottom, #f8fafc, #f1f5f9); 
+    border:2px solid #e2e8f0; 
+    border-radius:20px; 
+    padding:16px; 
+    flex:1;
+    overflow-y:auto;
+    margin-bottom:16px;
+    box-shadow:inset 0 2px 8px rgba(0,0,0,.05);
+  }
+  
+  /* MENSAJES CON ANIMACIÓN */
+  .msg{ 
+    margin:14px 0; 
+    display:flex; 
+    gap:12px; 
+    align-items:flex-end;
+    animation:slideIn .3s ease-out;
+  }
+  @keyframes slideIn{
+    from{opacity:0; transform:translateY(10px)}
+    to{opacity:1; transform:translateY(0)}
+  }
+  .me .bubble{ 
+    background:linear-gradient(135deg, #0ea5e9, #06b6d4); 
+    color:#fff;
+    margin-left:auto;
+    border:none;
+  }
+  .bot .bubble{ 
+    background:#fff;
+    border:2px solid #e0e7ff;
+  }
+  .bubble{
+    max-width:85%; 
+    padding:12px 16px; 
+    border-radius:18px; 
+    white-space:pre-wrap; 
+    line-height:1.5;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    font-size:15px;
+  }
+  .who{ 
+    font-size:11px; 
+    color:var(--muted); 
+    margin:0 0 4px 6px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+  }
+  
+  /* INPUT Y BOTONES */
+  .input-area{
+    padding:0 20px 20px;
+    background:#fff;
+  }
+  textarea{
+    width:100%; 
+    min-height:60px; 
+    max-height:120px;
+    resize:vertical; 
+    border:2px solid #e2e8f0; 
+    border-radius:16px; 
+    padding:14px; 
+    outline:none;
+    font-size:15px; 
+    background:#fff;
+    font-family:inherit;
+    transition:border .3s;
+  }
+  textarea:focus{
+    border-color:#3b82f6;
+  }
+  .actions{ 
+    display:flex; 
+    gap:10px; 
+    margin-top:12px;
+    flex-wrap:wrap;
+  }
+  button{
+    border:0; 
+    padding:12px 20px; 
+    border-radius:14px; 
+    color:#fff; 
+    cursor:pointer; 
+    font-weight:700; 
+    letter-spacing:.3px;
+    font-size:14px;
+    transition:all .3s;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+  }
+  button:hover:not(:disabled){
+    transform:translateY(-2px);
+    box-shadow:0 6px 16px rgba(0,0,0,.2);
+  }
+  button:disabled{ 
+    opacity:.6; 
+    cursor:not-allowed;
+    transform:none;
+  }
+  #sendBtn{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    flex:1;
+    min-width:120px;
+  }
+  #clearBtn{
+    background:linear-gradient(135deg,#ef4444,#dc2626);
+  }
+  #saveBtn{
+    background:linear-gradient(135deg,#10b981,#059669);
+  }
+  
+  .typing{ 
+    font-size:13px; 
+    color:var(--muted); 
+    padding:8px 20px;
+    display:none;
+    animation:pulse 1.5s infinite;
+  }
+  @keyframes pulse{
+    0%, 100%{opacity:.6}
+    50%{opacity:1}
+  }
+  
+  .muted{ 
+    color:var(--muted); 
+    font-size:13px;
+    text-align:center;
+    padding:12px 20px;
+    background:#f8fafc;
+    border-top:1px solid #e2e8f0;
+  }
+  
+  footer{ 
+    text-align:center; 
+    color:#eaf2ff; 
+    padding:16px;
+    font-size:13px;
+  }
+  .credit{ 
+    opacity:.95;
+    font-weight:600;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width:768px){
+    .wrap{padding:12px}
+    .hero{padding:16px 8px; margin-bottom:16px}
+    .title{font-size:28px; margin-bottom:8px}
+    .subtitle{font-size:14px}
+    .card{border-radius:20px}
+    .materia-selector{padding:16px; border-radius:20px 20px 0 0}
+    .messages-container{padding:16px}
+    #messages{padding:12px}
+    .bubble{max-width:90%; font-size:14px; padding:10px 14px}
+    .input-area{padding:0 16px 16px}
+    textarea{min-height:50px; font-size:14px}
+    .actions{flex-direction:column}
+    button{width:100%; padding:14px}
+    #sendBtn{order:1}
+    #clearBtn{order:2}
+    #saveBtn{order:3}
+  }
+  
+  @media (min-width:769px){
+    .actions{justify-content:flex-end}
+    #sendBtn{flex:0 0 auto; min-width:140px}
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="hero" aria-describedby="desc">
+      <h1 class="title">💬 Chat IA Escuela 4232</h1>
+      <p id="desc" class="subtitle">
+        Tu asistente virtual para <strong>Matemática, Lengua, Historia, Biología, Informática</strong> y más.
+        ¡Hacé tu pregunta y obtené respuestas al instante! 🚀
+      </p>
+    </header>
+
+    <section class="card" aria-label="Chat escolar">
+      <div class="materia-selector">
+        <div class="materia-label">
+          📚 Seleccioná tu materia
+        </div>
+        <div class="materia-input-wrap">
+          <input 
+            id="materia" 
+            type="text" 
+            class="materia-input"
+            placeholder="Ej: Matemática, Historia, Biología..." 
+          />
+          <span class="materia-icon">🎯</span>
+        </div>
+      </div>
+
+      <div class="messages-container">
+        <div id="messages" aria-live="polite"></div>
+        <div id="typing" class="typing">✍️ ChatIA está escribiendo…</div>
+      </div>
+
+      <div class="input-area">
+        <textarea 
+          id="q" 
+          placeholder="Escribí tu pregunta acá... Ej: ¿Cómo resuelvo ecuaciones de segundo grado?"
+        ></textarea>
+        <div class="actions">
+          <button id="sendBtn">📤 Enviar</button>
+          <button id="clearBtn">🗑️ Limpiar</button>
+          <button id="saveBtn">💾 Guardar Chat</button>
+        </div>
+      </div>
+
+      <p class="muted">⚠️ No compartas datos sensibles. Siempre verificá las respuestas con tu docente.</p>
+    </section>
+
+    <footer>
+      <p class="credit">Desarrollado por <strong>Nicolás Maure</strong> — Admin Red Escuela 4232 🖥️</p>
+    </footer>
+  </main>
+
+<script>
+  // 🔧 Cambiá esta URL por tu Worker:
+  const API_URL = "https://chatia4232.informatica4232.workers.dev/";
+
+  const $ = sel => document.querySelector(sel);
+  const messages = [];
+  const $messages = $("#messages");
+  const $materia = $("#materia");
+  const $q = $("#q");
+  const $btn = $("#sendBtn");
+  const $clearBtn = $("#clearBtn");
+  const $saveBtn = $("#saveBtn");
+  const $typing = $("#typing");
+
+  // Guarda/restaura materia en el navegador
+  $materia.value = localStorage.getItem("materia4232") || "";
+  $materia.addEventListener("change", () => localStorage.setItem("materia4232", $materia.value.trim()));
+  $materia.addEventListener("input", () => localStorage.setItem("materia4232", $materia.value.trim()));
+
+  function add(role, text){
+    const wrap = document.createElement("div");
+    wrap.className = "msg " + (role === "assistant" ? "bot" : "me");
+    const who = document.createElement("div");
+    who.className = "who";
+    who.textContent = role === "assistant" ? "ChatIA 4232" : "Vos";
+    const b = document.createElement("div");
+    b.className = "bubble";
+    b.textContent = text;
+    wrap.appendChild(who); wrap.appendChild(b);
+    $messages.appendChild(wrap);
+    $messages.scrollTop = $messages.scrollHeight;
+  }
+
+  async function send(){
+    const text = $q.value.trim();
+    if(!text) return;
+    const materia = $materia.value.trim();
+    $q.value = ""; add("user", text);
+    $btn.disabled = true; $typing.style.display = "block";
+
+    // Enriquecemos el mensaje con la materia si está
+    messages.push({ role:"user", content: (materia ? `Materia: ${materia}. ` : "") + text });
+
+    try{
+      const r = await fetch(API_URL, {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ messages })
+      });
+      const data = await r.json().catch(()=>({reply:"Error: respuesta no válida del servidor."}));
+      const reply = data.reply || data.error || "Ups, no hubo respuesta.";
+      add("assistant", reply);
+      messages.push({ role:"assistant", content: reply });
+    }catch(err){
+      add("assistant", "Error de red: " + err.message);
+    }finally{
+      $btn.disabled = false; $typing.style.display = "none";
+      $q.focus();
+    }
+  }
+
+  function clearChat(){
+    if(confirm("¿Seguro que querés limpiar todo el chat?")){
+      messages.length = 0;
+      $messages.innerHTML = "";
+      add("assistant","¡Hola! Soy el ChatIA de la Escuela 4232. ¿De qué materia necesitas ayuda?");
+    }
+  }
+
+  function saveChat(){
+    if(messages.length === 0){
+      alert("No hay mensajes para guardar.");
+      return;
+    }
+    const materia = $materia.value.trim() || "sin_materia";
+    const fecha = new Date().toLocaleString('es-AR').replace(/[/:]/g,'-').replace(/,/g,'');
+    let texto = `Chat IA Escuela 4232 - ${materia}\n`;
+    texto += `Fecha: ${new Date().toLocaleString('es-AR')}\n`;
+    texto += "=".repeat(50) + "\n\n";
+    
+    messages.forEach(msg => {
+      const quien = msg.role === "assistant" ? "ChatIA" : "Estudiante";
+      texto += `${quien}:\n${msg.content}\n\n`;
+    });
+
+    const blob = new Blob([texto], {type: "text/plain;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `chat_4232_${materia}_${fecha}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  $btn.addEventListener("click", send);
+  $clearBtn.addEventListener("click", clearChat);
+  $saveBtn.addEventListener("click", saveChat);
+  
+  $q.addEventListener("keydown", e => {
+    if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); send(); }
+  });
+
+  // Mensaje inicial
+  add("assistant","¡Hola! Soy el ChatIA de la Escuela 4232. ¿De qué materia necesitas ayuda?");
+</script>
+</body>
+</html>
