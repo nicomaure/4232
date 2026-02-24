@@ -190,7 +190,6 @@
     padding:16px;
     flex:1;
     overflow-y:auto;
-    -webkit-overflow-scrolling: touch;
     margin-bottom:16px;
     box-shadow:inset 0 2px 8px rgba(0,0,0,.05);
   }
@@ -435,10 +434,6 @@
   .modal-btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);}
 
   /* RESPONSIVE */
-  @media (hover: none) and (pointer: coarse){
-    #messages{ overscroll-behavior: contain; }
-  }
-
   @media (max-width:768px){
     .wrap{padding:12px}
     .hero{padding:16px 8px; margin-bottom:16px}
