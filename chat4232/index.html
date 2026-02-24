@@ -2,7 +2,11 @@
 <html lang="es">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0ea5e9" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 <title>Chat IA de la Escuela 4232</title>
 <meta name="description" content="Asistente escolar gratuito para consultas por materia. Escuela 4232." />
 <style>
@@ -19,17 +23,19 @@
   }
   *{box-sizing:border-box}
   body{
-    margin:0; 
+    margin:0;
     font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
     color:var(--text);
-    background: linear-gradient(135deg,var(--bg) 0%, var(--bg2) 100%) fixed;
-    min-height:100vh; 
-    display:flex; 
+    background: linear-gradient(135deg,var(--bg) 0%, var(--bg2) 100%);
+    background-attachment: scroll;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    display:flex;
     flex-direction:column;
     padding:0;
   }
   .wrap{
-    width:100%; 
+    width:100%;
     max-width:1200px;
     margin:0 auto;
     padding:16px;
@@ -38,15 +44,15 @@
     flex-direction:column;
   }
   .hero{
-    color:#fff; 
-    text-align:center; 
+    color:#fff;
+    text-align:center;
     margin-bottom:20px;
     padding:20px 10px;
   }
   .title{
-    margin:0 0 12px; 
-    font-size:clamp(24px,6vw,48px); 
-    font-weight:900; 
+    margin:0 0 12px;
+    font-size:clamp(24px,6vw,48px);
+    font-weight:900;
     letter-spacing:.5px;
     text-shadow:0 4px 20px rgba(0,0,0,.3);
     background:linear-gradient(to right, #fff, #e0f2fe);
@@ -55,16 +61,16 @@
     background-clip:text;
   }
   .subtitle{
-    margin:0 auto; 
-    max-width:700px; 
-    line-height:1.5; 
+    margin:0 auto;
+    max-width:700px;
+    line-height:1.5;
     font-size:clamp(14px,2.5vw,17px);
     opacity:.95;
     font-weight:500;
   }
   .card{
-    background:var(--card); 
-    border-radius:24px; 
+    background:var(--card);
+    border-radius:24px;
     padding:0;
     box-shadow:0 25px 60px rgba(2,6,23,.3);
     flex:1;
@@ -72,8 +78,8 @@
     flex-direction:column;
     overflow:hidden;
   }
-  
-  /* SELECTOR DE MATERIA DESTACADO */
+
+  /* SELECTOR DE MATERIA CON CHIPS */
   .materia-selector{
     background:linear-gradient(135deg, #3b82f6, #8b5cf6);
     padding:20px;
@@ -86,36 +92,87 @@
     font-size:14px;
     text-transform:uppercase;
     letter-spacing:1px;
-    margin-bottom:10px;
+    margin-bottom:12px;
     display:flex;
     align-items:center;
     gap:8px;
   }
-  .materia-input-wrap{
-    position:relative;
+  .chips-materias{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
   }
-  .materia-input{
-    width:100%; 
-    padding:14px 50px 14px 16px; 
-    border:2px solid rgba(255,255,255,.3); 
-    border-radius:16px; 
-    outline:none;
-    font-size:16px;
+  .chip-materia{
+    background:rgba(255,255,255,.2);
+    color:#fff;
+    border:2px solid rgba(255,255,255,.35);
+    border-radius:50px;
+    padding:10px 16px;
+    min-height:44px;
+    font-size:13px;
     font-weight:600;
-    background:rgba(255,255,255,.95);
-    transition:all .3s;
+    cursor:pointer;
+    transition:all .25s;
+    white-space:nowrap;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
-  .materia-input:focus{
-    border-color:#fff;
+  .chip-materia:hover{
+    background:rgba(255,255,255,.35);
+    transform:translateY(-1px);
+  }
+  .chip-materia.active{
     background:#fff;
-    transform:scale(1.02);
+    color:#3b82f6;
+    border-color:#fff;
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
   }
-  .materia-icon{
-    position:absolute;
-    right:16px;
-    top:50%;
-    transform:translateY(-50%);
-    font-size:24px;
+
+  /* PREGUNTAS SUGERIDAS */
+  .sugeridas-wrap{
+    padding:12px 20px;
+    background:#f0f9ff;
+    border-bottom:1px solid #e0e7ff;
+    display:none;
+  }
+  .sugeridas-wrap.visible{
+    display:block;
+  }
+  .sugeridas-label{
+    font-size:12px;
+    font-weight:700;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.8px;
+    margin-bottom:8px;
+  }
+  .chips-sugeridas{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+  }
+  .chip-sugerida{
+    background:#fff;
+    color:#3b82f6;
+    border:1.5px solid #bfdbfe;
+    border-radius:50px;
+    padding:10px 14px;
+    min-height:44px;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    transition:all .2s;
+    white-space:normal;
+    text-align:left;
+    line-height:1.3;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .chip-sugerida:hover{
+    background:#3b82f6;
+    color:#fff;
+    border-color:#3b82f6;
+    transform:translateY(-1px);
   }
 
   /* ÁREA DE MENSAJES */
@@ -127,91 +184,159 @@
     overflow:hidden;
   }
   #messages{
-    background:linear-gradient(to bottom, #f8fafc, #f1f5f9); 
-    border:2px solid #e2e8f0; 
-    border-radius:20px; 
-    padding:16px; 
+    background:linear-gradient(to bottom, #f8fafc, #f1f5f9);
+    border:2px solid #e2e8f0;
+    border-radius:20px;
+    padding:16px;
     flex:1;
     overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
     margin-bottom:16px;
     box-shadow:inset 0 2px 8px rgba(0,0,0,.05);
   }
-  
-  /* MENSAJES CON ANIMACIÓN */
-  .msg{ 
-    margin:14px 0; 
-    display:flex; 
-    gap:12px; 
-    align-items:flex-end;
+
+  /* MENSAJES */
+  .msg{
+    margin:14px 0;
+    display:flex;
+    flex-direction:column;
     animation:slideIn .3s ease-out;
   }
+  .me{ align-items:flex-end; }
+  .bot{ align-items:flex-start; }
   @keyframes slideIn{
     from{opacity:0; transform:translateY(10px)}
     to{opacity:1; transform:translateY(0)}
   }
-  .me .bubble{ 
-    background:linear-gradient(135deg, #0ea5e9, #06b6d4); 
+  .me .bubble{
+    background:linear-gradient(135deg, #0ea5e9, #06b6d4);
     color:#fff;
-    margin-left:auto;
     border:none;
   }
-  .bot .bubble{ 
+  .bot .bubble{
     background:#fff;
     border:2px solid #e0e7ff;
   }
   .bubble{
-    max-width:85%; 
-    padding:12px 16px; 
-    border-radius:18px; 
-    white-space:pre-wrap; 
-    line-height:1.5;
+    max-width:85%;
+    padding:12px 16px;
+    border-radius:18px;
+    line-height:1.6;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
     font-size:15px;
+    word-break:break-word;
   }
-  .who{ 
-    font-size:11px; 
-    color:var(--muted); 
+  .who{
+    font-size:11px;
+    color:var(--muted);
     margin:0 0 4px 6px;
     font-weight:700;
     text-transform:uppercase;
     letter-spacing:.5px;
   }
-  
+
+  /* MARKDOWN EN BURBUJAS BOT */
+  .bubble h3{margin:.5em 0 .3em; font-size:1em;}
+  .bubble h4{margin:.5em 0 .3em; font-size:.95em;}
+  .bubble strong{font-weight:700;}
+  .bubble em{font-style:italic;}
+  .bubble ul,.bubble ol{margin:.4em 0; padding-left:1.4em;}
+  .bubble li{margin:.2em 0;}
+  .bubble code{
+    background:#f1f5f9;
+    color:#7c3aed;
+    padding:2px 6px;
+    border-radius:6px;
+    font-family:monospace;
+    font-size:.9em;
+  }
+  .bubble pre{
+    background:#1e293b;
+    color:#e2e8f0;
+    padding:12px;
+    border-radius:10px;
+    overflow-x:auto;
+    margin:.6em 0;
+  }
+  .bubble pre code{
+    background:none;
+    color:inherit;
+    padding:0;
+    font-size:.88em;
+  }
+  .bubble p{margin:.4em 0;}
+  .bubble p:first-child{margin-top:0;}
+  .bubble p:last-child{margin-bottom:0;}
+
+  /* BOTÓN COPIAR */
+  .bot-actions{
+    display:flex;
+    gap:6px;
+    margin-top:5px;
+    margin-left:4px;
+  }
+  .btn-copy{
+    background:none;
+    border:1.5px solid #cbd5e1;
+    border-radius:8px;
+    padding:4px 10px;
+    font-size:12px;
+    color:var(--muted);
+    cursor:pointer;
+    font-weight:600;
+    transition:all .2s;
+    box-shadow:none;
+    letter-spacing:0;
+  }
+  .btn-copy:hover:not(:disabled){
+    background:#f1f5f9;
+    border-color:#94a3b8;
+    color:var(--text);
+    transform:none;
+    box-shadow:none;
+  }
+  .btn-copy.copied{
+    border-color:#22c55e;
+    color:#22c55e;
+  }
+
   /* INPUT Y BOTONES */
   .input-area{
     padding:0 20px 20px;
     background:#fff;
   }
   textarea{
-    width:100%; 
-    min-height:60px; 
+    width:100%;
+    min-height:60px;
     max-height:120px;
-    resize:vertical; 
-    border:2px solid #e2e8f0; 
-    border-radius:16px; 
-    padding:14px; 
+    resize:vertical;
+    border:2px solid #e2e8f0;
+    border-radius:16px;
+    padding:14px;
     outline:none;
-    font-size:15px; 
+    font-size:16px;
     background:#fff;
     font-family:inherit;
     transition:border .3s;
+    -webkit-appearance: none;
+    appearance: none;
   }
   textarea:focus{
     border-color:#3b82f6;
   }
-  .actions{ 
-    display:flex; 
-    gap:10px; 
+  .actions{
+    display:flex;
+    gap:10px;
     margin-top:12px;
     flex-wrap:wrap;
   }
   button{
-    border:0; 
-    padding:12px 20px; 
-    border-radius:14px; 
-    color:#fff; 
-    cursor:pointer; 
-    font-weight:700; 
+    border:0;
+    padding:12px 20px;
+    border-radius:14px;
+    color:#fff;
+    cursor:pointer;
+    font-weight:700;
     letter-spacing:.3px;
     font-size:14px;
     transition:all .3s;
@@ -221,8 +346,8 @@
     transform:translateY(-2px);
     box-shadow:0 6px 16px rgba(0,0,0,.2);
   }
-  button:disabled{ 
-    opacity:.6; 
+  button:disabled{
+    opacity:.6;
     cursor:not-allowed;
     transform:none;
   }
@@ -237,10 +362,10 @@
   #saveBtn{
     background:linear-gradient(135deg,#10b981,#059669);
   }
-  
-  .typing{ 
-    font-size:13px; 
-    color:var(--muted); 
+
+  .typing{
+    font-size:13px;
+    color:var(--muted);
     padding:8px 20px;
     display:none;
     animation:pulse 1.5s infinite;
@@ -249,28 +374,71 @@
     0%, 100%{opacity:.6}
     50%{opacity:1}
   }
-  
-  .muted{ 
-    color:var(--muted); 
+
+  .muted{
+    color:var(--muted);
     font-size:13px;
     text-align:center;
     padding:12px 20px;
     background:#f8fafc;
     border-top:1px solid #e2e8f0;
   }
-  
-  footer{ 
-    text-align:center; 
-    color:#eaf2ff; 
+
+  footer{
+    text-align:center;
+    color:#eaf2ff;
     padding:16px;
     font-size:13px;
   }
-  .credit{ 
+  .credit{
     opacity:.95;
     font-weight:600;
   }
-  
+
+  /* MODAL */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+    padding:16px;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .2s;
+  }
+  .modal-overlay.open{
+    opacity:1;
+    pointer-events:all;
+  }
+  .modal-box{
+    background:#fff;
+    border-radius:20px;
+    padding:28px 24px 20px;
+    max-width:380px;
+    width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.3);
+    transform:scale(.95);
+    transition:transform .2s;
+    text-align:center;
+  }
+  .modal-overlay.open .modal-box{transform:scale(1);}
+  .modal-icon{font-size:40px; margin-bottom:10px;}
+  .modal-title{font-size:18px; font-weight:800; margin:0 0 8px; color:var(--text);}
+  .modal-msg{font-size:15px; color:var(--muted); margin:0 0 20px; line-height:1.5;}
+  .modal-btns{display:flex; gap:10px; justify-content:center;}
+  .modal-btns button{flex:1; max-width:140px;}
+  .modal-btn-ok{background:linear-gradient(135deg,#2563eb,#7c3aed);}
+  .modal-btn-cancel{background:linear-gradient(135deg,#64748b,#475569);}
+  .modal-btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);}
+
   /* RESPONSIVE */
+  @media (hover: none) and (pointer: coarse){
+    #messages{ overscroll-behavior: contain; }
+  }
+
   @media (max-width:768px){
     .wrap{padding:12px}
     .hero{padding:16px 8px; margin-bottom:16px}
@@ -280,7 +448,7 @@
     .materia-selector{padding:16px; border-radius:20px 20px 0 0}
     .messages-container{padding:16px}
     #messages{padding:12px}
-    .bubble{max-width:90%; font-size:14px; padding:10px 14px}
+    .bubble{max-width:92%; font-size:14px; padding:10px 14px}
     .input-area{padding:0 16px 16px}
     textarea{min-height:50px; font-size:14px}
     .actions{flex-direction:column}
@@ -288,8 +456,10 @@
     #sendBtn{order:1}
     #clearBtn{order:2}
     #saveBtn{order:3}
+    .chip-materia{font-size:12px; padding:6px 13px;}
+    .chip-sugerida{font-size:12px;}
   }
-  
+
   @media (min-width:769px){
     .actions{justify-content:flex-end}
     #sendBtn{flex:0 0 auto; min-width:140px}
@@ -308,18 +478,13 @@
 
     <section class="card" aria-label="Chat escolar">
       <div class="materia-selector">
-        <div class="materia-label">
-          📚 Seleccioná tu materia
-        </div>
-        <div class="materia-input-wrap">
-          <input 
-            id="materia" 
-            type="text" 
-            class="materia-input"
-            placeholder="Ej: Matemática, Historia, Biología..." 
-          />
-          <span class="materia-icon">🎯</span>
-        </div>
+        <div class="materia-label">📚 Seleccioná tu materia</div>
+        <div class="chips-materias" id="chipsMaterias"></div>
+      </div>
+
+      <div class="sugeridas-wrap" id="sugeridasWrap">
+        <div class="sugeridas-label">💡 Preguntas frecuentes</div>
+        <div class="chips-sugeridas" id="chipsSugeridas"></div>
       </div>
 
       <div class="messages-container">
@@ -328,8 +493,8 @@
       </div>
 
       <div class="input-area">
-        <textarea 
-          id="q" 
+        <textarea
+          id="q"
           placeholder="Escribí tu pregunta acá... Ej: ¿Cómo resuelvo ecuaciones de segundo grado?"
         ></textarea>
         <div class="actions">
@@ -347,110 +512,348 @@
     </footer>
   </main>
 
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-icon" id="modalIcon"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-msg" id="modalMsg"></div>
+      <div class="modal-btns" id="modalBtns"></div>
+    </div>
+  </div>
+
 <script>
-  // 🔧 Cambiá esta URL por tu Worker:
   const API_URL = "https://chatia4232.informatica4232.workers.dev/";
+
+  // Fallback para copiar en WebViews sin Clipboard API
+  function copyFallback(text, onOk) {
+    try {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.cssText = "position:fixed;top:-9999px;left:-9999px;opacity:0";
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      if (onOk) onOk();
+    } catch(e) {}
+  }
+  const LS_MATERIA = "materia4232";
+  const LS_SESSION = "chat4232_session";
 
   const $ = sel => document.querySelector(sel);
   const messages = [];
   const $messages = $("#messages");
-  const $materia = $("#materia");
   const $q = $("#q");
   const $btn = $("#sendBtn");
-  const $clearBtn = $("#clearBtn");
-  const $saveBtn = $("#saveBtn");
   const $typing = $("#typing");
 
-  // Guarda/restaura materia en el navegador
-  $materia.value = localStorage.getItem("materia4232") || "";
-  $materia.addEventListener("change", () => localStorage.setItem("materia4232", $materia.value.trim()));
-  $materia.addEventListener("input", () => localStorage.setItem("materia4232", $materia.value.trim()));
+  // ─── MATERIAS Y SUGERENCIAS ───────────────────────────────────────────────
+  const MATERIAS = {
+    "Matemática":   ["¿Cómo resuelvo ecuaciones de 2°?","Explicame fracciones","¿Qué es una función lineal?","¿Cómo calculo el porcentaje?"],
+    "Lengua":       ["¿Cómo se usa la coma?","¿Qué es un sujeto?","¿Cómo hago un resumen?","¿Qué es la tilde diacrítica?"],
+    "Historia":     ["¿Qué fue el virreinato?","¿Cuándo fue la Revolución de Mayo?","¿Qué fue la Segunda Guerra Mundial?","¿Qué es la democracia?"],
+    "Biología":     ["¿Cómo funciona la fotosíntesis?","¿Qué son las células?","¿Qué es el ADN?","¿Cómo funciona el sistema digestivo?"],
+    "Física":       ["¿Qué es la velocidad?","¿Cómo funciona la gravedad?","¿Qué es la energía cinética?","¿Qué es la fuerza?"],
+    "Química":      ["¿Qué es un átomo?","¿Cómo se leen las fórmulas químicas?","¿Qué es una reacción química?","¿Qué es el pH?"],
+    "Geografía":    ["¿Cuáles son los climas de Argentina?","¿Qué es la latitud?","¿Qué son los recursos naturales?","¿Qué es un mapa político?"],
+    "Informática":  ["¿Qué es un algoritmo?","¿Cómo funciona internet?","¿Qué es la inteligencia artificial?","¿Qué es una variable?"],
+    "Arte":         ["¿Qué son los colores primarios?","¿Qué es el Renacimiento?","¿Qué es la perspectiva?","¿Qué es el abstraccionismo?"],
+    "Ed. Física":   ["¿Qué son las capacidades físicas?","¿Cómo caliento antes de entrenar?","¿Qué es el trabajo en equipo?","¿Qué es el fair play?"],
+  };
 
-  function add(role, text){
+  let materiaActiva = localStorage.getItem(LS_MATERIA) || "";
+
+  // Construir chips de materias
+  const $chipsMaterias = $("#chipsMaterias");
+  Object.keys(MATERIAS).forEach(mat => {
+    const chip = document.createElement("button");
+    chip.className = "chip-materia" + (mat === materiaActiva ? " active" : "");
+    chip.textContent = mat;
+    chip.addEventListener("click", () => seleccionarMateria(mat, chip));
+    $chipsMaterias.appendChild(chip);
+  });
+
+  function seleccionarMateria(mat, chip) {
+    if (materiaActiva === mat) {
+      // Deseleccionar
+      materiaActiva = "";
+      localStorage.setItem(LS_MATERIA, "");
+      chip.classList.remove("active");
+      mostrarSugeridas(null);
+    } else {
+      materiaActiva = mat;
+      localStorage.setItem(LS_MATERIA, mat);
+      $chipsMaterias.querySelectorAll(".chip-materia").forEach(c => c.classList.remove("active"));
+      chip.classList.add("active");
+      mostrarSugeridas(mat);
+    }
+  }
+
+  function mostrarSugeridas(mat) {
+    const $wrap = $("#sugeridasWrap");
+    const $chips = $("#chipsSugeridas");
+    if (!mat || !MATERIAS[mat]) {
+      $wrap.classList.remove("visible");
+      return;
+    }
+    $chips.innerHTML = "";
+    MATERIAS[mat].forEach(pregunta => {
+      const chip = document.createElement("button");
+      chip.className = "chip-sugerida";
+      chip.textContent = pregunta;
+      chip.addEventListener("click", () => {
+        $q.value = pregunta;
+        $q.focus();
+      });
+      $chips.appendChild(chip);
+    });
+    $wrap.classList.add("visible");
+  }
+
+  // Mostrar sugeridas si ya había materia guardada
+  if (materiaActiva) mostrarSugeridas(materiaActiva);
+
+  // ─── MARKDOWN PARSER ──────────────────────────────────────────────────────
+  function renderMarkdown(text) {
+    // Bloques de código
+    text = text.replace(/```(\w*)\n?([\s\S]*?)```/g, (_, lang, code) =>
+      `<pre><code>${escHtml(code.trim())}</code></pre>`
+    );
+    // Código inline
+    text = text.replace(/`([^`]+)`/g, (_, c) => `<code>${escHtml(c)}</code>`);
+    // Headers
+    text = text.replace(/^### (.+)$/gm, "<h4>$1</h4>");
+    text = text.replace(/^## (.+)$/gm, "<h3>$1</h3>");
+    text = text.replace(/^# (.+)$/gm, "<h3>$1</h3>");
+    // Negrita e itálica
+    text = text.replace(/\*\*\*(.+?)\*\*\*/g, "<strong><em>$1</em></strong>");
+    text = text.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+    text = text.replace(/\*([^*\n]+?)\*/g, "<em>$1</em>");
+    // Listas no ordenadas
+    text = text.replace(/((?:^[-*] .+\n?)+)/gm, match => {
+      const items = match.trim().split("\n").map(l => `<li>${l.replace(/^[-*] /, "")}</li>`).join("");
+      return `<ul>${items}</ul>`;
+    });
+    // Listas ordenadas
+    text = text.replace(/((?:^\d+\. .+\n?)+)/gm, match => {
+      const items = match.trim().split("\n").map(l => `<li>${l.replace(/^\d+\. /, "")}</li>`).join("");
+      return `<ol>${items}</ol>`;
+    });
+    // Párrafos (líneas en blanco → separación)
+    text = text.split(/\n{2,}/).map(block => {
+      block = block.trim();
+      if (!block) return "";
+      if (/^<(h[1-6]|ul|ol|pre|li)/.test(block)) return block;
+      return `<p>${block.replace(/\n/g, "<br>")}</p>`;
+    }).join("\n");
+    return text;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  // ─── MODAL ────────────────────────────────────────────────────────────────
+  function showModal({ icon="ℹ️", title, msg, buttons }) {
+    return new Promise(resolve => {
+      $("#modalIcon").textContent = icon;
+      $("#modalTitle").textContent = title;
+      $("#modalMsg").textContent = msg;
+      const $btns = $("#modalBtns");
+      $btns.innerHTML = "";
+      buttons.forEach(({ label, cls, value }) => {
+        const b = document.createElement("button");
+        b.textContent = label;
+        b.className = cls;
+        b.addEventListener("click", () => {
+          $("#modalOverlay").classList.remove("open");
+          resolve(value);
+        });
+        $btns.appendChild(b);
+      });
+      $("#modalOverlay").classList.add("open");
+    });
+  }
+
+  function showAlert(msg, icon="ℹ️", title="Aviso") {
+    return showModal({ icon, title, msg,
+      buttons: [{ label:"Aceptar", cls:"modal-btn-ok", value:true }]
+    });
+  }
+
+  function showConfirm(msg, icon="⚠️", title="Confirmar") {
+    return showModal({ icon, title, msg,
+      buttons: [
+        { label:"Cancelar", cls:"modal-btn-cancel", value:false },
+        { label:"Confirmar", cls:"modal-btn-danger", value:true },
+      ]
+    });
+  }
+
+  // ─── MENSAJES ─────────────────────────────────────────────────────────────
+  function add(role, text) {
     const wrap = document.createElement("div");
     wrap.className = "msg " + (role === "assistant" ? "bot" : "me");
+
     const who = document.createElement("div");
     who.className = "who";
     who.textContent = role === "assistant" ? "ChatIA 4232" : "Vos";
+
     const b = document.createElement("div");
     b.className = "bubble";
-    b.textContent = text;
-    wrap.appendChild(who); wrap.appendChild(b);
+
+    if (role === "assistant") {
+      b.innerHTML = renderMarkdown(text);
+      // Botón copiar
+      const actions = document.createElement("div");
+      actions.className = "bot-actions";
+      const btnCopy = document.createElement("button");
+      btnCopy.className = "btn-copy";
+      btnCopy.textContent = "📋 Copiar";
+      btnCopy.addEventListener("click", () => {
+        const doOk = () => {
+          btnCopy.textContent = "✅ Copiado";
+          btnCopy.classList.add("copied");
+          setTimeout(() => {
+            btnCopy.textContent = "📋 Copiar";
+            btnCopy.classList.remove("copied");
+          }, 2000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(doOk).catch(() => copyFallback(text, doOk));
+        } else {
+          copyFallback(text, doOk);
+        }
+      });
+      actions.appendChild(btnCopy);
+      wrap.appendChild(who);
+      wrap.appendChild(b);
+      wrap.appendChild(actions);
+    } else {
+      b.textContent = text;
+      wrap.appendChild(who);
+      wrap.appendChild(b);
+    }
+
     $messages.appendChild(wrap);
     $messages.scrollTop = $messages.scrollHeight;
   }
 
-  async function send(){
+  // ─── ENVIAR ───────────────────────────────────────────────────────────────
+  async function send() {
     const text = $q.value.trim();
-    if(!text) return;
-    const materia = $materia.value.trim();
-    $q.value = ""; add("user", text);
-    $btn.disabled = true; $typing.style.display = "block";
+    if (!text) return;
+    $q.value = "";
+    add("user", text);
+    $btn.disabled = true;
+    $typing.style.display = "block";
 
-    // Enriquecemos el mensaje con la materia si está
-    messages.push({ role:"user", content: (materia ? `Materia: ${materia}. ` : "") + text });
+    messages.push({ role:"user", content: (materiaActiva ? `Materia: ${materiaActiva}. ` : "") + text });
 
-    try{
+    try {
       const r = await fetch(API_URL, {
         method:"POST",
         headers:{ "Content-Type":"application/json" },
         body: JSON.stringify({ messages })
       });
-      const data = await r.json().catch(()=>({reply:"Error: respuesta no válida del servidor."}));
+      const data = await r.json().catch(() => ({ reply:"Error: respuesta no válida del servidor." }));
       const reply = data.reply || data.error || "Ups, no hubo respuesta.";
       add("assistant", reply);
       messages.push({ role:"assistant", content: reply });
-    }catch(err){
+      guardarSesion();
+    } catch(err) {
       add("assistant", "Error de red: " + err.message);
-    }finally{
-      $btn.disabled = false; $typing.style.display = "none";
+    } finally {
+      $btn.disabled = false;
+      $typing.style.display = "none";
       $q.focus();
     }
   }
 
-  function clearChat(){
-    if(confirm("¿Seguro que querés limpiar todo el chat?")){
-      messages.length = 0;
-      $messages.innerHTML = "";
+  // ─── PERSISTENCIA ─────────────────────────────────────────────────────────
+  function guardarSesion() {
+    try {
+      localStorage.setItem(LS_SESSION, JSON.stringify(messages));
+    } catch(e) {}
+  }
+
+  function limpiarSesionGuardada() {
+    localStorage.removeItem(LS_SESSION);
+  }
+
+  async function restaurarSesion() {
+    let guardado;
+    try { guardado = JSON.parse(localStorage.getItem(LS_SESSION)); } catch(e) {}
+    if (!guardado || guardado.length === 0) {
+      add("assistant","¡Hola! Soy el ChatIA de la Escuela 4232. ¿De qué materia necesitas ayuda?");
+      return;
+    }
+    const continuar = await showModal({
+      icon:"💬",
+      title:"Sesión guardada",
+      msg:`Tenés una conversación anterior guardada (${guardado.length} mensajes). ¿Querés continuar o empezar de nuevo?`,
+      buttons: [
+        { label:"Empezar de nuevo", cls:"modal-btn-cancel", value:false },
+        { label:"Continuar", cls:"modal-btn-ok", value:true },
+      ]
+    });
+
+    if (continuar) {
+      guardado.forEach(m => {
+        messages.push(m);
+        add(m.role, m.content);
+      });
+    } else {
+      limpiarSesionGuardada();
       add("assistant","¡Hola! Soy el ChatIA de la Escuela 4232. ¿De qué materia necesitas ayuda?");
     }
   }
 
-  function saveChat(){
-    if(messages.length === 0){
-      alert("No hay mensajes para guardar.");
+  // ─── LIMPIAR ──────────────────────────────────────────────────────────────
+  async function clearChat() {
+    const ok = await showConfirm("¿Seguro que querés limpiar todo el chat?");
+    if (ok) {
+      messages.length = 0;
+      $messages.innerHTML = "";
+      limpiarSesionGuardada();
+      add("assistant","¡Hola! Soy el ChatIA de la Escuela 4232. ¿De qué materia necesitas ayuda?");
+    }
+  }
+
+  // ─── GUARDAR TXT ──────────────────────────────────────────────────────────
+  async function saveChat() {
+    if (messages.length === 0) {
+      await showAlert("No hay mensajes para guardar.", "💾", "Sin mensajes");
       return;
     }
-    const materia = $materia.value.trim() || "sin_materia";
-    const fecha = new Date().toLocaleString('es-AR').replace(/[/:]/g,'-').replace(/,/g,'');
+    const materia = materiaActiva || "sin_materia";
+    const fecha = new Date().toLocaleString("es-AR").replace(/[/:]/g,"-").replace(/,/g,"");
     let texto = `Chat IA Escuela 4232 - ${materia}\n`;
-    texto += `Fecha: ${new Date().toLocaleString('es-AR')}\n`;
+    texto += `Fecha: ${new Date().toLocaleString("es-AR")}\n`;
     texto += "=".repeat(50) + "\n\n";
-    
     messages.forEach(msg => {
       const quien = msg.role === "assistant" ? "ChatIA" : "Estudiante";
       texto += `${quien}:\n${msg.content}\n\n`;
     });
-
-    const blob = new Blob([texto], {type: "text/plain;charset=utf-8"});
+    const blob = new Blob([texto], {type:"text/plain;charset=utf-8"});
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url;
-    a.download = `chat_4232_${materia}_${fecha}.txt`;
-    a.click();
+    a.href = url; a.download = `chat_4232_${materia}_${fecha}.txt`; a.click();
     URL.revokeObjectURL(url);
   }
 
+  // ─── EVENTOS ──────────────────────────────────────────────────────────────
   $btn.addEventListener("click", send);
-  $clearBtn.addEventListener("click", clearChat);
-  $saveBtn.addEventListener("click", saveChat);
-  
+  $("#clearBtn").addEventListener("click", clearChat);
+  $("#saveBtn").addEventListener("click", saveChat);
   $q.addEventListener("keydown", e => {
-    if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); send(); }
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
   });
 
-  // Mensaje inicial
-  add("assistant","¡Hola! Soy el ChatIA de la Escuela 4232. ¿De qué materia necesitas ayuda?");
+  // Inicio
+  restaurarSesion();
 </script>
 </body>
 </html>
