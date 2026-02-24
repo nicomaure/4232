@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Fondo redondeado (color del body de la web) -->
+  <rect width="32" height="32" rx="7" fill="#0f172a"/>
+
+  <!-- Página izquierda del libro -->
+  <path fill="#67e8f9" d="M9 7h5v18H9a1 1 0 01-1-1V8a1 1 0 011-1z"/>
+
+  <!-- Página derecha del libro -->
+  <path fill="#67e8f9" d="M23 7h-5v18h5a1 1 0 001-1V8a1 1 0 00-1-1z"/>
+
+  <!-- Lomo del libro (tono más oscuro para dar profundidad) -->
+  <rect x="14" y="7" width="4" height="18" fill="#0891b2"/>
+</svg>
