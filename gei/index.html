@@ -4,319 +4,748 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guía GEI PAD - Escuela 4232 Teresa Ghilardi</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        * { box-sizing: border-box; }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a202c; /* Dark blue-gray background */
-            color: #e2e8f0; /* Light gray text for general content */
+            background-color: #0f172a;
+            color: #f1f5f9;
+            min-height: 100vh;
         }
-        .section-header {
-            background-color: #2c5282; /* Darker blue for headers */
-            color: white;
-            padding: 1rem;
-            border-radius: 0.75rem; /* Rounded corners */
-            margin-bottom: 1rem;
+
+        /* ── Blobs de fondo ── */
+        .bg-blob {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.12;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .blob-1 { width: 700px; height: 700px; background: #3b82f6; top: -250px; left: -200px; }
+        .blob-2 { width: 500px; height: 500px; background: #8b5cf6; bottom: -150px; right: -150px; }
+        .blob-3 { width: 350px; height: 350px; background: #10b981; top: 40%; left: 50%; }
+
+        /* ── Glass card ── */
+        .glass {
+            background: rgba(30, 41, 59, 0.55);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 1rem;
+        }
+
+        /* ── Gradiente de texto ── */
+        .grad-text {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* ── Botón gradiente ── */
+        .btn-grad {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: #fff;
+            padding: 0.7rem 1.4rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: opacity .2s, transform .2s;
+            box-shadow: 0 4px 18px rgba(59,130,246,0.35);
+        }
+        .btn-grad:hover { opacity: .88; transform: translateY(-1px); }
+
+        /* ── Botón WhatsApp ── */
+        .btn-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: #25d366;
+            color: #fff;
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.45rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background .2s;
+            white-space: nowrap;
+        }
+        .btn-wa:hover { background: #1da851; }
+
+        /* ── Tabs ── */
+        .tabs-wrap { overflow-x: auto; scrollbar-width: none; }
+        .tabs-wrap::-webkit-scrollbar { display: none; }
+
+        .tab-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.65rem 1.15rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
+            border: 1px solid rgba(148,163,184,0.12);
+            background: rgba(30,41,59,0.45);
+            color: #94a3b8;
+            transition: all .25s ease;
+            white-space: nowrap;
+        }
+        .tab-btn:hover { color: #f1f5f9; background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.3); }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 20px rgba(59,130,246,0.38);
+        }
+
+        /* ── Tab content ── */
+        .tab-panel { display: none; }
+        .tab-panel.active {
+            display: block;
+            animation: fadeUp .3s ease;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Acordeón ── */
+        .acc-head {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
+            padding: 0.85rem 1.1rem;
+            background: rgba(51,65,85,0.45);
+            border: 1px solid rgba(148,163,184,0.1);
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all .2s ease;
+            margin-bottom: 0.4rem;
         }
-        .section-content {
-            background-color: #2d3748; /* Slightly lighter dark background for content */
-            padding: 1.5rem;
-            border-radius: 0.75rem; /* Rounded corners */
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Darker shadow */
-            margin-bottom: 1.5rem;
-            display: none; /* Hidden by default */
-            transition: all 0.3s ease-in-out;
-            color: #e2e8f0; /* Light gray text for content */
+        .acc-head:hover  { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.28); }
+        .acc-head.open   { background: rgba(59,130,246,0.18); border-color: rgba(59,130,246,0.38); border-radius: 0.75rem 0.75rem 0 0; margin-bottom: 0; }
+
+        .acc-body {
+            display: none;
+            padding: 1.4rem 1.25rem;
+            background: rgba(15,23,42,0.45);
+            border: 1px solid rgba(148,163,184,0.1);
+            border-top: none;
+            border-radius: 0 0 0.75rem 0.75rem;
+            margin-bottom: 0.4rem;
         }
-        .section-content.active {
-            display: block;
+        .acc-body.open { display: block; animation: slideDown .28s ease; }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-4px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
-        .link-button {
-            display: inline-block;
-            background-color: #3182ce; /* Blue for buttons */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s ease-in-out;
-        }
-        .link-button:hover {
-            background-color: #2b6cb0; /* Darker blue on hover */
-        }
-        .step {
-            margin-bottom: 1rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        .step:before {
-            content: counter(step-counter);
-            counter-increment: step-counter;
-            position: absolute;
-            left: 0;
-            top: 0;
-            background-color: #38a169; /* Green circle for steps */
-            color: white;
+
+        .chevron { transition: transform .28s ease; }
+        .chevron.rotated { transform: rotate(90deg); }
+
+        /* ── Pasos ── */
+        .step-row { display: flex; gap: 0.9rem; margin-bottom: 1.3rem; }
+        .step-row:last-child { margin-bottom: 0; }
+        .step-num {
+            flex-shrink: 0;
+            width: 1.9rem;
+            height: 1.9rem;
             border-radius: 50%;
-            width: 1.8rem;
-            height: 1.8rem;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
             display: flex;
+            align-items: center;
             justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #fff;
+            margin-top: 0.1rem;
+        }
+
+        /* ── Badges ── */
+        .badge {
+            display: inline-block;
+            padding: 0.18rem 0.65rem;
+            border-radius: 9999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: .03em;
+        }
+        .badge-blue  { background: linear-gradient(135deg,#3b82f6,#8b5cf6); color:#fff; }
+        .badge-green { background: rgba(16,185,129,0.18); color: #6ee7b7; }
+        .badge-amber { background: rgba(245,158,11,0.18); color: #fcd34d; }
+
+        /* ── Info / Warning boxes ── */
+        .box-info    { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.28); border-radius: 0.75rem; padding: 1rem 1.15rem; }
+        .box-warning { background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.28); border-radius: 0.75rem; padding: 1rem 1.15rem; }
+        .box-success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.28); border-radius: 0.75rem; padding: 1rem 1.15rem; }
+
+        /* ── Tarjetas de contacto ── */
+        .contact-card {
+            background: rgba(30,41,59,0.55);
+            border: 1px solid rgba(148,163,184,0.1);
+            border-radius: 1rem;
+            padding: 1.25rem;
+            transition: transform .25s, box-shadow .25s, border-color .25s;
+        }
+        .contact-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(59,130,246,0.3);
+            box-shadow: 0 8px 28px rgba(59,130,246,0.12);
+        }
+
+        .c-row {
+            display: flex;
             align-items: center;
-            font-weight: bold;
-            font-size: 0.875rem; /* Smaller font for step numbers */
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(148,163,184,0.07);
         }
-        ol {
-            list-style: none; /* Remove default list styling */
-            padding: 0;
-            counter-reset: step-counter;
-        }
-        ul {
-            list-style-type: disc;
-            margin-left: 1.25rem;
-        }
-        .whatsapp-button {
-            display: inline-flex;
+        .c-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .c-row a { color: #93c5fd; text-decoration: none; font-size: 0.85rem; transition: color .2s; }
+        .c-row a:hover { color: #60a5fa; text-decoration: underline; }
+
+        /* ── Hero icon ── */
+        .hero-icon {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
             align-items: center;
-            background-color: #25d366; /* WhatsApp green */
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background-color 0.2s ease-in-out;
+            justify-content: center;
+            font-size: 2.4rem;
+            margin: 0 auto 1.25rem;
+            box-shadow: 0 8px 32px rgba(59,130,246,0.38);
         }
-        .whatsapp-button:hover {
-            background-color: #1da851;
-        }
-        .whatsapp-button svg {
-            margin-right: 0.5rem;
-        }
-        .chevron {
-            transition: transform 0.3s ease-in-out;
-        }
-        .chevron.rotated {
-            transform: rotate(90deg);
-        }
-        .text-blue-600 {
-            color: #63b3ed; /* Lighter blue for strong text on dark background */
-        }
-        .text-green-600 {
-            color: #68d391; /* Lighter green for strong text on dark background */
-        }
-        .text-amber-600 {
-            color: #f6ad55; /* Lighter amber for strong text on dark background */
-        }
+
+        /* ── Scrollbar ── */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body class="p-4 sm:p-6 lg:p-8">
-    <header class="text-center mb-8 p-6 bg-gray-800 rounded-xl shadow-lg">
-        <img src="https://placehold.co/150x150/2c5282/ffffff?text=Escuela+4232" alt="Logo Escuela 4232 Teresa Ghilardi" class="mx-auto mb-4 rounded-full border-4 border-blue-400">
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2">
-            Guía GEI PAD
-        </h1>
-        <h2 class="text-xl sm:text-2xl lg:text-3xl font-semibold text-gray-300 mb-4">
-            Escuela N° 4232 "Teresa Ghilardi"
-        </h2>
-        <p class="text-md sm:text-lg text-gray-400 max-w-2xl mx-auto">
-            Bienvenido a la guía oficial para acceder y aprovechar al máximo la plataforma GEI PAD. Aquí encontrarás toda la información necesaria para padres, tutores y alumnos.
-        </p>
-    </header>
+<body>
+    <!-- Decoración de fondo -->
+    <div class="blob-1 bg-blob"></div>
+    <div class="blob-2 bg-blob"></div>
+    <div class="blob-3 bg-blob"></div>
 
-    <main class="max-w-4xl mx-auto">
-        <!-- ¿Qué es el GEI PAD? Section -->
-        <section>
-            <div class="section-header" data-target="que-es-gei-pad">
-                <span>🔵 ¿Qué es el GEI PAD?</span>
-                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </div>
-            <div id="que-es-gei-pad" class="section-content">
-                <p class="mb-4">
-                    El GEI PAD es una plataforma digital del gobierno escolar de Mendoza que permite a padres, tutores y alumnos consultar notas, asistencias, comunicaciones escolares, entre otros datos importantes de forma centralizada.
+    <div class="relative z-10 max-w-4xl mx-auto px-4 py-8 sm:px-6">
+
+        <!-- ══ HERO ══ -->
+        <header class="glass text-center p-8 mb-8">
+            <div class="hero-icon">🏫</div>
+            <span class="badge badge-blue tracking-widest text-xs uppercase">Mendoza · Argentina</span>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white mt-3 mb-2 leading-tight">
+                Guía <span class="grad-text">GEI PAD</span>
+            </h1>
+            <h2 class="text-base sm:text-lg font-semibold text-slate-300 mb-4">
+                Escuela N° 4232 "Teresa Ghilardi"
+            </h2>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm sm:text-base leading-relaxed mb-6">
+                Guía oficial para acceder a la plataforma de notas, asistencias y comunicaciones escolares.
+                Elegí tu perfil para ver los pasos que te corresponden.
+            </p>
+            <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="btn-grad">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                Ir al GEI PAD
+            </a>
+        </header>
+
+        <!-- ══ QUÉ ES ══ -->
+        <div class="box-info flex gap-3 items-start mb-8">
+            <span class="text-2xl leading-none mt-0.5">💡</span>
+            <div>
+                <p class="font-semibold text-blue-300 mb-1">¿Qué es el GEI PAD?</p>
+                <p class="text-slate-300 text-sm leading-relaxed">
+                    Plataforma digital del gobierno escolar de Mendoza para consultar
+                    <strong class="text-white">notas, asistencias y comunicaciones</strong> en un solo lugar.
+                    El acceso es directo desde
+                    <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">dti.mendoza.edu.ar/gem/pad/</a>
+                    — ya no hace falta entrar al Portal Educativo.
                 </p>
-                <p>
-                    <strong>¡Importante!</strong> Ya no es necesario ingresar al Portal Educativo, ahora el acceso es directamente desde el sitio web oficial del GEI PAD.
-                </p>
             </div>
-        </section>
+        </div>
 
-        <!-- Pasos para PADRES o TUTORES Section -->
-        <section>
-            <div class="section-header" data-target="pasos-padres">
-                <span>👨‍👩‍👧‍👦 Pasos para PADRES o TUTORES</span>
-                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        <!-- ══ TABS ══ -->
+        <div class="tabs-wrap mb-5">
+            <div class="flex gap-2.5 min-w-max">
+                <button class="tab-btn active" data-tab="padres">
+                    <span class="text-lg">👨‍👩‍👧‍👦</span> Padres / Tutores
+                </button>
+                <button class="tab-btn" data-tab="alumnos">
+                    <span class="text-lg">📚</span> Alumnos
+                </button>
+                <button class="tab-btn" data-tab="docentes">
+                    <span class="text-lg">👩‍🏫</span> Docentes
+                </button>
             </div>
-            <div id="pasos-padres" class="section-content">
-                <ol>
-                    <li class="step">
-                        <strong class="text-blue-600">1. Ingresar a la plataforma:</strong><br>
-                        Abrí tu navegador e ingresá a: <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">https://dti.mendoza.edu.ar/gem/pad/</a>
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">2. Crear un usuario nuevo (si todavía no tenés cuenta):</strong><br>
-                        Hacé clic en la opción: <strong class="text-green-600">¿Usuario nuevo? Padres, Cliquea aquí</strong>
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">3. Verificar tus datos:</strong><br>
-                        Completá el formulario con:
-                        <ul class="list-disc ml-6 mt-2">
-                            <li>DNI del padre o tutor</li>
-                            <li>DNI del alumno</li>
-                            <li>Número de escuela (consultalo en la escuela si no lo sabés)</li>
-                        </ul>
-                        Luego hacé clic en <strong class="text-green-600">Verificar</strong>.
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">4. Crear la cuenta:</strong><br>
-                        Si los datos son correctos, el sistema te pedirá:
-                        <ul class="list-disc ml-6 mt-2">
-                            <li>Tu número de CUIL</li>
-                            <li>Un correo electrónico válido</li>
-                        </ul>
-                        Ingresá esos datos y creá tu cuenta.
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">5. Activar la cuenta:</strong><br>
-                        Revisá tu correo electrónico (incluyendo la carpeta de spam). Vas a recibir un mensaje con un enlace de activación. Hacé clic en ese enlace para confirmar tu cuenta.
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">6. Iniciar sesión:</strong><br>
-                        Volvé a la página principal: <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">https://dti.mendoza.edu.ar/gem/pad/</a><br>
-                        Ingresá tu correo electrónico y contraseña.
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">7. Elegir el rol PAD:</strong><br>
-                        Una vez dentro, seleccioná el rol <strong class="text-green-600">PAD</strong> para ver la información del alumno.
-                    </li>
-                </ol>
-            </div>
-        </section>
+        </div>
 
-        <!-- Pasos para ALUMNOS Section -->
-        <section>
-            <div class="section-header" data-target="pasos-alumnos">
-                <span>📚 Pasos para ALUMNOS</span>
-                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </div>
-            <div id="pasos-alumnos" class="section-content">
-                <ol>
-                    <li class="step">
-                        <strong class="text-blue-600">1. Ingresar a la plataforma:</strong><br>
-                        Entrá al sitio web: <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">https://dti.mendoza.edu.ar/gem/pad/</a>
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">2. Crear un usuario nuevo:</strong><br>
-                        Hacé clic en: <strong class="text-green-600">¿Usuario nuevo? Alumnos, Cliquea aquí</strong>
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">3. Completar el formulario:</strong><br>
-                        Cargá tus datos:
-                        <ul class="list-disc ml-6 mt-2">
-                            <li>Número de CUIL</li>
-                            <li>Correo electrónico válido</li>
-                        </ul>
-                        Aceptá los términos y condiciones.
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">4. Activar tu cuenta:</strong><br>
-                        Vas a recibir un correo con un enlace de activación. Hacé clic en él para activar tu cuenta.
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">5. Iniciar sesión:</strong><br>
-                        Volvé a la página principal e ingresá tu correo y contraseña.
-                    </li>
-                    <li class="step">
-                        <strong class="text-blue-600">6. Elegir el rol Alumno:</strong><br>
-                        Seleccioná <strong class="text-green-600">Alumno</strong> para acceder a tus calificaciones, asistencias y más.
-                    </li>
-                </ol>
-            </div>
-        </section>
+        <!-- ══ PANEL: PADRES ══ -->
+        <div id="tab-padres" class="tab-panel active glass p-6 mb-8">
+            <h3 class="text-lg font-bold text-white mb-5 flex items-center gap-2">
+                <span class="text-2xl">👨‍👩‍👧‍👦</span> Padres y Tutores
+            </h3>
 
-        <!-- ¿Tenés problemas para ingresar? Section -->
-        <section>
-            <div class="section-header" data-target="problemas-ingresar">
-                <span>🛠 ¿Tenés problemas para ingresar?</span>
-                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </div>
-            <div id="problemas-ingresar" class="section-content">
-                <p class="mb-4">Si tenés dificultades para crear o acceder a tu cuenta, podés:</p>
-                <ul class="list-disc ml-6 mb-4">
-                    <li>Contactar a la escuela para verificar si los datos del alumno y del tutor están bien cargados.</li>
-                    <li>Usar el enlace "<strong class="text-blue-600">¿Olvidaste tu contraseña?</strong>" en la página de inicio de sesión para recuperarla.</li>
-                    <li>Revisar tu correo electrónico, incluyendo la carpeta de "<strong class="text-amber-600">spam</strong>" o "<strong class="text-amber-600">correo no deseado</strong>", si no ves el mensaje de activación.</li>
-                </ul>
-                <h3 class="text-lg font-semibold text-white mb-2">📞 Si cambiaste tu correo o perdiste el acceso a tu cuenta:</h3>
-                <p class="mb-4">
-                    Podés comunicarte directamente con el área de Sistemas de la DGE por WhatsApp al siguiente número:
-                </p>
-                <div class="flex justify-center mb-4">
-                    <a href="https://wa.me/5492616653324" target="_blank" class="whatsapp-button">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.63-3.87-1.63-6.065C.114 6.945 6.93 0 15.006 0c4.103 0 7.948 1.6 10.847 4.502S30.706 12.897 30.706 17.001c0 8.075-6.816 14.673-14.892 14.673-2.096 0-4.068-.52-5.83-1.423L.057 24zM15.006 28.324c6.237 0 11.314-5.076 11.314-11.323 0-6.237-5.077-11.314-11.314-11.314-6.237 0-11.314 5.077-11.314 11.314 0 2.296.685 4.45 1.862 6.326l-1.393 5.074 5.215-1.378c1.785.992 3.864 1.547 5.929 1.547zM22.062 18.064c-.09-.153-.332-.24-.69-.425-.357-.184-2.072-1.018-2.396-1.13-.324-.112-.566-.168-.809.169-.243.337-.936 1.13-1.147 1.365-.211.235-.423.251-.781.084-.357-.168-1.503-.556-2.86-1.767-1.066-.962-1.781-2.146-1.992-2.518-.211-.372-.023-.578.146-.721.153-.13.332-.24.49-.409.157-.168.211-.27.357-.492.146-.223.078-.423-.038-.592-.112-.169-.69-.536-1.047-.736-.357-.199-.61-.251-.861-.257-.251-.005-.536-.005-.809-.005-.272 0-.714.078-1.092.446-.379.368-1.444 1.411-1.444 3.447 0 2.036 1.47 3.993 1.681 4.281.211.288 2.898 4.428 7.042 6.136 4.144 1.708 4.144 1.139 4.88 1.064.737-.075 2.261-.92 2.584-1.804.324-.883.324-1.64.223-1.809-.09-.169-.332-.26-.69-.429z"/></svg>
-                        261 665-3324
-                    </a>
+            <!-- Acordeón: Crear cuenta -->
+            <div class="mb-1">
+                <div class="acc-head" data-acc="p-registro">
+                    <div class="flex items-center gap-2.5">
+                        <span class="badge badge-blue">Nuevo usuario</span>
+                        <span class="font-semibold text-white text-sm">Crear cuenta por primera vez</span>
+                    </div>
+                    <svg class="chevron w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
                 </div>
-                <p>
-                    Te van a ayudar a recuperar el acceso o actualizar tu correo en el sistema.
-                </p>
-                 <!-- Formulario adicional -->
-                <h3 class="text-lg font-semibold text-white mb-2 mt-6">📝 ¿Necesitás ayuda personalizada?</h3>
-                <p class="mb-4">
-                    Si después de intentar recuperar tu cuenta seguís teniendo problemas, podés completar este formulario de ayuda y el equipo de la escuela te contactará para asistirte:
-                </p>
-                <div class="flex justify-center">
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSd8vjRhAWi28rBZuOpk3pI3Q6mMaD9dhBnFmFOVhNPpImBmbg/viewform?usp=preview" target="_blank" class="link-button">
-                        Completar Formulario de Ayuda
-                    </a>
+                <div id="p-registro" class="acc-body">
+                    <div class="step-row">
+                        <div class="step-num">1</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Ingresar a la plataforma</p>
+                            <p class="text-slate-300 text-sm">Abrí tu navegador e ingresá a:
+                                <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">dti.mendoza.edu.ar/gem/pad/</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">2</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Crear usuario nuevo</p>
+                            <p class="text-slate-300 text-sm">Hacé clic en:
+                                <strong class="text-emerald-400">¿Usuario nuevo? Padres, Cliquea aquí</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">3</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-1">Verificar tus datos</p>
+                            <p class="text-slate-300 text-sm mb-1.5">Completá el formulario con:</p>
+                            <ul class="list-disc ml-4 text-slate-300 text-sm space-y-0.5">
+                                <li>DNI del padre o tutor</li>
+                                <li>DNI del alumno</li>
+                                <li>Número de escuela <span class="text-slate-500">(consultá en la escuela si no lo sabés)</span></li>
+                            </ul>
+                            <p class="text-slate-300 text-sm mt-1.5">Luego hacé clic en <strong class="text-emerald-400">Verificar</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">4</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-1">Crear la cuenta</p>
+                            <p class="text-slate-300 text-sm mb-1.5">Si los datos son correctos, el sistema te pedirá:</p>
+                            <ul class="list-disc ml-4 text-slate-300 text-sm space-y-0.5">
+                                <li>Número de CUIL</li>
+                                <li>Correo electrónico válido</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">5</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Activar la cuenta</p>
+                            <p class="text-slate-300 text-sm">Revisá tu correo electrónico (incluida la carpeta de
+                                <strong class="text-amber-400">spam</strong>). Vas a recibir un enlace de activación. Hacé clic en él para confirmar tu cuenta.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">6</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Iniciar sesión</p>
+                            <p class="text-slate-300 text-sm">Volvé a la página principal e ingresá tu correo y contraseña.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">7</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Elegir el rol PAD</p>
+                            <p class="text-slate-300 text-sm">Una vez dentro, seleccioná el rol
+                                <strong class="text-emerald-400">PAD</strong> para ver la información del alumno.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acordeón: Más de un hijo -->
+            <div class="mb-1">
+                <div class="acc-head" data-acc="p-multihijo">
+                    <div class="flex items-center gap-2.5">
+                        <span class="badge badge-green">Consejo</span>
+                        <span class="font-semibold text-white text-sm">Tenés más de un hijo en la escuela</span>
+                    </div>
+                    <svg class="chevron w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                <div id="p-multihijo" class="acc-body">
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Con <strong class="text-white">una sola cuenta</strong> podés vincular a todos tus hijos.
+                        Al ingresar al sistema podés cambiar entre los alumnos vinculados desde el panel principal.
+                    </p>
+                    <div class="box-warning mt-3 flex gap-2 items-start">
+                        <span class="text-lg leading-none mt-0.5">⚠️</span>
+                        <p class="text-slate-300 text-sm">
+                            Usá siempre el mismo correo electrónico y guardá tu contraseña en un lugar seguro.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ PANEL: ALUMNOS ══ -->
+        <div id="tab-alumnos" class="tab-panel glass p-6 mb-8">
+            <h3 class="text-lg font-bold text-white mb-5 flex items-center gap-2">
+                <span class="text-2xl">📚</span> Alumnos
+            </h3>
+
+            <div class="mb-1">
+                <div class="acc-head" data-acc="a-registro">
+                    <div class="flex items-center gap-2.5">
+                        <span class="badge badge-blue">Nuevo usuario</span>
+                        <span class="font-semibold text-white text-sm">Crear tu cuenta</span>
+                    </div>
+                    <svg class="chevron w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                <div id="a-registro" class="acc-body">
+                    <div class="step-row">
+                        <div class="step-num">1</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Ingresar a la plataforma</p>
+                            <p class="text-slate-300 text-sm">
+                                Entrá al sitio:
+                                <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">dti.mendoza.edu.ar/gem/pad/</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">2</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Crear usuario nuevo</p>
+                            <p class="text-slate-300 text-sm">Hacé clic en:
+                                <strong class="text-emerald-400">¿Usuario nuevo? Alumnos, Cliquea aquí</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">3</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-1">Completar el formulario</p>
+                            <ul class="list-disc ml-4 text-slate-300 text-sm space-y-0.5">
+                                <li>Número de CUIL</li>
+                                <li>Correo electrónico válido</li>
+                            </ul>
+                            <p class="text-slate-300 text-sm mt-1.5">Aceptá los términos y condiciones.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">4</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Activar tu cuenta</p>
+                            <p class="text-slate-300 text-sm">Vas a recibir un correo con un enlace de activación.
+                                Revisá también la carpeta de <strong class="text-amber-400">spam</strong>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">5</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Iniciar sesión</p>
+                            <p class="text-slate-300 text-sm">Volvé a la página principal e ingresá tu correo y contraseña.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">6</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Elegir el rol Alumno</p>
+                            <p class="text-slate-300 text-sm">Seleccioná
+                                <strong class="text-emerald-400">Alumno</strong>
+                                para acceder a tus calificaciones, asistencias y más.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-success mt-3 flex gap-2.5 items-start">
+                <span class="text-xl leading-none mt-0.5">📱</span>
+                <div>
+                    <p class="font-semibold text-emerald-300 text-sm mb-0.5">Accedé desde tu celular</p>
+                    <p class="text-slate-300 text-sm">El GEI PAD funciona en el navegador de tu teléfono. Podés guardarlo como acceso directo en la pantalla de inicio para entrar más rápido.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ PANEL: DOCENTES ══ -->
+        <div id="tab-docentes" class="tab-panel glass p-6 mb-8">
+            <h3 class="text-lg font-bold text-white mb-5 flex items-center gap-2">
+                <span class="text-2xl">👩‍🏫</span> Docentes
+            </h3>
+
+            <div class="mb-1">
+                <div class="acc-head" data-acc="d-registro">
+                    <div class="flex items-center gap-2.5">
+                        <span class="badge badge-blue">Nuevo usuario</span>
+                        <span class="font-semibold text-white text-sm">Crear tu cuenta docente</span>
+                    </div>
+                    <svg class="chevron w-5 h-5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+                <div id="d-registro" class="acc-body">
+                    <div class="step-row">
+                        <div class="step-num">1</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Ingresar a la plataforma</p>
+                            <p class="text-slate-300 text-sm">
+                                Entrá al sitio:
+                                <a href="https://dti.mendoza.edu.ar/gem/pad/" target="_blank" class="text-blue-400 hover:underline">dti.mendoza.edu.ar/gem/pad/</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">2</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Crear usuario nuevo docente</p>
+                            <p class="text-slate-300 text-sm">Hacé clic en:
+                                <strong class="text-emerald-400">¿Usuario nuevo? Docentes, Cliquea aquí</strong>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">3</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-1">Completar el formulario</p>
+                            <ul class="list-disc ml-4 text-slate-300 text-sm space-y-0.5">
+                                <li>Número de CUIL</li>
+                                <li>Correo electrónico (preferentemente institucional)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">4</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Activar tu cuenta</p>
+                            <p class="text-slate-300 text-sm">Vas a recibir un correo con un enlace de activación.
+                                Revisá también la carpeta de <strong class="text-amber-400">spam</strong>.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">5</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Iniciar sesión</p>
+                            <p class="text-slate-300 text-sm">Ingresá tu correo y contraseña en la página principal.</p>
+                        </div>
+                    </div>
+                    <div class="step-row">
+                        <div class="step-num">6</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm mb-0.5">Elegir el rol Docente</p>
+                            <p class="text-slate-300 text-sm">Seleccioná
+                                <strong class="text-emerald-400">Docente</strong>
+                                para acceder a listados de alumnos, cargar notas y asistencias.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-warning mt-3 flex gap-2.5 items-start">
+                <span class="text-xl leading-none mt-0.5">📋</span>
+                <div>
+                    <p class="font-semibold text-amber-300 text-sm mb-0.5">¿El sistema no reconoce tu CUIL?</p>
+                    <p class="text-slate-300 text-sm">Verificá con el área administrativa de la escuela que tus datos estén correctamente cargados. El equipo de Sistemas de la DGE también puede asistirte.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══ SECCIÓN DE AYUDA Y CONTACTO ══ -->
+        <section class="mb-8">
+            <h3 class="text-lg font-bold text-white mb-5 flex items-center gap-2">
+                <span class="text-2xl">🛠</span> Soporte y contacto
+            </h3>
+
+            <!-- Tips rápidos -->
+            <div class="glass p-5 mb-5">
+                <p class="text-slate-300 text-sm font-medium mb-3">Antes de escribir al soporte, intentá esto:</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="bg-slate-800/60 rounded-xl p-3.5">
+                        <p class="text-blue-400 font-semibold text-sm mb-1">🔑 Olvidé mi contraseña</p>
+                        <p class="text-slate-400 text-xs leading-relaxed">Usá el enlace <strong class="text-white">"¿Olvidaste tu contraseña?"</strong> en la página de inicio.</p>
+                    </div>
+                    <div class="bg-slate-800/60 rounded-xl p-3.5">
+                        <p class="text-amber-400 font-semibold text-sm mb-1">📧 No llegó el email</p>
+                        <p class="text-slate-400 text-xs leading-relaxed">Revisá la carpeta de <strong class="text-white">spam</strong> o correo no deseado.</p>
+                    </div>
+                    <div class="bg-slate-800/60 rounded-xl p-3.5">
+                        <p class="text-emerald-400 font-semibold text-sm mb-1">❓ Datos incorrectos</p>
+                        <p class="text-slate-400 text-xs leading-relaxed">Contactá a la escuela para que verifiquen tu información en el sistema.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjetas de contacto -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
+
+                <!-- Teléfonos fijos -->
+                <div class="contact-card">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
+                             style="background: linear-gradient(135deg,#3b82f6,#8b5cf6);">☎️</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm">Teléfonos de línea</p>
+                            <p class="text-slate-500 text-xs">DGE Sistemas</p>
+                        </div>
+                    </div>
+                    <div class="c-row"><a href="tel:02613852793">0261 385-2793</a></div>
+                    <div class="c-row"><a href="tel:02613852762">0261 385-2762</a></div>
+                    <div class="c-row"><a href="tel:02613852848">0261 385-2848</a></div>
+                </div>
+
+                <!-- Móviles / WhatsApp -->
+                <div class="contact-card">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
+                             style="background: #25d366;">📲</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm">Móviles / WhatsApp</p>
+                            <p class="text-slate-500 text-xs">DGE Sistemas</p>
+                        </div>
+                    </div>
+                    <!-- llamadas + WA -->
+                    <div class="c-row">
+                        <div>
+                            <a href="tel:2616654429" class="block">261 665-4429</a>
+                            <span class="text-slate-500 text-xs">llamadas y WhatsApp</span>
+                        </div>
+                        <a href="https://wa.me/5492616654429" target="_blank" class="btn-wa">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            WA
+                        </a>
+                    </div>
+                    <!-- solo WA -->
+                    <div class="c-row">
+                        <div>
+                            <span class="text-slate-300 text-sm block">261 665-3324</span>
+                            <span class="text-slate-500 text-xs">solo WhatsApp</span>
+                        </div>
+                        <a href="https://wa.me/5492616653324" target="_blank" class="btn-wa">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            WA
+                        </a>
+                    </div>
+                    <div class="c-row">
+                        <div>
+                            <span class="text-slate-300 text-sm block">261 205-7288</span>
+                            <span class="text-slate-500 text-xs">solo WhatsApp</span>
+                        </div>
+                        <a href="https://wa.me/5492612057288" target="_blank" class="btn-wa">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            WA
+                        </a>
+                    </div>
+                    <div class="c-row">
+                        <div>
+                            <span class="text-slate-300 text-sm block">261 556-0777</span>
+                            <span class="text-slate-500 text-xs">solo WhatsApp</span>
+                        </div>
+                        <a href="https://wa.me/5492615560777" target="_blank" class="btn-wa">
+                            <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                            WA
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Correos -->
+                <div class="contact-card">
+                    <div class="flex items-center gap-2.5 mb-4">
+                        <div class="w-9 h-9 rounded-lg flex items-center justify-center text-lg"
+                             style="background: rgba(99,102,241,0.25);">📩</div>
+                        <div>
+                            <p class="font-semibold text-white text-sm">Correo electrónico</p>
+                            <p class="text-slate-500 text-xs">DGE Sistemas</p>
+                        </div>
+                    </div>
+                    <div class="c-row">
+                        <a href="mailto:dge-sistemas@mendoza.edu.ar" class="break-all">dge-sistemas@mendoza.edu.ar</a>
+                    </div>
+                    <div class="c-row">
+                        <a href="mailto:dge-sistemas@mendoza.gov.ar" class="break-all">dge-sistemas@mendoza.gov.ar</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Formulario de ayuda -->
+            <div class="glass p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                    <p class="font-semibold text-white mb-0.5">📝 ¿Necesitás ayuda personalizada?</p>
+                    <p class="text-slate-400 text-sm">Completá el formulario y el equipo de la escuela te va a contactar.</p>
+                </div>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSd8vjRhAWi28rBZuOpk3pI3Q6mMaD9dhBnFmFOVhNPpImBmbg/viewform?usp=preview"
+                   target="_blank" class="btn-grad flex-shrink-0">
+                    Formulario de ayuda
+                </a>
             </div>
         </section>
 
-        <!-- Consejos útiles Section -->
-        <section>
-            <div class="section-header" data-target="consejos-utiles">
-                <span>💡 Consejos útiles</span>
-                <svg class="chevron w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-            </div>
-            <div id="consejos-utiles" class="section-content">
-                <ul class="list-disc ml-6 mb-4">
-                    <li>Usá un correo electrónico personal trata de no cambiarlo.</li>
-                    <li>Si sos padre o tutor de más de un hijo, podés vincular a todos con una sola cuenta, ingresando los datos correctamente.</li>
-                    <li>Guardá tu contraseña en un lugar seguro para no perder el acceso.</li>
-                    <li>Si tienes alguna duda adicional, no dudes en consultar sector de informática de la escuela.</li>
-                </ul>
-            </div>
-        </section>
-    </main>
+    </div><!-- /container -->
 
-    <footer class="text-center mt-8 p-6 bg-gray-800 rounded-xl shadow-lg text-gray-400 text-sm">
-        <p>&copy; 2025 Escuela N° 4232 "Teresa Ghilardi". Todos los derechos reservados.</p>
-        <p>Diseñado por Nicolas Maure - Admin de Red.</p>
-        <p class="mt-2">Creado con el objetivo de facilitar el acceso a la información escolar.</p>
+    <!-- ══ FOOTER ══ -->
+    <footer class="relative z-10 text-center py-8 px-4 border-t border-slate-800/60">
+        <p class="text-slate-500 text-sm">© 2025 Escuela N° 4232 "Teresa Ghilardi" — Todos los derechos reservados.</p>
+        <p class="text-slate-600 text-xs mt-1">Diseñado por Nicolás Maure · Admin de Red</p>
     </footer>
 
     <script>
-        // JavaScript para manejar la expansión/contracción de las secciones (acordeón)
-        document.addEventListener('DOMContentLoaded', () => {
-            const headers = document.querySelectorAll('.section-header');
+        // ── Tabs ──
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+            });
+        });
 
-            headers.forEach(header => {
-                header.addEventListener('click', () => {
-                    const targetId = header.dataset.target;
-                    const content = document.getElementById(targetId);
-                    const chevron = header.querySelector('.chevron');
+        // ── Acordeón (uno abierto por panel) ──
+        document.querySelectorAll('.acc-head').forEach(head => {
+            head.addEventListener('click', () => {
+                const id      = head.dataset.acc;
+                const body    = document.getElementById(id);
+                const chevron = head.querySelector('.chevron');
+                const isOpen  = body.classList.contains('open');
+                const panel   = head.closest('.tab-panel');
 
-                    // Toggle active class to show/hide content
-                    content.classList.toggle('active');
-                    // Toggle rotated class for chevron icon
-                    chevron.classList.toggle('rotated');
+                // Cerrar todos en el mismo panel
+                panel.querySelectorAll('.acc-body.open').forEach(b => b.classList.remove('open'));
+                panel.querySelectorAll('.acc-head.open').forEach(h => {
+                    h.classList.remove('open');
+                    h.querySelector('.chevron').classList.remove('rotated');
                 });
+
+                if (!isOpen) {
+                    body.classList.add('open');
+                    head.classList.add('open');
+                    chevron.classList.add('rotated');
+                }
             });
         });
     </script>
