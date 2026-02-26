@@ -1,289 +1,1057 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Guía Gmail y Drive - Nicolás Maure - Admin. de Red.</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .hero-title {
-            font-family: 'Pacifico', cursive;
-        }
-        .card {
-            background-color: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        .card h2 {
-            font-size: 1.5em;
-            color: #333;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #FDBF2D; /* Amarillo Google */
-            padding-bottom: 8px;
-        }
-        .card h3 {
-            font-size: 1.2em;
-            color: #1A73E8; /* Azul Google */
-            margin-top: 15px;
-            margin-bottom: 10px;
-        }
-        .btn-nav {
-            background-color: #1A73E8; /* Azul Google */
-            color: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: background-color 0.3s ease;
-            font-weight: 600;
-        }
-        .btn-nav:hover {
-            background-color: #1558B3;
-        }
-        .emoji-bullet li::before {
-            content: "🔸";
-            margin-right: 8px;
-        }
-        .pro-tip {
-            background-color: #E8F0FE; /* Azul claro Google */
-            border-left: 4px solid #1A73E8;
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        .warning-tip {
-            background-color: #FCE8E6; /* Rojo claro Google */
-            border-left: 4px solid #D93025; /* Rojo Google */
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-        .dato-curioso {
-            background-color: #E6F4EA; /* Verde claro Google */
-            border-left: 4px solid #34A853; /* Verde Google */
-            padding: 10px;
-            margin: 15px 0;
-            border-radius: 4px;
-            font-style: italic;
-        }
-        .img-placeholder {
-            width: 100%;
-            max-width: 400px;
-            height: auto;
-            border-radius: 8px;
-            margin: 15px auto;
-            display: block;
-            border: 1px solid #ccc;
-            background-color: #f0f0f0; /* Color de fondo para el placeholder */
-        }
-        .logo-img {
-            width: 60px;
-            height: auto;
-            margin-right: 10px;
-        }
-    </style>
-</head>
-<body class="bg-gradient-to-br from-sky-400 to-indigo-600 text-gray-800">
+      body {
+        font-family: "Nunito", sans-serif;
+      }
+      .hero-title {
+        font-family: "Pacifico", cursive;
+      }
 
-    <header class="bg-white/80 backdrop-blur-md shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center">
-            <div class="text-center sm:text-left mb-4 sm:mb-0">
-                <h1 class="hero-title text-3xl md:text-4xl text-indigo-700">¡Tu Aventura Digital!</h1>
-                <p class="text-sm text-gray-600">Guía Gmail y Drive para Estudiantes Geniales (Ciclo 2025)</p>
-                <p class="text-xs text-gray-500 mt-1">Escuela 4232 "Teresa Ghilardi de Martin"</p>
-            </div>
-            <nav class="flex space-x-4">
-                <a href="https://gmail.com" target="_blank" rel="noopener noreferrer" class="btn-nav">📧 Gmail</a>
-                <a href="https://drive.google.com" target="_blank" rel="noopener noreferrer" class="btn-nav">🔺 Drive</a>
-            </nav>
+      /* ── Cards ── */
+      .card {
+        background: rgba(255, 255, 255, 0.96);
+        border-radius: 20px;
+        padding: 28px;
+        margin-bottom: 24px;
+        box-shadow: 0 8px 32px rgba(109, 40, 217, 0.12);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(109, 40, 217, 0.18);
+      }
+      .card-header {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        user-select: none;
+      }
+      .card-header h2 {
+        font-size: 1.45em;
+        font-weight: 800;
+        color: #1e1b4b;
+        border-bottom: 3px solid #a855f7;
+        padding-bottom: 6px;
+        flex: 1;
+      }
+      .card-toggle-icon {
+        font-size: 2rem;
+        color: #a855f7;
+        transition: transform 0.35s ease;
+      }
+      .card-body {
+        overflow: hidden;
+        transition:
+          max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.35s ease;
+        max-height: 9000px;
+        opacity: 1;
+      }
+      .card-body.collapsed {
+        max-height: 0;
+        opacity: 0;
+      }
+      .card-toggle-icon.rotated {
+        transform: rotate(-90deg);
+      }
+
+      /* ── Step items (collapsible) ── */
+      .step-block {
+        border: 2px solid #ede9fe;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: border-color 0.2s;
+      }
+      .step-block:hover {
+        border-color: #c4b5fd;
+      }
+      .step-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        cursor: pointer;
+        background: #faf5ff;
+        font-weight: 700;
+        color: #5b21b6;
+        font-size: 1em;
+        user-select: none;
+        transition: background 0.2s;
+      }
+      .step-header:hover {
+        background: #f3e8ff;
+      }
+      .step-num {
+        min-width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #a855f7, #ec4899);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.85em;
+        font-weight: 800;
+      }
+      .step-chevron {
+        margin-left: auto;
+        font-size: 1.3rem;
+        color: #a855f7;
+        transition: transform 0.3s ease;
+      }
+      .step-chevron.open {
+        transform: rotate(180deg);
+      }
+      .step-content {
+        padding: 0 16px;
+        overflow: hidden;
+        max-height: 2000px;
+        transition:
+          max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          padding 0.3s ease,
+          opacity 0.3s ease;
+        opacity: 1;
+      }
+      .step-content.closed {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        opacity: 0;
+      }
+      .step-content-inner {
+        padding: 10px 0 14px;
+      }
+
+      /* ── H3 inside cards ── */
+      .card h3 {
+        font-size: 1.15em;
+        font-weight: 800;
+        color: #7c3aed;
+        margin-top: 18px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* ── Callout boxes ── */
+      .pro-tip {
+        background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+        border-left: 4px solid #7c3aed;
+        padding: 12px 14px;
+        margin: 14px 0;
+        border-radius: 10px;
+        font-size: 0.95em;
+      }
+      .warning-tip {
+        background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+        border-left: 4px solid #ec4899;
+        padding: 12px 14px;
+        margin: 14px 0;
+        border-radius: 10px;
+        font-size: 0.95em;
+      }
+      .dato-curioso {
+        background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+        border-left: 4px solid #10b981;
+        padding: 12px 14px;
+        margin: 14px 0;
+        border-radius: 10px;
+        font-style: italic;
+        font-size: 0.95em;
+      }
+
+      /* ── Logo img ── */
+      .logo-img {
+        width: 52px;
+        height: auto;
+      }
+      .img-placeholder {
+        width: 100%;
+        max-width: 420px;
+        height: auto;
+        border-radius: 12px;
+        margin: 14px auto;
+        display: block;
+        border: 2px solid #ede9fe;
+      }
+
+      /* ── Nav buttons ── */
+      .btn-nav {
+        background: linear-gradient(135deg, #7c3aed, #a855f7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.95em;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+      }
+      .btn-nav:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(124, 58, 237, 0.45);
+      }
+
+      /* ── Progress Stepper ── */
+      #progress-stepper {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 20px rgba(109, 40, 217, 0.12);
+      }
+      .stepper-wrap {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+        padding: 10px 20px;
+      }
+      .step-pill {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 0.88em;
+        color: #9ca3af;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+      }
+      .step-pill .material-icons-round {
+        font-size: 1.1rem;
+      }
+      .step-pill.active {
+        background: linear-gradient(135deg, #7c3aed, #ec4899);
+        color: white;
+        box-shadow: 0 4px 16px rgba(124, 58, 237, 0.4);
+      }
+      .step-pill.done {
+        color: #7c3aed;
+        background: #ede9fe;
+      }
+      .step-connector {
+        width: 36px;
+        height: 3px;
+        background: #e5e7eb;
+        border-radius: 2px;
+        transition: background 0.4s ease;
+        flex-shrink: 0;
+      }
+      .step-connector.done {
+        background: linear-gradient(90deg, #7c3aed, #a855f7);
+      }
+
+      /* ── Section icon badges ── */
+      .section-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .section-icon .material-icons-round {
+        font-size: 1.6rem;
+        color: white;
+      }
+
+      /* ── Emoji bullet ── */
+      .emoji-bullet li {
+        margin-bottom: 6px;
+      }
+      .emoji-bullet li::before {
+        content: "🔸";
+        margin-right: 8px;
+      }
+
+      /* ── Final section ── */
+      .final-card .emoji-bullet li::before {
+        content: "✅";
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-violet-600 via-purple-600 to-pink-500 min-h-screen text-gray-800"
+  >
+    <!-- HEADER -->
+    <header class="bg-white/90 backdrop-blur-md shadow-md">
+      <div
+        class="container mx-auto px-6 py-4 flex flex-col sm:flex-row justify-between items-center gap-3"
+      >
+        <div class="text-center sm:text-left">
+          <h1 class="hero-title text-3xl md:text-4xl text-violet-700">
+            ¡Tu Aventura Digital!
+          </h1>
+          <p class="text-sm text-gray-500 font-semibold">
+            Guía Gmail y Drive · Ciclo 2025
+          </p>
+          <p class="text-xs text-gray-400 mt-0.5">
+            Escuela 4232 "Teresa Ghilardi de Martin"
+          </p>
         </div>
+        <nav class="flex space-x-3">
+          <a
+            href="https://gmail.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-nav"
+          >
+            <span class="material-icons-round" style="font-size: 1.1rem"
+              >email</span
+            >
+            Gmail
+          </a>
+          <a
+            href="https://drive.google.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-nav"
+            style="background: linear-gradient(135deg, #10b981, #059669)"
+          >
+            <span class="material-icons-round" style="font-size: 1.1rem"
+              >cloud</span
+            >
+            Drive
+          </a>
+        </nav>
+      </div>
     </header>
 
-    <main class="container mx-auto px-6 py-8">
-
-        <div class="text-center mb-12 bg-white/30 backdrop-blur-sm p-6 rounded-xl shadow-xl">
-            <p class="text-xl md:text-2xl font-semibold text-white">
-                ¡Hola, cracks! 👋 ¿Listos para convertirse en unos ninjas de la tecnología?
-            </p>
-            <p class="mt-2 text-white/90">
-                Esta guía es para ustedes, los capos de 1º y 2º año. Vamos a aprender juntos a usar Gmail y Google Drive como unos expertos.
-                ¡Imaginen que Gmail es su pasaporte al mundo digital y Drive su mochila mágica personal! ✨
-            </p>
+    <!-- PROGRESS STEPPER -->
+    <div id="progress-stepper">
+      <div class="stepper-wrap container mx-auto">
+        <div
+          class="step-pill active"
+          id="pill-gmail"
+          onclick="scrollToSection('gmail')"
+        >
+          <span class="material-icons-round">email</span>
+          <span class="hidden sm:inline">Parte 1 — Gmail</span>
+          <span class="sm:hidden">Gmail</span>
         </div>
+        <div class="step-connector" id="conn-1"></div>
+        <div
+          class="step-pill"
+          id="pill-drive"
+          onclick="scrollToSection('drive')"
+        >
+          <span class="material-icons-round">cloud</span>
+          <span class="hidden sm:inline">Parte 2 — Drive</span>
+          <span class="sm:hidden">Drive</span>
+        </div>
+        <div class="step-connector" id="conn-2"></div>
+        <div
+          class="step-pill"
+          id="pill-super"
+          onclick="scrollToSection('superpoderes')"
+        >
+          <span class="material-icons-round">bolt</span>
+          <span class="hidden sm:inline">Parte 3 — Superpoderes</span>
+          <span class="sm:hidden">Súper</span>
+        </div>
+      </div>
+    </div>
 
-        <section id="gmail" class="card">
-            <div class="flex items-center mb-4">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Gmail_icon_%282020%29.svg/1200px-Gmail_icon_%282020%29.svg.png" alt="Logo Gmail" class="logo-img" onerror="this.src='https://placehold.co/80x60/DB4437/FFFFFF?text=Logo+Gmail'; this.onerror=null;">
-                <h2>Parte 1: Creando tu Cuenta de Gmail - ¡Tu Pasaporte Digital! 🎫</h2>
+    <main class="container mx-auto px-4 sm:px-6 py-8">
+      <!-- HERO -->
+      <div
+        class="text-center mb-10 bg-white/20 backdrop-blur-sm p-6 rounded-2xl shadow-xl"
+      >
+        <p class="text-xl md:text-2xl font-extrabold text-white">
+          ¡Hola, cracks! 👋 ¿Listos para ser ninjas de la tecnología?
+        </p>
+        <p class="mt-2 text-white/90 font-semibold">
+          Guía para 1º y 2º año. Vamos a aprender Gmail y Google Drive como
+          expertos. ¡Gmail = tu pasaporte digital, Drive = tu mochila mágica! ✨
+        </p>
+      </div>
+
+      <!-- ═══════════════════ PARTE 1: GMAIL ═══════════════════ -->
+      <section id="gmail" class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div
+            class="section-icon"
+            style="background: linear-gradient(135deg, #ea4335, #fbbc05)"
+          >
+            <span class="material-icons-round">email</span>
+          </div>
+          <h2>
+            Parte 1: Creando tu Cuenta de Gmail — ¡Tu Pasaporte Digital! 🎫
+          </h2>
+          <span class="material-icons-round card-toggle-icon">expand_more</span>
+        </div>
+        <div class="card-body">
+          <p class="mt-3 text-gray-600 font-semibold">
+            Gmail es el correo electrónico <strong>GRATIS</strong> de Google.
+            Con él accedés a todas las herramientas de Google y mucho más.
+          </p>
+
+          <h3>
+            <span class="material-icons-round">person_add</span> Pasos para
+            crear tu cuenta:
+          </h3>
+
+          <!-- Step 1 -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">1</span>
+              Abrí el Navegador y entrá a <code>gmail.com</code>
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
             </div>
-            <p>Gmail es un servicio de correo electrónico GRATIS de Google. Tener una cuenta te permitirá comunicarte, usar otras herramientas de Google ¡y mucho más!</p>
-
-            <h3 class="mt-6">Pasos para crear tu cuenta:</h3>
-            <ol class="list-decimal list-inside space-y-3 pl-4">
-                <li><strong>Abre el Navegador:</strong> Ve a Google Chrome, Firefox, o el que uses y escribe: <code>gmail.com</code>. Presiona Enter.</li>
-                <li><strong>Haz Clic en "Crear cuenta":</strong> Verás un botón que dice "Crear cuenta". ¡Dale clic sin miedo!
-                    <img src="imagenes/gmail_pagina_crear_cuenta.png" alt="Imagen de la página de inicio de Gmail con el botón Crear cuenta resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                </li>
-                <li><strong>Completa tus Datos:</strong>
-                    <ul class="list-disc list-inside pl-6 space-y-2 mt-2 emoji-bullet">
-                        <li><strong>Nombre y Apellido:</strong> Escribe tu nombre y apellido. ¡Como figuran en tu DNI!</li>
-                        <li><strong>Nombre de usuario:</strong> ¡Aquí viene lo divertido! Este será tu dirección de correo (ej: <code>nombre.apellido2025@gmail.com</code>).
-                            <div class="pro-tip">💡 <strong>¡PRO TIP!</strong> Si el nombre que quieres ya está ocupado, Gmail te dará sugerencias. Puedes agregar números o alguna palabra extra. Ejemplo: <code>juan.perez.4232@gmail.com</code>.</div>
-                        </li>
-                        <li><strong>Contraseña:</strong> ¡Esta es tu llave secreta!
-                            <div class="warning-tip">🔒 <strong>¡OJO AL PIOJO!</strong> Una contraseña segura tiene: al menos 8 caracteres, mayúsculas, minúsculas, números y quizás un símbolo. ¡NO USES datos obvios! Escríbela en un lugar seguro.</div>
-                        </li>
-                        <li><strong>Confirmación de contraseña:</strong> Vuelve a escribirla.</li>
-                    </ul>
-                </li>
-                <li><strong>Siguiente:</strong> Haz clic en el botón "Siguiente".</li>
-                <li><strong>Información Adicional:</strong> A veces Google pide un teléfono o correo de recuperación (pide ayuda a un adulto), tu fecha de nacimiento y género.</li>
-                <li><strong>Privacidad y Condiciones:</strong> Lee o pide que te expliquen este texto. Luego, acepta.</li>
-                <li><strong>¡LISTO! ¡YA TIENES TU GMAIL! 🎉</strong> Verás tu bandeja de entrada.</li>
-            </ol>
-            <div class="dato-curioso">
-                🤓 <strong>¡DATO CURIOOOSO!</strong> Gmail fue lanzado el 1 de abril de 2004. ¡Al principio, muchos pensaron que era una broma porque ofrecía 1GB de almacenamiento, que era muchísimo para la época!
+            <div class="step-content">
+              <div class="step-content-inner">
+                Abrí Google Chrome, Firefox o el que uses y escribí
+                <code class="bg-violet-100 px-1 rounded">gmail.com</code> en la
+                barra de direcciones. Presioná Enter.
+              </div>
             </div>
-        </section>
+          </div>
 
-        <section id="drive" class="card mt-8">
-            <div class="flex items-center mb-4">
-                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Google_Drive_icon_%282020%29.svg/1200px-Google_Drive_icon_%282020%29.svg.png" alt="Logo Drive" class="logo-img" onerror="this.src='https://placehold.co/80x60/0F9D58/FFFFFF?text=Logo+Drive'; this.onerror=null;">
-                <h2>Parte 2: Explorando Google Drive - ¡Tu Mochila Mágica Online! 🎒☁️</h2>
+          <!-- Step 2 -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">2</span>
+              Hacé clic en <strong>"Crear cuenta"</strong>
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
             </div>
-            <p>Google Drive es un lugar en internet (la "nube") donde puedes guardar tus archivos: documentos, fotos, videos, trabajos... ¡todo! Y puedes acceder desde cualquier compu o celu con internet.</p>
-
-            <h3 class="mt-6">¿Cómo entrar a Google Drive?</h3>
-            <ol class="list-decimal list-inside space-y-3 pl-4">
-                <li><strong>Desde Gmail:</strong> Busca arriba a la derecha el ícono de cuadraditos (Google Apps o "el waffle"). Haz clic.
-                    <img src="imagenes/gmail_icono_google_apps.png" alt="Imagen del ícono de Google Apps (waffle) resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                </li>
-                <li><strong>Selecciona Drive:</strong> Busca el ícono de "Drive" (triángulo de colores). ¡Haz clic!
-                    <img src="imagenes/menu_apps_icono_drive.png" alt="Imagen del ícono de Google Drive resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                </li>
-                <li><strong>¡Bienvenido a tu Drive!</strong> Al principio estará vacío, ¡pero pronto lo llenarás!</li>
-            </ol>
-
-            <h3 class="mt-6">Un vistazo rápido a Drive:</h3>
-            <ul class="list-disc list-inside space-y-2 pl-4 emoji-bullet">
-                <li><strong>Mi unidad:</strong> Aquí se guardan TUS archivos y carpetas.</li>
-                <li><strong>Nuevo (+):</strong> Botón súper importante para crear, subir archivos, etc.</li>
-                <li><strong>Carpetas:</strong> Para organizar tus archivos.</li>
-                <li><strong>Archivos:</strong> Documentos, presentaciones, PDFs, imágenes, etc.</li>
-            </ul>
-             <div class="dato-curioso">
-                🤩 <strong>¡DATO CURIOOOSO!</strong> Con tu cuenta gratuita de Google Drive, ¡tienes 15 GB de espacio! Es como una mochila con espacio para miles de hojas.
+            <div class="step-content">
+              <div class="step-content-inner">
+                Vas a ver un botón que dice <strong>"Crear cuenta"</strong>.
+                ¡Dale clic sin miedo!
+                <img
+                  src="imagenes/gmail_pagina_crear_cuenta.png"
+                  alt="Página de inicio de Gmail con el botón Crear cuenta resaltado"
+                  class="img-placeholder"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                    this.onerror = null;
+                  "
+                />
+              </div>
             </div>
-        </section>
+          </div>
 
-        <section id="superpoderes" class="card mt-8">
-            <h2>Parte 3: ¡Superpoderes de Drive al Rescate! 🦸‍♂️🦸‍♀️</h2>
-            <p>Ahora que estás en tu Drive, ¡vamos a ver qué cosas increíbles puedes hacer!</p>
-
-            <div class="mt-6 space-y-8">
-                <div>
-                    <h3>1. Subir Archivos: ¡Guardando Tesoros en tu Mochila! 📤</h3>
-                    <ol class="list-decimal list-inside space-y-2 pl-4">
-                        <li>Haz clic en el botón <strong>"+ Nuevo"</strong> (arriba a la izquierda).</li>
-                        <li>Selecciona <strong>"Subir archivo"</strong> o <strong>"Subir carpeta"</strong>.
-                             <img src="imagenes/drive_menu_nuevo.png" alt="Imagen del menú + Nuevo con Subir archivo y Subir carpeta resaltados" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                        </li>
-                        <li>Busca el archivo/carpeta en tu compu, selecciónalo y "Abrir" o "Subir".</li>
-                        <li>¡Listo! Verás cómo se sube.</li>
-                    </ol>
-                    <div class="pro-tip">✨ <strong>¡PRO TIP!</strong> También puedes arrastrar archivos desde tu compu y soltarlos en Drive. ¡Es como magia!</div>
-                </div>
-
-                <div>
-                    <h3>2. Descargar Archivos: ¡Sacando Tesoros de tu Mochila! 📥</h3>
-                     <ol class="list-decimal list-inside space-y-2 pl-4">
-                        <li>Busca el archivo en tu Drive.</li>
-                        <li>Haz <strong>clic derecho</strong> sobre el archivo.</li>
-                        <li>Selecciona <strong>"Descargar"</strong>.
-                            <img src="imagenes/drive_menu_descargar.png" alt="Imagen de un archivo en Drive con Descargar resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                        </li>
-                        <li>Se guardará en "Descargas" de tu compu.</li>
-                    </ol>
-                </div>
-
-                <div>
-                    <h3>3. Copiar y Pegar (o Duplicar): ¡Clonando tus Creaciones! 🐑🐑</h3>
-                    <ol class="list-decimal list-inside space-y-2 pl-4">
-                        <li>Haz <strong>clic derecho</strong> sobre el archivo/carpeta a copiar.</li>
-                        <li>Selecciona <strong>"Hacer una copia"</strong>.
-                            <img src="imagenes/drive_menu_hacer_copia.png" alt="Imagen de un archivo en Drive con Hacer una copia resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                        </li>
-                        <li>Drive creará "Copia de...". ¡Puedes cambiarle el nombre!</li>
-                    </ol>
-                    <p class="mt-2"><strong>¿Pegar texto de otro lado?</strong> Eso se hace DENTRO de un Documento de Google (Ctrl+C para copiar, Ctrl+V para pegar).</p>
-                </div>
-
-                <div>
-                    <h3>4. Compartir: ¡Mostrando tus Tesoros a tus Amigos! 🤝</h3>
-                    <ol class="list-decimal list-inside space-y-2 pl-4">
-                        <li>Busca el archivo/carpeta.</li>
-                        <li>Haz <strong>clic derecho</strong> y selecciona <strong>"Compartir"</strong>.
-                            <img src="imagenes/drive_menu_compartir.png" alt="Imagen de un archivo en Drive con Compartir resaltado" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                        </li>
-                        <li>Se abrirá una ventana. Puedes:
-                            <ul class="list-disc list-inside pl-6 space-y-1 mt-1 emoji-bullet">
-                                <li><strong>Añadir personas:</strong> Escribe sus correos. Elige si son 🤓 Lector, 🧐 Comentador o ✍️ Editor.</li>
-                                <li><strong>Obtener enlace:</strong> Cambia "Restringido" a "Cualquier persona con el enlace". Define permisos. Copia y comparte el enlace.</li>
-                            </ul>
-                             <img src="imagenes/drive_ventana_compartir.png" alt="Imagen de la ventana de Compartir" class="img-placeholder" onerror="this.src='https://placehold.co/600x300/EEEEEE/333333?text=Error+Imagen'; this.onerror=null;">
-                        </li>
-                    </ol>
-                    <div class="warning-tip">🔑 <strong>¡OJO AL PIOJO CON LOS PERMISOS!</strong> Piensa bien qué permiso das. Para trabajos grupales, "Editor". Para mostrar, "Lector".</div>
-                </div>
-
-                <div>
-                    <h3>5. Crear Nuevos Archivos: ¡Como Hojas en Blanco Mágicas! 📄✨</h3>
-                    <p>Desde el botón <strong>"+ Nuevo"</strong> también puedes crear:</p>
-                    <ul class="list-disc list-inside space-y-1 pl-4 mt-2 emoji-bullet">
-                        <li><strong>Documentos de Google</strong> (como Word).</li>
-                        <li><strong>Hojas de cálculo de Google</strong> (como Excel).</li>
-                        <li><strong>Presentaciones de Google</strong> (como PowerPoint).</li>
-                        <li>¡Y más!</li>
-                    </ul>
-                    <p class="mt-2">¡Explora estas herramientas! Son súper útiles para la escuela.</p>
-                </div>
+          <!-- Step 3 -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">3</span>
+              Completá tus datos personales
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
             </div>
-        </section>
-
-        <section class="text-center mt-12 bg-white/30 backdrop-blur-sm p-6 rounded-xl shadow-xl">
-            <h2 class="text-2xl font-semibold text-white mb-4">¡Felicidades, Explorador Digital! 🧭🌟</h2>
-            <p class="text-white/90">
-                ¡Ya sabes cómo crear tu Gmail y usar los poderes básicos de Google Drive! Esto te servirá muchísimo para tus clases, para investigar, para hacer trabajos en equipo y para mantener todo organizado.
-            </p>
-            <div class="mt-6 text-left text-white/90 space-y-2 bg-black/20 p-4 rounded-lg">
-                <p><strong>Recuerda:</strong></p>
-                <ul class="list-disc list-inside pl-4 emoji-bullet">
-                    <li>Tu <strong>contraseña es secreta</strong>. ¡No la compartas con nadie!</li>
-                    <li>Organiza tus archivos en <strong>carpetas</strong> para encontrarlos fácil.</li>
-                    <li>¡Sé <strong>cuidadoso</strong> al compartir y al dar permisos!</li>
+            <div class="step-content">
+              <div class="step-content-inner">
+                <ul class="space-y-2 emoji-bullet list-none">
+                  <li>
+                    <strong>Nombre y Apellido:</strong> Como figuran en tu DNI.
+                  </li>
+                  <li>
+                    <strong>Nombre de usuario:</strong> Tu dirección de correo
+                    (ej:
+                    <code class="bg-violet-100 px-1 rounded"
+                      >nombre.apellido2025@gmail.com</code
+                    >).
+                    <div class="pro-tip">
+                      💡 <strong>PRO TIP:</strong> Si el nombre está ocupado,
+                      Google te dará sugerencias. Podés agregar números. Ej:
+                      <code>juan.perez.4232@gmail.com</code>
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Contraseña:</strong> ¡Tu llave secreta!
+                    <div class="warning-tip">
+                      🔒 <strong>¡OJO!</strong> Mínimo 8 caracteres, con
+                      mayúsculas, minúsculas, números y algún símbolo. ¡NO uses
+                      datos obvios! Anotala en un lugar seguro.
+                    </div>
+                  </li>
+                  <li>
+                    <strong>Confirmación de contraseña:</strong> Volvé a
+                    escribirla.
+                  </li>
                 </ul>
+              </div>
             </div>
-            <p class="mt-6 text-white/90">
-                ¡Ahora a practicar y a sacarle el jugo a estas herramientas! Si tienes dudas, pregunta a tus profes o a algún adulto. ¡El mundo digital te espera! 😉
-            </p>
-        </section>
+          </div>
 
+          <!-- Step 4 -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">4</span>
+              Completá los pasos finales
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                Hacé clic en <strong>"Siguiente"</strong>. A veces Google pide
+                teléfono o correo de recuperación (pedile ayuda a un adulto),
+                fecha de nacimiento y género. Leé las condiciones y aceptá.
+                <div class="dato-curioso mt-3">
+                  🎉 <strong>¡YA ESTÁ! TU GMAIL ES TUYO.</strong> Vas a ver tu
+                  bandeja de entrada lista para usar.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="dato-curioso mt-4">
+            🤓 <strong>¡DATO CURIOSO!</strong> Gmail se lanzó el 1 de abril de
+            2004. ¡Muchos pensaron que era una broma porque ofrecía 1GB de
+            almacenamiento, que era muchísimo para la época!
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ PARTE 2: DRIVE ═══════════════════ -->
+      <section id="drive" class="card mt-6">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div
+            class="section-icon"
+            style="background: linear-gradient(135deg, #1a73e8, #34a853)"
+          >
+            <span class="material-icons-round">cloud</span>
+          </div>
+          <h2>
+            Parte 2: Explorando Google Drive — ¡Tu Mochila Mágica Online! 🎒☁️
+          </h2>
+          <span class="material-icons-round card-toggle-icon">expand_more</span>
+        </div>
+        <div class="card-body">
+          <p class="mt-3 text-gray-600 font-semibold">
+            Google Drive es un lugar en internet (la "nube") donde guardás tus
+            archivos: documentos, fotos, videos, trabajos... ¡todo! Accedés
+            desde cualquier compu o celu con internet.
+          </p>
+
+          <h3>
+            <span class="material-icons-round">login</span> ¿Cómo entrar a
+            Google Drive?
+          </h3>
+
+          <!-- Step 1 -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">1</span>
+              Desde Gmail, buscá el ícono de cuadraditos (Google Apps)
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                Arriba a la derecha vas a ver el ícono de cuadraditos conocido
+                como "el waffle". Hacé clic ahí.
+                <img
+                  src="imagenes/gmail_icono_google_apps.png"
+                  alt="Ícono de Google Apps resaltado"
+                  class="img-placeholder"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                    this.onerror = null;
+                  "
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">2</span>
+              Seleccioná el ícono de Drive (triángulo de colores)
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                Buscá el ícono de "Drive" (triángulo de colores). ¡Dale clic!
+                <img
+                  src="imagenes/menu_apps_icono_drive.png"
+                  alt="Ícono de Google Drive resaltado"
+                  class="img-placeholder"
+                  onerror="
+                    this.src =
+                      'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                    this.onerror = null;
+                  "
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">3</span>
+              ¡Bienvenido a tu Drive! — Un vistazo rápido
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                Al principio estará vacío, ¡pero pronto lo llenás! Estos son los
+                elementos principales:
+                <ul class="list-none space-y-2 mt-3 emoji-bullet">
+                  <li>
+                    <strong>Mi unidad:</strong> Donde se guardan TUS archivos y
+                    carpetas.
+                  </li>
+                  <li>
+                    <strong>Nuevo (+):</strong> Botón súper importante para
+                    crear y subir archivos.
+                  </li>
+                  <li>
+                    <strong>Carpetas:</strong> Para organizar todo tu contenido.
+                  </li>
+                  <li>
+                    <strong>Archivos:</strong> Documentos, presentaciones, PDFs,
+                    imágenes, etc.
+                  </li>
+                </ul>
+                <div class="dato-curioso mt-3">
+                  🤩 <strong>¡DATO CURIOSO!</strong> Con tu cuenta gratuita de
+                  Google Drive, ¡tenés 15 GB de espacio! Es como una mochila con
+                  espacio para miles de hojas.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ PARTE 3: SUPERPODERES ═══════════════════ -->
+      <section id="superpoderes" class="card mt-6">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div
+            class="section-icon"
+            style="background: linear-gradient(135deg, #f59e0b, #ef4444)"
+          >
+            <span class="material-icons-round">bolt</span>
+          </div>
+          <h2>Parte 3: ¡Superpoderes de Drive al Rescate! 🦸‍♂️🦸‍♀️</h2>
+          <span class="material-icons-round card-toggle-icon">expand_more</span>
+        </div>
+        <div class="card-body">
+          <p class="mt-3 text-gray-600 font-semibold">
+            Ahora que estás en tu Drive, ¡vamos a ver qué cosas increíbles podés
+            hacer!
+          </p>
+
+          <!-- Subir -->
+          <div class="step-block mt-5">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">1</span>
+              <span
+                class="material-icons-round"
+                style="color: #7c3aed; font-size: 1.2rem"
+                >upload_file</span
+              >
+              Subir Archivos — ¡Guardando Tesoros en tu Mochila! 📤
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                <ol class="list-decimal list-inside space-y-2 pl-2">
+                  <li>
+                    Hacé clic en el botón <strong>"+ Nuevo"</strong> (arriba a
+                    la izquierda).
+                  </li>
+                  <li>
+                    Seleccioná <strong>"Subir archivo"</strong> o
+                    <strong>"Subir carpeta"</strong>.
+                    <img
+                      src="imagenes/drive_menu_nuevo.png"
+                      alt="Menú + Nuevo con opciones de subir"
+                      class="img-placeholder"
+                      onerror="
+                        this.src =
+                          'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                        this.onerror = null;
+                      "
+                    />
+                  </li>
+                  <li>Buscá el archivo en tu compu y hacé clic en "Abrir".</li>
+                  <li>¡Listo! Vas a ver cómo se sube.</li>
+                </ol>
+                <div class="pro-tip">
+                  ✨ <strong>PRO TIP:</strong> También podés arrastrar archivos
+                  desde tu compu y soltarlos en Drive. ¡Es como magia!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Descargar -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">2</span>
+              <span
+                class="material-icons-round"
+                style="color: #7c3aed; font-size: 1.2rem"
+                >download</span
+              >
+              Descargar Archivos — ¡Sacando Tesoros de tu Mochila! 📥
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                <ol class="list-decimal list-inside space-y-2 pl-2">
+                  <li>Buscá el archivo en tu Drive.</li>
+                  <li>Hacé <strong>clic derecho</strong> sobre el archivo.</li>
+                  <li>
+                    Seleccioná <strong>"Descargar"</strong>.
+                    <img
+                      src="imagenes/drive_menu_descargar.png"
+                      alt="Menú contextual con Descargar resaltado"
+                      class="img-placeholder"
+                      onerror="
+                        this.src =
+                          'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                        this.onerror = null;
+                      "
+                    />
+                  </li>
+                  <li>
+                    Se va a guardar automáticamente en la carpeta "Descargas" de
+                    tu compu.
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <!-- Copiar -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">3</span>
+              <span
+                class="material-icons-round"
+                style="color: #7c3aed; font-size: 1.2rem"
+                >content_copy</span
+              >
+              Copiar y Duplicar — ¡Clonando tus Creaciones! 🐑🐑
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                <ol class="list-decimal list-inside space-y-2 pl-2">
+                  <li>
+                    Hacé <strong>clic derecho</strong> sobre el archivo o
+                    carpeta a copiar.
+                  </li>
+                  <li>
+                    Seleccioná <strong>"Hacer una copia"</strong>.
+                    <img
+                      src="imagenes/drive_menu_hacer_copia.png"
+                      alt="Menú con Hacer una copia resaltado"
+                      class="img-placeholder"
+                      onerror="
+                        this.src =
+                          'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                        this.onerror = null;
+                      "
+                    />
+                  </li>
+                  <li>
+                    Drive va a crear un archivo "Copia de...". ¡Podés cambiarle
+                    el nombre!
+                  </li>
+                </ol>
+                <p class="mt-2 text-sm text-gray-600">
+                  <strong>¿Pegar texto de otro lado?</strong> Eso se hace DENTRO
+                  de un Documento de Google (<kbd
+                    class="bg-gray-100 px-1 rounded border"
+                    >Ctrl+C</kbd
+                  >
+                  para copiar,
+                  <kbd class="bg-gray-100 px-1 rounded border">Ctrl+V</kbd> para
+                  pegar).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Compartir -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">4</span>
+              <span
+                class="material-icons-round"
+                style="color: #7c3aed; font-size: 1.2rem"
+                >share</span
+              >
+              Compartir — ¡Mostrando tus Tesoros a tus Amigos! ��
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                <ol class="list-decimal list-inside space-y-2 pl-2">
+                  <li>Buscá el archivo o carpeta.</li>
+                  <li>
+                    Hacé <strong>clic derecho</strong> y seleccioná
+                    <strong>"Compartir"</strong>.
+                    <img
+                      src="imagenes/drive_menu_compartir.png"
+                      alt="Menú con Compartir resaltado"
+                      class="img-placeholder"
+                      onerror="
+                        this.src =
+                          'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                        this.onerror = null;
+                      "
+                    />
+                  </li>
+                  <li>
+                    Se abre una ventana donde podés:
+                    <ul class="list-none pl-4 mt-2 space-y-1 emoji-bullet">
+                      <li>
+                        <strong>Añadir personas:</strong> Escribí sus correos.
+                        Elegí si son 🤓 Lector, 🧐 Comentador o ✍️ Editor.
+                      </li>
+                      <li>
+                        <strong>Obtener enlace:</strong> Cambiá "Restringido" a
+                        "Cualquier persona con el enlace". Copiá y compartí el
+                        enlace.
+                      </li>
+                    </ul>
+                    <img
+                      src="imagenes/drive_ventana_compartir.png"
+                      alt="Ventana de Compartir"
+                      class="img-placeholder"
+                      onerror="
+                        this.src =
+                          'https://placehold.co/600x300/EDE9FE/5B21B6?text=Imagen+no+disponible';
+                        this.onerror = null;
+                      "
+                    />
+                  </li>
+                </ol>
+                <div class="warning-tip">
+                  🔑 <strong>¡OJO CON LOS PERMISOS!</strong> Para trabajos
+                  grupales usá "Editor". Para mostrar tu trabajo, "Lector".
+                  ¡Pensá bien antes de compartir!
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Crear -->
+          <div class="step-block">
+            <div class="step-header" onclick="toggleStep(this)">
+              <span class="step-num">5</span>
+              <span
+                class="material-icons-round"
+                style="color: #7c3aed; font-size: 1.2rem"
+                >create_new_folder</span
+              >
+              Crear Nuevos Archivos — ¡Hojas en Blanco Mágicas! 📄✨
+              <span class="material-icons-round step-chevron open"
+                >expand_more</span
+              >
+            </div>
+            <div class="step-content">
+              <div class="step-content-inner">
+                <p>
+                  Desde el botón <strong>"+ Nuevo"</strong> también podés crear:
+                </p>
+                <ul class="list-none space-y-2 mt-3 emoji-bullet">
+                  <li><strong>Documentos de Google</strong> (como Word).</li>
+                  <li>
+                    <strong>Hojas de cálculo de Google</strong> (como Excel).
+                  </li>
+                  <li>
+                    <strong>Presentaciones de Google</strong> (como PowerPoint).
+                  </li>
+                  <li>¡Y mucho más!</li>
+                </ul>
+                <div class="pro-tip mt-3">
+                  🚀 ¡Explorá estas herramientas! Son súper útiles para la
+                  escuela y los trabajos en equipo.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL -->
+      <section
+        class="final-card text-center mt-10 bg-white/25 backdrop-blur-sm p-8 rounded-2xl shadow-xl"
+      >
+        <span class="material-icons-round text-5xl text-white"
+          >emoji_events</span
+        >
+        <h2 class="text-2xl font-extrabold text-white mt-2 mb-3">
+          ¡Felicidades, Explorador Digital! 🧭🌟
+        </h2>
+        <p class="text-white/90 font-semibold">
+          ¡Ya sabés crear tu Gmail y usar los poderes básicos de Google Drive!
+          Esto te va a servir un montón para tus clases, investigar, hacer
+          trabajos en equipo y tener todo organizado.
+        </p>
+        <div
+          class="mt-6 text-left text-white/90 space-y-2 bg-black/20 p-5 rounded-xl"
+        >
+          <p class="font-bold text-white flex items-center gap-2">
+            <span class="material-icons-round">checklist</span> Recordá siempre:
+          </p>
+          <ul class="list-none pl-4 emoji-bullet space-y-1 mt-2">
+            <li>
+              Tu <strong>contraseña es secreta</strong>. ¡No la compartas con
+              nadie!
+            </li>
+            <li>
+              Organizá tus archivos en <strong>carpetas</strong> para
+              encontrarlos fácil.
+            </li>
+            <li>
+              ¡Sé <strong>cuidadoso</strong> al compartir y al dar permisos!
+            </li>
+          </ul>
+        </div>
+        <p class="mt-5 text-white/90 font-semibold">
+          ¡Ahora a practicar y a sacarle el jugo a estas herramientas! Si tenés
+          dudas, preguntale a tus profes o a algún adulto. ¡El mundo digital te
+          espera! 😉
+        </p>
+      </section>
     </main>
 
-    <footer class="bg-gray-800 text-white text-center py-8 mt-12">
-        <p>Guía para alumnos de 1º y 2º año - Ciclo 2025</p>
-        <p>Escuela 4232 "Teresa Ghilardi de Martin" - Luján de Cuyo.</p>
-        <p class="mt-4 text-sm">Diseñada con ❤️ por <strong>Nicolás Maure - Admin. de Red</strong>.</p>
+    <footer class="bg-gray-900 text-white text-center py-8 mt-12">
+      <p class="font-bold">Guía para alumnos de 1º y 2º año · Ciclo 2026</p>
+      <p class="text-gray-400 text-sm mt-1">
+        Escuela 4232 "Teresa Ghilardi de Martin" — Luján de Cuyo
+      </p>
+      <p class="mt-3 text-sm text-gray-400">
+        Diseñada con ❤️ por
+        <strong class="text-white">Nicolás Maure — Admin. de Red</strong>
+      </p>
     </footer>
 
-</body>
+    <script>
+      // ── Toggle card body ──
+      function toggleCard(header) {
+        const body = header.nextElementSibling;
+        const icon = header.querySelector(".card-toggle-icon");
+        body.classList.toggle("collapsed");
+        icon.classList.toggle("rotated");
+      }
+
+      // ── Toggle individual step ──
+      function toggleStep(header) {
+        const content = header.nextElementSibling;
+        const chevron = header.querySelector(".step-chevron");
+        content.classList.toggle("closed");
+        chevron.classList.toggle("open");
+      }
+
+      // ── Scroll to section ──
+      function scrollToSection(id) {
+        document
+          .getElementById(id)
+          .scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      // ── Progress stepper via IntersectionObserver ──
+      const sections = [
+        { id: "gmail", pill: "pill-gmail" },
+        { id: "drive", pill: "pill-drive" },
+        { id: "superpoderes", pill: "pill-super" },
+      ];
+
+      function updateStepper(activeId) {
+        let found = false;
+        sections.forEach((s, i) => {
+          const pill = document.getElementById(s.pill);
+          if (s.id === activeId) {
+            pill.className = "step-pill active";
+            found = true;
+          } else if (!found) {
+            pill.className = "step-pill done";
+          } else {
+            pill.className = "step-pill";
+          }
+        });
+        // connectors
+        const c1 = document.getElementById("conn-1");
+        const c2 = document.getElementById("conn-2");
+        if (activeId === "gmail") {
+          c1.classList.remove("done");
+          c2.classList.remove("done");
+        }
+        if (activeId === "drive") {
+          c1.classList.add("done");
+          c2.classList.remove("done");
+        }
+        if (activeId === "superpoderes") {
+          c1.classList.add("done");
+          c2.classList.add("done");
+        }
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              updateStepper(entry.target.id);
+            }
+          });
+        },
+        { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
+      );
+
+      sections.forEach((s) => {
+        const el = document.getElementById(s.id);
+        if (el) observer.observe(el);
+      });
+    </script>
+  </body>
 </html>
