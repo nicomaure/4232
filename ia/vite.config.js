@@ -5,6 +5,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   // Configura la URL base para el despliegue en GitHub Pages.
-  // Reemplaza '4232ia' con el nombre exacto de tu repositorio de GitHub.
-  base: '/4232ia/', 
+  // Reemplaza '4232' con el nombre exacto de tu repositorio de GitHub.
+  base: '/4232/',
 });
