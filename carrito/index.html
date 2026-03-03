@@ -3,85 +3,122 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#0057FF"/>
   <title>Guía de uso de Notebooks EduTec | Escuela 4-232 Teresa Ghilardi</title>
-  
+
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 </head>
 <body>
-  
+
   <button class="top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">↑</button>
 
   <header>
-    <h1>🚀 Guía de buen uso de Notebooks</h1>
+    <div class="header-badge">Programa EduTec</div>
+    <h1>🚀 Guía de uso de Notebooks</h1>
     <button id="theme-toggle" aria-label="Cambiar tema">
       <i class="fas fa-moon"></i>
       <i class="fas fa-sun"></i>
     </button>
-    <p>Programa EduTec - Escuela 4-232 Teresa Ghilardi</p>
+    <p>Escuela 4-232 "Teresa Ghilardi"</p>
   </header>
 
   <main class="container">
-    
+
     <section>
       <h2>👣 Primeros Pasos</h2>
       <div class="grid">
         <div class="card">
           <i class="fas fa-laptop"></i>
-          <h3>Encuentra tu notebook</h3>
-          <p>Las notebooks están numeradas del <strong>1 al 30</strong>. Usa siempre la misma.</p>
-          <a class="btn-primary" href="#buscador">Buscar ahora</a>
+          <h3>Encontrá tu notebook</h3>
+          <p>Las notebooks están numeradas del <strong>1 al 30</strong>. Usá siempre la misma.</p>
         </div>
-        <div class="card"><i class="fas fa-key"></i><h3>Inicia sesión</h3><p>Usuario: <em>alumno</em> / Contraseña: <em>Estudiante</em> (con E mayúscula).</p></div>
-        <div class="card"><i class="fas fa-wifi"></i><h3>Conexión automática</h3><p>Se conecta sola a la red <strong>Plataformas WIFI</strong>.</p></div>
+        <div class="card">
+          <i class="fas fa-key"></i>
+          <h3>Iniciá sesión</h3>
+          <p>Usuario: <em>alumno</em> / Contraseña: <em>Estudiante</em> (con E mayúscula).</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-wifi"></i>
+          <h3>Conexión automática</h3>
+          <p>Se conecta sola a la red <strong>Plataformas WIFI</strong>.</p>
+        </div>
         <div class="card">
           <i class="fas fa-cloud-arrow-up"></i>
           <h3>Tu carpeta en la nube</h3>
-          <p>Aprende a guardar y organizar tus trabajos en Google Drive.</p>
+          <p>Aprendé a guardar y organizar tus trabajos en Google Drive.</p>
           <a class="btn-primary" href="https://nicomaure.github.io/4232/googledrive/" target="_blank">Ver Guía</a>
         </div>
       </div>
     </section>
-    
+
     <section>
       <h2>📜 Reglas de Oro para el cuidado</h2>
       <div class="grid">
-        <div class="card"><i class="fas fa-hand-holding-heart"></i><h3>Traslada con cuidado</h3><p>Siempre con ambas manos y sin golpes.</p></div>
-        <div class="card"><i class="fas fa-utensils"></i><h3>Sin comida ni bebida</h3><p>Evita accidentes: come antes o después.</p></div>
-        <div class="card"><i class="fas fa-hand-sparkles"></i><h3>Manos limpias</h3><p>Trata de tenerlas limpias antes de usar el equipo.</p></div>
-        <div class="card"><i class="fas fa-bullseye"></i><h3>Uso académico</h3><p>Matific y actividades del docente. Nada más.</p></div>
-        <div class="card"><i class="fas fa-ban"></i><h3>No instales</h3><p>Los programas ya están listos.</p></div>
-        <div class="card"><i class="fas fa-exclamation-circle"></i><h3>Reporta fallas</h3><p>Usa el botón rojo al final para avisar rápidamente.</p></div>
+        <div class="card">
+          <i class="fas fa-hand-holding-heart"></i>
+          <h3>Trasladá con cuidado</h3>
+          <p>Siempre con ambas manos y sin golpes.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-utensils"></i>
+          <h3>Sin comida ni bebida</h3>
+          <p>Evitá accidentes: comé antes o después.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-hand-sparkles"></i>
+          <h3>Manos limpias</h3>
+          <p>Tratá de tenerlas limpias antes de usar el equipo.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-bullseye"></i>
+          <h3>Uso académico</h3>
+          <p>Matific y actividades del docente. Nada más.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-ban"></i>
+          <h3>No instales</h3>
+          <p>Los programas ya están listos.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-exclamation-circle"></i>
+          <h3>Reportá fallas</h3>
+          <p>Usá el botón rojo al final para avisar rápidamente.</p>
+        </div>
       </div>
     </section>
 
     <section>
       <div class="content-section">
+        <div class="content-section__icon"><i class="fas fa-laptop-code"></i></div>
         <h2>💻 ¿Qué es el Programa EduTec?</h2>
-        <p>Descubre los materiales educativos digitales, las plataformas y el equipamiento que forman parte de esta iniciativa.</p>
+        <p>Descubrí los materiales educativos digitales, las plataformas y el equipamiento que forman parte de esta iniciativa.</p>
         <a class="btn-primary" href="https://www.mendoza.edu.ar/edutec/" target="_blank">Conocer más</a>
       </div>
     </section>
 
     <section>
-      <div class="content-section">
+      <div class="content-section content-section--accent">
+        <div class="content-section__icon"><i class="fas fa-calculator"></i></div>
         <h2>🧮 Hora de Matific</h2>
-        <p>Abre el navegador e ingrésa con las credenciales que te entregó tu docente.</p>
+        <p>Abrí el navegador e ingresá con las credenciales que te entregó tu docente.</p>
         <a class="btn-secondary" href="https://www.matific.com" target="_blank">Ir a Matific</a>
       </div>
     </section>
-    
+
     <section>
       <div class="content-section">
+        <div class="content-section__icon"><i class="fas fa-user-circle"></i></div>
         <h2>👤 Plataforma CUMBRE</h2>
-        <p>Ingresa para seguir los pasos y obtener tu usuario de "Mendoza por Mí".</p>
+        <p>Ingresá para seguir los pasos y obtener tu usuario de "Mendoza por Mí".</p>
         <a class="btn-primary" href="https://nicomaure.github.io/4232/cumbre/" target="_blank">Ir a la Plataforma</a>
       </div>
     </section>
-    
+
     <section>
       <div class="content-section">
+        <div class="content-section__icon"><i class="fas fa-users"></i></div>
         <h2>👩‍💻 Alumnos Tutores</h2>
         <p>Alumnos designados que ayudan a:</p>
         <ul>
@@ -95,30 +132,19 @@
 
     <section>
       <div class="content-section content-section--danger">
-        <h2>⚠️ ¡Atención! ¿Equipo con fallas?</h2>
-        <p>Si tu notebook tiene un problema, sigue estos 2 pasos urgentes:</p>
-        <ul style="text-align: left; display: inline-block; margin-top: 15px; list-style-type: none; padding: 0;">
-            <li style="margin-bottom: 10px;"><strong>1. Avisa a tu profesor/a de inmediato.</strong> Es el paso más importante.</li>
-            <li><strong>2. Luego, completa el formulario</strong> para que el equipo de soporte pueda repararlo.</li>
-        </ul>
-        <br>
+        <div class="danger-icon"><i class="fas fa-triangle-exclamation"></i></div>
+        <h2>⚠️ ¿Tu notebook tiene un problema?</h2>
+        <p>Si tu notebook tiene un problema, seguí estos 2 pasos urgentes:</p>
+        <ol class="danger-steps">
+          <li><strong>Avisá a tu profesor/a de inmediato.</strong> Es el paso más importante.</li>
+          <li><strong>Completá el formulario</strong> para que el equipo de soporte pueda repararlo.</li>
+        </ol>
         <a class="btn-danger" href="https://docs.google.com/forms/d/1S9o1IEMPbzD9pUr7a8qeZz8rDKCAopdSPC-xP4TuScY/viewform" target="_blank">
-          Completar formulario de reporte
+          <i class="fas fa-circle-exclamation"></i> Reportar equipo con fallas
         </a>
       </div>
     </section>
 
-    <section id="buscador">
-      <div class="content-section">
-        <h2>🔍 Buscador de Netbooks</h2>
-        <input type="text" id="nombreAlumno" 
-               placeholder="Cargando alumnos..."
-               style="padding:12px; border-radius:8px; border:1px solid #ccc; width:100%; max-width:500px;"
-               disabled />
-        <div id="sugerencias" style="margin-top:15px; text-align:left;"></div>
-      </div>
-    </section>
-    
   </main>
 
   <footer>
@@ -151,71 +177,6 @@
 
       themeToggle.addEventListener('click', toggleTheme);
       window.onscroll = () => topButton.classList.toggle('show', window.scrollY > 300);
-    });
-  </script>
-
-  <script>
-    let alumnos = [];
-
-    function normalizeText(texto) {
-      return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    }
-
-    function mostrarSugerencias() {
-      const input = document.getElementById('nombreAlumno');
-      const sugerenciasDiv = document.getElementById('sugerencias');
-      const textoBuscado = input.value.trim();
-      sugerenciasDiv.innerHTML = '';
-
-      if (textoBuscado.length === 0) return;
-
-      let alumnosSugeridos = [];
-
-      // Verificamos si el texto introducido es un número
-      if (!isNaN(textoBuscado) && textoBuscado !== "") {
-        // Si es un número, buscamos por el número de netbook
-        const numeroNetbook = parseInt(textoBuscado, 10);
-        alumnosSugeridos = alumnos.filter(alumno => alumno.netbook === numeroNetbook);
-      } else {
-        // Si no es un número, buscamos por el nombre del alumno (como antes)
-        const textoNormalizado = normalizeText(textoBuscado);
-        alumnosSugeridos = alumnos.filter(alumno =>
-          normalizeText(alumno.nombre).includes(textoNormalizado)
-        );
-      }
-
-      if (alumnosSugeridos.length > 0) {
-        alumnosSugeridos.forEach(alumno => {
-          const item = document.createElement('div');
-          item.style.padding = "10px";
-          item.style.borderBottom = "1px solid #eee";
-          item.style.cursor = "pointer";
-          item.innerHTML = `
-            <p><strong>${alumno.nombre}</strong></p>
-            <p style="font-size:0.9em;color:#666;">Curso: ${alumno.curso} - Netbook: ${alumno.netbook}</p>
-          `;
-          item.onclick = () => {
-            input.value = alumno.nombre;
-            sugerenciasDiv.innerHTML = '';
-          };
-          sugerenciasDiv.appendChild(item);
-        });
-      } else {
-        sugerenciasDiv.innerHTML = `<p style="color:#999;">No se encontraron coincidencias</p>`;
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', async () => {
-      try {
-        const resp = await fetch('alumnos.json', { cache: 'no-store' });
-        alumnos = await resp.json();
-        const input = document.getElementById('nombreAlumno');
-        input.placeholder = "Escribe un nombre o N° de netbook...";
-        input.disabled = false;
-        input.addEventListener('input', mostrarSugerencias);
-      } catch (e) {
-        console.error("Error cargando alumnos.json", e);
-      }
     });
   </script>
 
