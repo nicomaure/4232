@@ -510,11 +510,9 @@
 </div>
 
 <!-- ══ FIREBASE ══ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged }
-    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script>
   const firebaseConfig = {
     apiKey: "AIzaSyB3oupdUsaRlho8XAX47DUTvZxBBcOKUHk",
     authDomain: "escuela4232.firebaseapp.com",
@@ -527,9 +525,9 @@
   const SHEET_ID = "1fPN65sGFAMVZIxa4xic4a6XWKZ2BQAR6__qXA0xNkKw";
   const SHEETS_API_KEY = "AIzaSyBSycmTRelHBTh-vWZl0uJqWkcksmxbIEw";
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const provider = new firebase.auth.GoogleAuthProvider();
 
   function mostrar(id) {
     ["login-screen","loading-screen","no-auth-screen","portal-screen"].forEach(s => {
@@ -552,29 +550,23 @@
     }
   }
 
-  async function loginConGoogle() {
-    try {
-      mostrar("loading-screen");
-      await signInWithPopup(auth, provider);
-    } catch (e) {
+  function loginConGoogle() {
+    mostrar("loading-screen");
+    auth.signInWithPopup(provider).catch(e => {
       console.error(e);
       mostrar("login-screen");
-    }
+    });
   }
 
-  async function cerrarSesion() {
-    await signOut(auth);
-    mostrar("login-screen");
+  function cerrarSesion() {
+    auth.signOut().then(() => mostrar("login-screen"));
   }
-
-  window.loginConGoogle = loginConGoogle;
-  window.cerrarSesion = cerrarSesion;
 
   document.getElementById("btn-login").addEventListener("click", loginConGoogle);
   document.getElementById("btn-salir").addEventListener("click", cerrarSesion);
   document.getElementById("btn-volver").addEventListener("click", cerrarSesion);
 
-  onAuthStateChanged(auth, async (user) => {
+  auth.onAuthStateChanged(async (user) => {
     if (!user) { mostrar("login-screen"); return; }
 
     mostrar("loading-screen");
@@ -587,4 +579,16 @@
 
       const avatarEl = document.getElementById("user-avatar");
       if (user.photoURL) {
-        avatarEl.innerHTML = `<img
+        avatarEl.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
+      } else {
+        avatarEl.textContent = nombre[0].toUpperCase();
+      }
+      mostrar("portal-screen");
+    } else {
+      mostrar("no-auth-screen");
+    }
+  });
+</script>
+
+</body>
+</html>
