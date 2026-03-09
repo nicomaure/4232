@@ -552,7 +552,7 @@
     }
   }
 
-  window.loginConGoogle = async function() {
+  async function loginConGoogle() {
     try {
       mostrar("loading-screen");
       await signInWithPopup(auth, provider);
@@ -560,12 +560,15 @@
       console.error(e);
       mostrar("login-screen");
     }
-  };
+  }
 
-  window.cerrarSesion = async function() {
+  async function cerrarSesion() {
     await signOut(auth);
     mostrar("login-screen");
-  };
+  }
+
+  window.loginConGoogle = loginConGoogle;
+  window.cerrarSesion = cerrarSesion;
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) { mostrar("login-screen"); return; }
