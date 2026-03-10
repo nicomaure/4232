@@ -403,7 +403,7 @@
     Pedí autorización enviando un mail a:
   </p>
   <div style="display:flex; align-items:center; gap:10px; background:#f0faf5; border:1.5px solid #2d9b5a; border-radius:10px; padding:12px 18px; max-width:340px; width:100%;">
-    <a id="noauth-mailto" href="#" style="color:#1a6b3c; font-weight:600; font-size:0.95rem; text-decoration:none; flex:1; word-break:break-all;">📧 informatica4232@gmail.com</a>
+    <a id="noauth-mailto" href="#" style="color:#1a6b3c; font-weight:600; font-size:0.85rem; text-decoration:none; flex:1; word-break:break-all;">📧 informatica4232@gmail.com</a>
     <button id="btn-copiar-email" onclick="copiarEmailSoporte()" style="background:#1a6b3c; color:white; border:none; border-radius:6px; padding:6px 12px; font-size:0.8rem; cursor:pointer; white-space:nowrap; transition:background 0.2s;">Copiar</button>
   </div>
   <p id="copiado-msg" style="display:none; color:#2d9b5a; font-size:0.82rem; margin-top:-8px;">¡Copiado!</p>
@@ -563,7 +563,10 @@
   }
 
   function cerrarSesion() {
-    auth.signOut().then(() => mostrar("login-screen"));
+    auth.signOut().then(() => {
+      provider.setCustomParameters({ prompt: "select_account" });
+      mostrar("login-screen");
+    });
   }
 
   document.getElementById("btn-login").addEventListener("click", loginConGoogle);
