@@ -139,7 +139,7 @@
     .login-nota {
       margin-top: 20px;
       font-size: 0.75rem;
-      color: #9ca3af;
+      color: #1a6b3c;
       line-height: 1.5;
     }
 
@@ -384,7 +384,7 @@
       </svg>
       Ingresar con Google
     </button>
-    <p class="login-nota">Solo docentes autorizados pueden acceder.<br>Usá tu cuenta institucional o personal registrada.</p>
+    <p class="login-nota">Solo docentes autorizados pueden acceder.<br>Ingresá con tu cuenta Google (@gmail.com o @mendoza.edu.ar)</p>
   </div>
 </div>
 
@@ -400,9 +400,13 @@
   <h2 style="font-family:'DM Serif Display',serif; font-size:1.4rem;">Acceso no autorizado</h2>
   <p style="color:#6b7280; max-width:340px; line-height:1.6; font-size:0.9rem;">
     Tu cuenta no está en la lista de docentes autorizados.<br>
-    Contactá al responsable de informática para solicitar acceso.
+    Pedí autorización enviando un mail a:
   </p>
-  <p style="font-size:0.82rem; color:#9ca3af;">📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3a53545c5548575b4e53595b0e0809087a5d575b535614595557">[email&#160;protected]</a></p>
+  <div style="display:flex; align-items:center; gap:10px; background:#f0faf5; border:1.5px solid #2d9b5a; border-radius:10px; padding:12px 18px; max-width:340px; width:100%;">
+    <a id="noauth-mailto" href="#" style="color:#1a6b3c; font-weight:600; font-size:0.95rem; text-decoration:none; flex:1; word-break:break-all;">📧 informatica4232@gmail.com</a>
+    <button id="btn-copiar-email" onclick="copiarEmailSoporte()" style="background:#1a6b3c; color:white; border:none; border-radius:6px; padding:6px 12px; font-size:0.8rem; cursor:pointer; white-space:nowrap; transition:background 0.2s;">Copiar</button>
+  </div>
+  <p id="copiado-msg" style="display:none; color:#2d9b5a; font-size:0.82rem; margin-top:-8px;">¡Copiado!</p>
   <button class="btn-secundario" id="btn-volver">Volver al inicio</button>
 </div>
 
@@ -566,6 +570,14 @@
   document.getElementById("btn-salir").addEventListener("click", cerrarSesion);
   document.getElementById("btn-volver").addEventListener("click", cerrarSesion);
 
+  function copiarEmailSoporte() {
+    navigator.clipboard.writeText("informatica4232@gmail.com").then(() => {
+      const msg = document.getElementById("copiado-msg");
+      msg.style.display = "block";
+      setTimeout(() => { msg.style.display = "none"; }, 2000);
+    });
+  }
+
   auth.onAuthStateChanged(async (user) => {
     if (!user) { mostrar("login-screen"); return; }
 
@@ -585,6 +597,14 @@
       }
       mostrar("portal-screen");
     } else {
+      const nombreCompleto = user.displayName || user.email;
+      const emailDocente = user.email;
+      const asunto = encodeURIComponent("Solicitud de acceso - Portal Docentes");
+      const cuerpo = encodeURIComponent(
+        `Hola, soy ${nombreCompleto} y mi correo es ${emailDocente}.\nSolicito acceso al Portal Docentes de la Escuela 4232.`
+      );
+      const mailto = `mailto:informatica4232@gmail.com?subject=${asunto}&body=${cuerpo}`;
+      document.getElementById("noauth-mailto").href = mailto;
       mostrar("no-auth-screen");
     }
   });
