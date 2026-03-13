@@ -428,6 +428,120 @@
     @media (max-width: 400px) {
       .cards-grid { grid-template-columns: 1fr; }
     }
+
+    .card-tareas {
+      border: 2px solid var(--verde-claro);
+      background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+      cursor: pointer;
+    }
+    .card-tareas:hover {
+      border-color: var(--verde);
+      box-shadow: 0 6px 24px rgba(26,107,60,0.14);
+    }
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.activo {
+      display: flex;
+    }
+    .modal-box {
+      background: white;
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      max-width: 420px;
+      width: 100%;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+      position: relative;
+      animation: modal-in 0.2s ease;
+    }
+    @keyframes modal-in {
+      from { opacity: 0; transform: scale(0.95) translateY(8px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-cerrar {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none;
+      border: none;
+      font-size: 1.3rem;
+      cursor: pointer;
+      color: #9ca3af;
+      line-height: 1;
+    }
+    .modal-cerrar:hover { color: #374151; }
+    .modal-icono {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: #dcfce7;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px;
+      margin-bottom: 14px;
+    }
+    .modal-box h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--texto);
+    }
+    .modal-box p {
+      font-size: 0.82rem;
+      color: var(--gris);
+      line-height: 1.55;
+      margin-bottom: 10px;
+    }
+    .modal-info {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 0.8rem;
+      color: #166534;
+      line-height: 1.55;
+      margin: 14px 0 20px;
+    }
+    .modal-info strong { display: block; margin-bottom: 4px; font-size: 0.82rem; }
+    .modal-acciones {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .btn-modal-primario {
+      flex: 1;
+      background: var(--verde);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .btn-modal-primario:hover { background: #155e36; }
+    .btn-modal-secundario {
+      flex: 1;
+      background: white;
+      color: var(--verde);
+      border: 2px solid var(--verde-claro);
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .btn-modal-secundario:hover { border-color: var(--verde); background: #f0fdf4; }
   </style>
 </head>
 <body>
@@ -506,6 +620,11 @@
           <h3>Reserva de Multimedia</h3>
           <p>Solicitá proyectores, pantallas y material audiovisual del colegio</p>
         </a>
+        <div class="card card-tareas" onclick="abrirModalTareas()">
+          <div class="card-icono ic-verde">📂</div>
+          <h3>Tareas por Materia</h3>
+          <p>Subí los trabajos prácticos a la carpeta de tu curso y materia</p>
+        </div>
       </div>
     </div>
 
@@ -606,10 +725,47 @@
 
 </div>
 
+<!-- ══ MODAL TAREAS ══ -->
+<div id="modal-tareas" class="modal-overlay" onclick="cerrarModalTareas(event)">
+  <div class="modal-box">
+    <button class="modal-cerrar" onclick="cerrarModalTareas()">✕</button>
+    <div class="modal-icono">📂</div>
+    <h3>Tareas por Materia</h3>
+    <p>Desde esta página podés acceder a la carpeta de Drive de tu curso y materia para subir los trabajos prácticos y actividades de tus alumnos.</p>
+    <div class="modal-info">
+      <strong>¿Todavía no tenés tu carpeta asignada?</strong>
+      Enviá un correo a <strong>informatica4232@gmail.com</strong> indicando:
+      curso, materia y tu correo institucional.
+      Te daremos acceso para que puedas subir los archivos.
+    </div>
+    <div class="modal-acciones">
+      <a href="https://nicomaure.github.io/4232/tareas/" target="_blank" class="btn-modal-primario" onclick="cerrarModalTareas()">
+        📂 Ir a Tareas
+      </a>
+      <a href="mailto:informatica4232@gmail.com?subject=Solicitud%20de%20carpeta%20de%20tareas&body=Hola%2C%20solicito%20mi%20carpeta%20de%20tareas.%0ACurso%3A%20%0AMateria%3A%20%0ACorreo%3A%20"
+         class="btn-modal-secundario">
+        ✉️ Solicitar acceso
+      </a>
+    </div>
+  </div>
+</div>
+
 <!-- ══ FIREBASE ══ -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script>
+  function abrirModalTareas() {
+    document.getElementById("modal-tareas").classList.add("activo");
+  }
+  function cerrarModalTareas(e) {
+    if (!e || e.target === document.getElementById("modal-tareas")) {
+      document.getElementById("modal-tareas").classList.remove("activo");
+    }
+  }
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") cerrarModalTareas();
+  });
+
   const firebaseConfig = {
     apiKey: "AIzaSyB3oupdUsaRlho8XAX47DUTvZxBBcOKUHk",
     authDomain: "escuela4232.firebaseapp.com",
